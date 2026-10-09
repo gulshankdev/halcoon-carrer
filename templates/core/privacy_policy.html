@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Privacy Policy | HALCON CAREER{% endblock %}
+
+{% block content %}
+<div class="py-5" style="background: linear-gradient(135deg, #0F1E33 0%, #142B4A 100%); color: #FFFFFF;">
+  <div class="container text-center">
+    <h1 class="fw-bold mb-2 text-white">Privacy Policy</h1>
+    <p class="text-light opacity-75 mb-0 mx-auto" style="max-width: 650px;">
+      How HALCON CAREER collects, handles, stores, and protects candidate and client data.
+    </p>
+  </div>
+</div>
+
+<section class="section-py bg-white">
+  <div class="container" style="max-width: 860px;">
+    <div class="card-custom p-4 p-md-5">
+      <p class="text-muted small"><strong>Effective Date:</strong> October 2026 | <strong>Version:</strong> 1.0 (Draft for Review)</p>
+
+      <h4 class="fw-bold mt-4 mb-2">1. Introduction</h4>
+      <p class="text-muted">
+        HALCON CAREER ("we", "our", or "us"), located at SCO 12–13, 2nd Floor, Phase 11, Mohali, Punjab – 160065, is committed to safeguarding personal information collected from candidates and corporate clients through our recruitment portal.
+      </p>
+
+      <h4 class="fw-bold mt-4 mb-2">2. Information We Collect</h4>
+      <p class="text-muted">
+        When you register an account, submit an application, or send an employer inquiry, we may collect:
+      </p>
+      <ul class="text-muted small">
+        <li><strong>Candidate Data:</strong> Full name, email address, telephone number, location, education, employment history, skills, and uploaded resumes/curriculum vitae.</li>
+        <li><strong>Employer Data:</strong> Business contact person, corporate entity name, business email, phone number, staffing mandates, and job descriptions.</li>
+        <li><strong>Technical Data:</strong> IP address, browser type, and interaction timestamps necessary for security monitoring and session management.</li>
+      </ul>
+
+      <h4 class="fw-bold mt-4 mb-2">3. Purpose of Processing</h4>
+      <p class="text-muted">
+        Personal information is utilized strictly to:
+      </p>
+      <ul class="text-muted small">
+        <li>Facilitate recruitment matching between job seekers and hiring employers.</li>
+        <li>Maintain secure candidate accounts and job application records.</li>
+        <li>Contact candidates regarding interview schedules and hiring developments.</li>
+        <li>Fulfill legal, regulatory, and corporate compliance obligations.</li>
+      </ul>
+
+      <h4 class="fw-bold mt-4 mb-2">4. Resume Storage &amp; Access Controls</h4>
+      <p class="text-muted">
+        Candidate resumes are stored securely and are not made publicly accessible via unauthenticated or indexable web addresses. Resumes are viewable exclusively by authenticated staff recruiters and the respective candidate account owner.
+      </p>
+
+      <h4 class="fw-bold mt-4 mb-2">5. Third-Party Disclosures</h4>
+      <p class="text-muted">
+        Candidate details are presented to prospective employers only in connection with genuine hiring mandates. We do not sell, rent, or trade candidate personal information to third-party marketing entities.
+      </p>
+
+      <h4 class="fw-bold mt-4 mb-2">6. Contact for Privacy Inquiries</h4>
+      <p class="text-muted mb-0">
+        For inquiries regarding personal data deletion or updates, please contact our compliance desk at <a href="mailto:{{ COMPANY_EMAIL }}">{{ COMPANY_EMAIL }}</a> or visit our office in Mohali.
+      </p>
+    </div>
+  </div>
+</section>
+{% endblock %}
+

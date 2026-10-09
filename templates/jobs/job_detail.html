@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ job.title }} in {{ job.location }} | HALCON CAREER{% endblock %}
+{% block meta_description %}{{ job.title }} vacancy in {{ job.location }}. Experience: {{ job.experience_requirements }}. Apply now through HALCON CAREER recruitment portal.{% endblock %}
+
+{% block content %}
+<!-- Job Header Breadcrumb / Title -->
+<div class="py-4 bg-white border-bottom">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-2 small">
+        <li class="breadcrumb-item"><a href="{% url 'core:home' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'jobs:job_list' %}">Jobs</a></li>
+        {% if job.category %}
+          <li class="breadcrumb-item"><a href="{% url 'jobs:job_list' %}?category={{ job.category.slug }}">{{ job.category.name }}</a></li>
+        {% endif %}
+        <li class="breadcrumb-item active text-truncate" aria-current="page" style="max-width: 250px;">{{ job.title }}</li>
+      </ol>
+    </nav>
+
+    <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3">
+      <div>
+        <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+          <span class="badge bg-light text-dark border">{{ job.employment_type }}</span>
+          {% if job.category %}
+            <span class="badge bg-teal-subtle text-teal border" style="background-color: var(--color-accent-teal-subtle); color: var(--color-accent-teal);">
+              {{ job.category.name }}
+            </span>
+          {% endif %}
+          {% if not job.is_published %}
+            <span class="badge bg-danger">Draft / Unpublished</span>
+          {% endif %}
+        </div>
+        <h1 class="h2 fw-bold text-dark mb-1">{{ job.title }}</h1>
+        <div class="d-flex flex-wrap align-items-center gap-3 text-muted small">
+          <span><i class="bi bi-building me-1 text-teal" style="color: var(--color-accent-teal);"></i> {{ job.employer_name|default:"Confidential Client" }}</span>
+          <span><i class="bi bi-geo-alt me-1 text-teal" style="color: var(--color-accent-teal);"></i> {{ job.location }}</span>
+          <span><i class="bi bi-calendar3 me-1 text-teal" style="color: var(--color-accent-teal);"></i> Posted {{ job.created_at|date:"M d, Y" }}</span>
+        </div>
+      </div>
+
+      <div class="d-flex align-items-center gap-2">
+        <button id="copyJobLinkBtn" type="button" class="btn btn-outline-custom btn-sm">
+          <i class="bi bi-share me-1"></i> Share Role
+        </button>
+        {% if already_applied %}
+          <a href="{% url 'applications:my_applications' %}" class="btn btn-success btn-sm">
+            <i class="bi bi-check-circle me-1"></i> Applied ({{ application_record.status }})
+          </a>
+        {% elif job.is_active_for_application %}
+          <a href="{% url 'applications:apply' job.slug %}" class="btn btn-teal">
+            <i class="bi bi-send-fill me-1"></i> Apply Now
+          </a>
+        {% else %}
+          <button class="btn btn-secondary" disabled>Applications Closed</button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-py" style="background-color: var(--color-bg-light);">
+  <div class="container">
+    <div class="row g-4">
+      <!-- Main Content Column -->
+      <div class="col-lg-8">
+        <!-- Overview / Description -->
+        <div class="card-custom p-4 p-md-5 mb-4">
+          <h4 class="fw-bold mb-3" style="color: var(--color-primary-navy);">Role Overview</h4>
+          <div class="text-muted leading-relaxed mb-4" style="white-space: pre-line;">
+            {{ job.description }}
+          </div>
+
+          <hr class="my-4">
+
+          <!-- Key Responsibilities -->
+          <h4 class="fw-bold mb-3" style="color: var(--color-primary-navy);">Key Responsibilities</h4>
+          <div class="text-muted leading-relaxed mb-4" style="white-space: pre-line;">
+            {{ job.responsibilities }}
+          </div>
+
+          <hr class="my-4">
+
+          <!-- Required Skills -->
+          <h4 class="fw-bold mb-3" style="color: var(--color-primary-navy);">Required Technical &amp; Core Skills</h4>
+          <div class="text-muted leading-relaxed mb-4" style="white-space: pre-line;">
+            {{ job.required_skills }}
+          </div>
+
+          <hr class="my-4">
+
+          <!-- Qualifications -->
+          <h4 class="fw-bold mb-3" style="color: var(--color-primary-navy);">Qualifications &amp; Eligibility</h4>
+          <div class="text-muted leading-relaxed" style="white-space: pre-line;">
+            {{ job.qualifications }}
+          </div>
+
+          <!-- Bottom Apply Callout -->
+          <div class="mt-5 pt-4 border-top text-center text-md-start d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+            <div>
+              <h5 class="fw-bold mb-1 text-dark">Ready to take the next step in your career?</h5>
+              <p class="text-muted small mb-0">Our recruiters evaluate applications continuously.</p>
+            </div>
+            {% if already_applied %}
+              <a href="{% url 'applications:my_applications' %}" class="btn btn-outline-success">
+                <i class="bi bi-check2 me-1"></i> View Application Status
+              </a>
+            {% elif job.is_active_for_application %}
+              <a href="{% url 'applications:apply' job.slug %}" class="btn btn-teal px-4">
+                <i class="bi bi-send-fill me-1"></i> Apply for this Position
+              </a>
+            {% else %}
+              <span class="text-danger small fw-semibold">This opening is closed for submissions.</span>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Job Summary Meta & Related Vacancies -->
+      <div class="col-lg-4">
+        <!-- Job Snapshot Card -->
+        <div class="card-custom p-4 mb-4">
+          <h5 class="fw-bold mb-3" style="color: var(--color-primary-navy);">Job Summary</h5>
+
+          <div class="d-flex flex-column gap-3 small">
+            <div class="d-flex justify-content-between py-1 border-bottom">
+              <span class="text-muted"><i class="bi bi-cash me-1 text-teal" style="color: var(--color-accent-teal);"></i> Salary Package</span>
+              <span class="fw-bold text-dark">{{ job.salary_display }}</span>
+            </div>
+            <div class="d-flex justify-content-between py-1 border-bottom">
+              <span class="text-muted"><i class="bi bi-geo-alt me-1 text-teal" style="color: var(--color-accent-teal);"></i> Location</span>
+              <span class="fw-semibold text-dark">{{ job.location }}</span>
+            </div>
+            <div class="d-flex justify-content-between py-1 border-bottom">
+              <span class="text-muted"><i class="bi bi-briefcase me-1 text-teal" style="color: var(--color-accent-teal);"></i> Job Type</span>
+              <span class="fw-semibold text-dark">{{ job.employment_type }}</span>
+            </div>
+            <div class="d-flex justify-content-between py-1 border-bottom">
+              <span class="text-muted"><i class="bi bi-mortarboard me-1 text-teal" style="color: var(--color-accent-teal);"></i> Experience</span>
+              <span class="fw-semibold text-dark">{{ job.experience_requirements }}</span>
+            </div>
+            <div class="d-flex justify-content-between py-1 border-bottom">
+              <span class="text-muted"><i class="bi bi-tag me-1 text-teal" style="color: var(--color-accent-teal);"></i> Industry Sector</span>
+              <span class="fw-semibold text-dark">{{ job.category.name|default:"General" }}</span>
+            </div>
+            <div class="d-flex justify-content-between py-1 border-bottom">
+              <span class="text-muted"><i class="bi bi-calendar-event me-1 text-teal" style="color: var(--color-accent-teal);"></i> Deadline</span>
+              <span class="fw-semibold {% if job.application_deadline %}text-danger{% else %}text-dark{% endif %}">
+                {{ job.application_deadline|date:"M d, Y"|default:"Open until filled" }}
+              </span>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-2">
+            {% if already_applied %}
+              <div class="alert alert-info py-2 small mb-0 text-center">
+                <i class="bi bi-info-circle me-1"></i> You applied on {{ application_record.submitted_at|date:"M d, Y" }}
+              </div>
+            {% elif job.is_active_for_application %}
+              <a href="{% url 'applications:apply' job.slug %}" class="btn btn-teal w-100 py-2">
+                <i class="bi bi-file-earmark-arrow-up me-1"></i> Apply Now
+              </a>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Recruitment Assistance Box -->
+        <div class="card-custom p-4 mb-4 text-center" style="background-color: var(--color-bg-white);">
+          <i class="bi bi-telephone-inbound text-teal fs-3 mb-2" style="color: var(--color-accent-teal);"></i>
+          <h6 class="fw-bold mb-1">Have Questions About This Vacancy?</h6>
+          <p class="text-muted small mb-3">Our recruitment desk can assist with questions regarding candidate eligibility.</p>
+          <a href="tel:{{ COMPANY_PHONE_PRIMARY }}" class="btn btn-sm btn-outline-custom w-100">
+            <i class="bi bi-telephone me-1"></i> Call: {{ COMPANY_PHONE_PRIMARY }}
+          </a>
+        </div>
+
+        <!-- Related Jobs -->
+        {% if related_jobs %}
+          <div class="card-custom p-4">
+            <h6 class="fw-bold mb-3" style="color: var(--color-primary-navy);">Related Vacancies</h6>
+            <div class="d-flex flex-column gap-3">
+              {% for rel in related_jobs %}
+                <div class="border-bottom pb-2">
+                  <a href="{{ rel.get_absolute_url }}" class="fw-bold text-dark text-decoration-none small d-block mb-1">
+                    {{ rel.title }}
+                  </a>
+                  <div class="d-flex justify-content-between text-muted" style="font-size: 0.75rem;">
+                    <span><i class="bi bi-geo-alt me-1"></i>{{ rel.location }}</span>
+                    <span class="text-teal" style="color: var(--color-accent-teal);">{{ rel.salary_display }}</span>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

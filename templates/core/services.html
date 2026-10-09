@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Recruitment Services | HALCON CAREER Mohali{% endblock %}
+{% block meta_description %}Explore recruitment and staffing solutions by HALCON CAREER: Permanent staffing, fresher hiring, lateral recruitment, and workforce solutions.{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<div class="py-5" style="background: linear-gradient(135deg, #0F1E33 0%, #142B4A 100%); color: #FFFFFF;">
+  <div class="container text-center">
+    <span class="badge bg-light text-dark px-3 py-2 mb-2" style="font-size: 0.8rem;">Staffing &amp; Recruitment</span>
+    <h1 class="fw-bold mb-2 text-white">Our Recruitment Services</h1>
+    <p class="text-light opacity-75 mb-0 mx-auto" style="max-width: 650px;">
+      Delivering agile, precise, and dependable hiring services designed to meet the staffing demands of evolving businesses.
+    </p>
+  </div>
+</div>
+
+<!-- Services Grid -->
+<section class="section-py bg-white">
+  <div class="container">
+    <div class="row g-4">
+      <!-- 1. Permanent Staffing -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card-custom p-4 h-100 d-flex flex-column justify-content-between">
+          <div>
+            <div class="service-icon-box">
+              <i class="bi bi-people-fill"></i>
+            </div>
+            <h4 class="fw-bold fs-5 mb-2">Permanent Staffing</h4>
+            <p class="text-muted small">
+              Structured talent acquisition for core, full-time positions. We conduct initial screening, competency mapping, and background cross-verification to ensure long-term cultural and professional fit.
+            </p>
+            <ul class="list-unstyled text-muted small d-flex flex-column gap-1 mb-3">
+              <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Comprehensive job profiling</li>
+              <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Multi-stage talent screening</li>
+              <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Reference checking support</li>
+            </ul>
+          </div>
+          <a href="{% url 'employers:enquiry' %}" class="btn btn-sm btn-outline-custom w-100">Enquire for Permanent Staffing</a>
+        </div>
+      </div>
+
+      <!-- 2. Fresher & Graduate Recruitment -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card-custom p-4 h-100 d-flex flex-column justify-content-between">
+          <div>
+            <div class="service-icon-box">
+              <i class="bi bi-mortarboard-fill"></i>
+            </div>
+            <h4 class="fw-bold fs-5 mb-2">Fresher Recruitment</h4>
+            <p class="text-muted small">
+              Assisting employers in discovering eager, trainable entry-level candidates and fresh graduates ready to contribute to business operations, customer support, sales, and software development.
+            </p>
+            <ul class="list-unstyled text-muted small d-flex flex-column gap-1 mb-3">
+              <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Aptitude and communication evaluation</li>
+              <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Batch intake coordination</li>
+              <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Onboarding readiness orientation</li>
+            </ul>
+          </div>
+          <a href="{% url 'employers:enquiry' %}" class="btn btn-sm btn-outline-custom w-100">Enquire for Fresher Hiring</a>
+        </div>
+      </div>
+
+      <!-- 3. Lateral / Experienced Recruitment -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card-custom p-4 h-100 d-flex flex-column justify-content-between">
+          <div>
+            <div class="service-icon-box">
+              <i class="bi bi-briefcase-fill"></i>
+            </div>
+            <h4 class="fw-bold fs-5 mb-2">Experienced Professional Search</h4>
+            <p class="text-muted small">
+              Targeted headhunting and sourcing for middle-to-senior level talent who possess specific technical competencies, leadership traits, and industry exposure.
+            </p>
+            <ul class="list-unstyled text-muted small d-flex flex-column gap-1 mb-3">
+              <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Passive talent engagement</li>
+              <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Discrete and confidential outreach</li>
+              <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Compensation alignment</li>
+            </ul>
+          </div>
+          <a href="{% url 'employers:enquiry' %}" class="btn btn-sm btn-outline-custom w-100">Request Lateral Hiring</a>
+        </div>
+      </div>
+
+      <!-- 4. Workforce Solutions -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card-custom p-4 h-100 d-flex flex-column justify-content-between">
+          <div>
+            <div class="service-icon-box">
+              <i class="bi bi-diagram-3-fill"></i>
+            </div>
+            <h4 class="fw-bold fs-5 mb-2">Workforce Solutions</h4>
+            <p class="text-muted small">
+              Scalable staffing models designed to handle rapid team expansion, ramp-up schedules, and domain-specific talent pipelines for expanding corporate enterprises.
+            </p>
+            <ul class="list-unstyled text-muted small d-flex flex-column gap-1 mb-3">
+              <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Volume hiring pipelines</li>
+              <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Structured interview logistics</li>
+              <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Turnaround time reduction</li>
+            </ul>
+          </div>
+          <a href="{% url 'employers:enquiry' %}" class="btn btn-sm btn-outline-custom w-100">Enquire for Workforce Solutions</a>
+        </div>
+      </div>
+
+      <!-- 5. Temporary & Contract Staffing (Configurable) -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card-custom p-4 h-100 d-flex flex-column justify-content-between">
+          <div>
+            <div class="service-icon-box">
+              <i class="bi bi-clock-history"></i>
+            </div>
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <h4 class="fw-bold fs-5 mb-0">Temporary Staffing</h4>
+              <span class="badge bg-light text-secondary border small">On Request</span>
+            </div>
+            <p class="text-muted small">
+              Flexible staffing models to accommodate seasonal spikes, interim assignments, or specialized short-term engagements.
+            </p>
+            <div class="alert alert-light border small text-muted py-2 px-3 mb-3">
+              <em>Note: Contract and temporary staffing terms are evaluated on a mandate-by-mandate basis upon employer consultation.</em>
+            </div>
+          </div>
+          <a href="{% url 'employers:enquiry' %}" class="btn btn-sm btn-outline-custom w-100">Consult for Contract Staffing</a>
+        </div>
+      </div>
+
+      <!-- 6. Employer Hiring Support -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card-custom p-4 h-100 d-flex flex-column justify-content-between">
+          <div>
+            <div class="service-icon-box">
+              <i class="bi bi-headset"></i>
+            </div>
+            <h4 class="fw-bold fs-5 mb-2">Employer Hiring Support</h4>
+            <p class="text-muted small">
+              Advisory consultation for internal HR teams, including job description optimization, market salary benchmarking, and candidate evaluation metrics.
+            </p>
+            <ul class="list-unstyled text-muted small d-flex flex-column gap-1 mb-3">
+              <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> JD refinement &amp; skill taxonomy</li>
+              <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Tricity salary benchmarking</li>
+              <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Interview coordination</li>
+            </ul>
+          </div>
+          <a href="{% url 'employers:enquiry' %}" class="btn btn-sm btn-outline-custom w-100">Request Hiring Support</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Employer CTA -->
+<section class="section-py" style="background-color: var(--color-bg-light);">
+  <div class="container text-center">
+    <div class="col-lg-7 mx-auto">
+      <h3 class="fw-bold mb-3" style="color: var(--color-primary-navy);">Have a Specific Staffing Requirement?</h3>
+      <p class="text-muted mb-4">
+        Speak directly with our recruitment consultants to discuss your hiring profile, role complexities, and timeline requirements.
+      </p>
+      <div class="d-flex justify-content-center gap-3">
+        <a href="{% url 'employers:enquiry' %}" class="btn btn-teal">
+          <i class="bi bi-send me-1"></i> Submit Hiring Mandate
+        </a>
+        <a href="{% url 'core:contact' %}" class="btn btn-outline-custom">
+          <i class="bi bi-envelope me-1"></i> Contact Us
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+

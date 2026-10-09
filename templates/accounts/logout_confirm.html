@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign Out | HALCON CAREER{% endblock %}
+
+{% block content %}
+<div class="py-5 bg-white">
+  <div class="container" style="max-width: 440px;">
+    <div class="card-custom p-4 p-md-5 border text-center shadow-sm">
+      <div class="service-icon-box mx-auto mb-3" style="width: 56px; height: 56px;">
+        <i class="bi bi-box-arrow-right"></i>
+      </div>
+      <h3 class="fw-bold mb-2" style="color: var(--color-primary-navy);">Sign Out Confirmation</h3>
+      <p class="text-muted small mb-4">Are you sure you want to end your current candidate session?</p>
+      <form method="post" action="{% url 'accounts:logout' %}">
+        {% csrf_token %}
+        <div class="d-flex justify-content-center gap-2">
+          <a href="{% url 'accounts:profile' %}" class="btn btn-outline-custom">Cancel</a>
+          <button type="submit" class="btn btn-danger">Confirm Sign Out</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

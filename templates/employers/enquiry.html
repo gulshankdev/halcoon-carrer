@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Hire Talent &amp; Staffing Enquiry | HALCON CAREER{% endblock %}
+{% block meta_description %}Submit your corporate staffing requirements to HALCON CAREER recruitment consultancy. Dedicated hiring solutions for employers in Mohali, Tricity, and pan-India.{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<div class="py-5" style="background: linear-gradient(135deg, #0F1E33 0%, #142B4A 100%); color: #FFFFFF;">
+  <div class="container text-center">
+    <span class="badge bg-light text-dark px-3 py-2 mb-2" style="font-size: 0.8rem;">Employer Hiring Desk</span>
+    <h1 class="fw-bold mb-2 text-white">Hire Qualified Talent with HALCON CAREER</h1>
+    <p class="text-light opacity-75 mb-0 mx-auto" style="max-width: 680px;">
+      Accelerate your hiring cycle. Share your mandate specifications and let our seasoned recruitment consultants source, vet, and present qualified candidate shortlists.
+    </p>
+  </div>
+</div>
+
+<div class="section-py" style="background-color: var(--color-bg-light);">
+  <div class="container">
+    <div class="row g-5">
+      <!-- Left Column: Mandate Submission Form -->
+      <div class="col-lg-8">
+        <div class="card-custom p-4 p-md-5">
+          <h3 class="fw-bold mb-2" style="color: var(--color-primary-navy);">Submit Hiring Requirements</h3>
+          <p class="text-muted small mb-4">
+            Provide details regarding your target position(s). Our corporate recruitment desk will review your mandate and contact you promptly.
+          </p>
+
+          <form method="post" action="{% url 'employers:enquiry' %}" data-loading-feedback novalidate>
+            {% csrf_token %}
+            {{ form.company_website_url }}
+
+            {% if form.non_field_errors %}
+              <div class="alert alert-danger py-2 small">
+                {% for error in form.non_field_errors %}<div>{{ error }}</div>{% endfor %}
+              </div>
+            {% endif %}
+
+            <h6 class="text-uppercase fw-bold text-teal small mb-3" style="letter-spacing: 0.05em; color: var(--color-accent-teal);">1. Corporate Contact Details</h6>
+            <div class="row g-3 mb-4">
+              <div class="col-md-6">
+                <label class="form-label">Contact Person Name <span class="text-danger">*</span></label>
+                {{ form.contact_person }}
+                {% if form.contact_person.errors %}<div class="text-danger small mt-1">{{ form.contact_person.errors.0 }}</div>{% endif %}
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">Company / Enterprise Name <span class="text-danger">*</span></label>
+                {{ form.company_name }}
+                {% if form.company_name.errors %}<div class="text-danger small mt-1">{{ form.company_name.errors.0 }}</div>{% endif %}
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">Official Work Email <span class="text-danger">*</span></label>
+                {{ form.email }}
+                {% if form.email.errors %}<div class="text-danger small mt-1">{{ form.email.errors.0 }}</div>{% endif %}
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">Business Phone Number <span class="text-danger">*</span></label>
+                {{ form.phone }}
+                {% if form.phone.errors %}<div class="text-danger small mt-1">{{ form.phone.errors.0 }}</div>{% endif %}
+              </div>
+            </div>
+
+            <h6 class="text-uppercase fw-bold text-teal small mb-3" style="letter-spacing: 0.05em; color: var(--color-accent-teal);">2. Hiring Mandate Specifications</h6>
+            <div class="row g-3 mb-4">
+              <div class="col-md-8">
+                <label class="form-label">Position / Roles to Hire <span class="text-danger">*</span></label>
+                {{ form.hiring_requirements }}
+                <div class="form-text small">e.g. Senior Backend Engineer, HR Generalist, Telesales Executive.</div>
+                {% if form.hiring_requirements.errors %}<div class="text-danger small mt-1">{{ form.hiring_requirements.errors.0 }}</div>{% endif %}
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label">Number of Openings <span class="text-danger">*</span></label>
+                {{ form.vacancies_count }}
+                {% if form.vacancies_count.errors %}<div class="text-danger small mt-1">{{ form.vacancies_count.errors.0 }}</div>{% endif %}
+              </div>
+
+              <div class="col-12">
+                <label class="form-label">Required Technical Competencies &amp; Experience</label>
+                {{ form.required_skills }}
+                <div class="form-text small">Mention required tech stack, educational benchmarks, and minimum years of experience.</div>
+                {% if form.required_skills.errors %}<div class="text-danger small mt-1">{{ form.required_skills.errors.0 }}</div>{% endif %}
+              </div>
+
+              <div class="col-12">
+                <label class="form-label">Additional Instructions / Notes</label>
+                {{ form.message }}
+                <div class="form-text small">Specify compensation budget brackets, shift timing requirements, or urgency deadlines.</div>
+                {% if form.message.errors %}<div class="text-danger small mt-1">{{ form.message.errors.0 }}</div>{% endif %}
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-teal w-100 py-3 fw-bold">
+              <i class="bi bi-send-check-fill me-1"></i> Submit Hiring Mandate to HALCON CAREER
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Right Column: Employer Value & Direct Contact -->
+      <div class="col-lg-4">
+        <!-- Direct Help Box -->
+        <div class="card-custom p-4 mb-4" style="background-color: var(--color-primary-navy); color: #FFFFFF;">
+          <h5 class="fw-bold text-white mb-2">Speak Directly with a Recruiter</h5>
+          <p class="text-light opacity-75 small mb-3">
+            Have an urgent requirement or custom staffing model to discuss immediately?
+          </p>
+          <div class="d-flex flex-column gap-2 mb-3">
+            <a href="tel:{{ COMPANY_PHONE_PRIMARY }}" class="btn btn-sm btn-teal text-white">
+              <i class="bi bi-telephone-fill me-1"></i> {{ COMPANY_PHONE_PRIMARY }}
+            </a>
+            <a href="tel:{{ COMPANY_PHONE_SECONDARY }}" class="btn btn-sm btn-outline-light">
+              <i class="bi bi-telephone-fill me-1"></i> {{ COMPANY_PHONE_SECONDARY }}
+            </a>
+          </div>
+          <div class="text-white-50 small">
+            <i class="bi bi-geo-alt me-1"></i> Mohali Office: SCO 12–13, Phase 11
+          </div>
+        </div>
+
+        <!-- Why Recruit Through Us -->
+        <div class="card-custom p-4 mb-4">
+          <h5 class="fw-bold mb-3" style="color: var(--color-primary-navy);">Employer Benefits</h5>
+          <ul class="list-unstyled small d-flex flex-column gap-3 mb-0 text-muted">
+            <li class="d-flex gap-2">
+              <i class="bi bi-check-circle-fill text-success fs-6 flex-shrink-0"></i>
+              <span><strong>Pre-screened Candidates:</strong> Every shortlisted resume is verified for credentials and domain aptitude.</span>
+            </li>
+            <li class="d-flex gap-2">
+              <i class="bi bi-check-circle-fill text-success fs-6 flex-shrink-0"></i>
+              <span><strong>Reduced Hiring Lag:</strong> Shortlists delivered promptly without flooding your inbox with irrelevant submissions.</span>
+            </li>
+            <li class="d-flex gap-2">
+              <i class="bi bi-check-circle-fill text-success fs-6 flex-shrink-0"></i>
+              <span><strong>Tricity &amp; Regional Reach:</strong> Strong local network in Mohali, Chandigarh, Panchkula, and Northern India hubs.</span>
+            </li>
+            <li class="d-flex gap-2">
+              <i class="bi bi-check-circle-fill text-success fs-6 flex-shrink-0"></i>
+              <span><strong>Confidential Searches:</strong> Discretion maintained for competitive market replacements and lateral hires.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Candidate Login | HALCON CAREER{% endblock %}
+
+{% block content %}
+<div class="py-5 bg-white">
+  <div class="container" style="max-width: 480px;">
+    <div class="card-custom p-4 p-md-5 border shadow-sm">
+      <div class="text-center mb-4">
+        <div class="brand-icon mx-auto mb-3" style="width: 48px; height: 48px; font-size: 1.5rem;">
+          <i class="bi bi-box-arrow-in-right"></i>
+        </div>
+        <h2 class="fw-bold fs-3 mb-1" style="color: var(--color-primary-navy);">Sign In</h2>
+        <p class="text-muted small">Access your candidate dashboard and applications.</p>
+      </div>
+
+      <form method="post" action="{% url 'accounts:login' %}{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}" novalidate>
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+          <div class="alert alert-danger py-2 small">
+            {% for error in form.non_field_errors %}
+              <div>{{ error }}</div>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <div class="mb-3">
+          <label class="form-label">Username</label>
+          {{ form.username }}
+          {% if form.username.errors %}<div class="text-danger small mt-1">{{ form.username.errors.0 }}</div>{% endif %}
+        </div>
+
+        <div class="mb-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <label class="form-label mb-0">Password</label>
+            <a href="{% url 'accounts:password_reset' %}" class="small text-muted">Forgot password?</a>
+          </div>
+          <div class="mt-1">
+            {{ form.password }}
+          </div>
+          {% if form.password.errors %}<div class="text-danger small mt-1">{{ form.password.errors.0 }}</div>{% endif %}
+        </div>
+
+        <button type="submit" class="btn btn-teal w-100 py-2 mt-2">
+          <i class="bi bi-box-arrow-in-right me-1"></i> Sign In to Portal
+        </button>
+      </form>
+
+      <div class="text-center mt-4 pt-3 border-top">
+        <span class="text-muted small">New to HALCON CAREER?</span>
+        <a href="{% url 'accounts:register' %}" class="small fw-semibold ms-1">Register as a Candidate</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

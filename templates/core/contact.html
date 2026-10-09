@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact Us | HALCON CAREER Mohali{% endblock %}
+{% block meta_description %}Get in touch with HALCON CAREER recruitment consultancy in Mohali, Punjab. Call +91 9216033444 or +91 8699000984, or visit our office at SCO 12–13, Phase 11, Mohali.{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<div class="py-5" style="background: linear-gradient(135deg, #0F1E33 0%, #142B4A 100%); color: #FFFFFF;">
+  <div class="container text-center">
+    <span class="badge bg-light text-dark px-3 py-2 mb-2" style="font-size: 0.8rem;">Get in Touch</span>
+    <h1 class="fw-bold mb-2 text-white">Contact HALCON CAREER</h1>
+    <p class="text-light opacity-75 mb-0 mx-auto" style="max-width: 650px;">
+      Whether you are an aspiring candidate or an employer with recruitment needs, our consultancy team is here to assist you.
+    </p>
+  </div>
+</div>
+
+<section class="section-py bg-white">
+  <div class="container">
+    <div class="row g-5">
+      <!-- Contact Information & Map -->
+      <div class="col-lg-5">
+        <h3 class="fw-bold mb-4" style="color: var(--color-primary-navy);">Head Office Information</h3>
+
+        <!-- Address Card -->
+        <div class="d-flex gap-3 mb-4">
+          <div class="service-icon-box flex-shrink-0" style="width: 48px; height: 48px; font-size: 1.4rem;">
+            <i class="bi bi-geo-alt-fill"></i>
+          </div>
+          <div>
+            <h6 class="fw-bold text-dark mb-1">Office Location</h6>
+            <p class="text-muted small mb-1">{{ COMPANY_ADDRESS }}</p>
+            <a href="https://maps.google.com/?q={{ COMPANY_ADDRESS|urlencode }}" target="_blank" rel="noopener noreferrer" class="small fw-semibold text-teal" style="color: var(--color-accent-teal);">
+              Get Directions on Google Maps <i class="bi bi-arrow-up-right ms-1"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Phone Card -->
+        <div class="d-flex gap-3 mb-4">
+          <div class="service-icon-box flex-shrink-0" style="width: 48px; height: 48px; font-size: 1.4rem;">
+            <i class="bi bi-telephone-fill"></i>
+          </div>
+          <div>
+            <h6 class="fw-bold text-dark mb-1">Phone Numbers</h6>
+            <p class="text-muted small mb-1">Reach our recruitment consultants directly:</p>
+            <div class="d-flex flex-column gap-1">
+              <a href="tel:{{ COMPANY_PHONE_PRIMARY }}" class="text-dark fw-semibold small text-decoration-none">
+                <i class="bi bi-phone me-1 text-teal" style="color: var(--color-accent-teal);"></i> {{ COMPANY_PHONE_PRIMARY }}
+              </a>
+              <a href="tel:{{ COMPANY_PHONE_SECONDARY }}" class="text-dark fw-semibold small text-decoration-none">
+                <i class="bi bi-phone me-1 text-teal" style="color: var(--color-accent-teal);"></i> {{ COMPANY_PHONE_SECONDARY }}
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Email Card -->
+        <div class="d-flex gap-3 mb-4">
+          <div class="service-icon-box flex-shrink-0" style="width: 48px; height: 48px; font-size: 1.4rem;">
+            <i class="bi bi-envelope-fill"></i>
+          </div>
+          <div>
+            <h6 class="fw-bold text-dark mb-1">Official Email</h6>
+            <a href="mailto:{{ COMPANY_EMAIL }}" class="text-teal small fw-semibold" style="color: var(--color-accent-teal);">
+              {{ COMPANY_EMAIL }}
+            </a>
+          </div>
+        </div>
+
+        <!-- Working Hours Card -->
+        <div class="d-flex gap-3 mb-4">
+          <div class="service-icon-box flex-shrink-0" style="width: 48px; height: 48px; font-size: 1.4rem;">
+            <i class="bi bi-clock-fill"></i>
+          </div>
+          <div>
+            <h6 class="fw-bold text-dark mb-1">Consultancy Hours</h6>
+            <p class="text-muted small mb-0">{{ COMPANY_HOURS }}</p>
+            <span class="text-secondary small">Sundays &amp; Public Holidays: Closed</span>
+          </div>
+        </div>
+
+        <!-- Embedded Google Maps -->
+        {% if GOOGLE_MAPS_EMBED_URL %}
+          <div class="mt-4 rounded-3 overflow-hidden border shadow-sm" style="height: 250px;">
+            <iframe
+              src="{{ GOOGLE_MAPS_EMBED_URL }}"
+              width="100%"
+              height="100%"
+              style="border:0;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="HALCON CAREER Office Location">
+            </iframe>
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Contact Message Form -->
+      <div class="col-lg-7">
+        <div class="card-custom p-4 p-md-5">
+          <h3 class="fw-bold mb-2" style="color: var(--color-primary-navy);">Send Us a Message</h3>
+          <p class="text-muted small mb-4">
+            Fill out the form below and a representative from HALCON CAREER will get back to you within 24 to 48 business hours.
+          </p>
+
+          <form method="post" action="{% url 'core:contact' %}" data-loading-feedback novalidate>
+            {% csrf_token %}
+            {{ form.website }}
+
+            {% if form.non_field_errors %}
+              <div class="alert alert-danger py-2 small">
+                {% for error in form.non_field_errors %}
+                  <div>{{ error }}</div>
+                {% endfor %}
+              </div>
+            {% endif %}
+
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="{{ form.full_name.id_for_label }}" class="form-label">Full Name <span class="text-danger">*</span></label>
+                {{ form.full_name }}
+                {% if form.full_name.errors %}
+                  <div class="text-danger small mt-1">{{ form.full_name.errors.0 }}</div>
+                {% endif %}
+              </div>
+
+              <div class="col-md-6">
+                <label for="{{ form.email.id_for_label }}" class="form-label">Email Address <span class="text-danger">*</span></label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                  <div class="text-danger small mt-1">{{ form.email.errors.0 }}</div>
+                {% endif %}
+              </div>
+
+              <div class="col-md-6">
+                <label for="{{ form.phone.id_for_label }}" class="form-label">Contact Phone</label>
+                {{ form.phone }}
+                {% if form.phone.errors %}
+                  <div class="text-danger small mt-1">{{ form.phone.errors.0 }}</div>
+                {% endif %}
+              </div>
+
+              <div class="col-md-6">
+                <label for="{{ form.subject.id_for_label }}" class="form-label">Subject <span class="text-danger">*</span></label>
+                {{ form.subject }}
+                {% if form.subject.errors %}
+                  <div class="text-danger small mt-1">{{ form.subject.errors.0 }}</div>
+                {% endif %}
+              </div>
+
+              <div class="col-12">
+                <label for="{{ form.message.id_for_label }}" class="form-label">Your Message <span class="text-danger">*</span></label>
+                {{ form.message }}
+                {% if form.message.errors %}
+                  <div class="text-danger small mt-1">{{ form.message.errors.0 }}</div>
+                {% endif %}
+              </div>
+
+              <div class="col-12 mt-4">
+                <button type="submit" class="btn btn-teal w-100 py-2">
+                  <i class="bi bi-send-fill me-1"></i> Send Message
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+

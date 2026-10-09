@@ -1,0 +1,444 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}HALCON CAREER | Connecting Talent. Creating Opportunities.{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="container position-relative">
+    <div class="row align-items-center">
+      <div class="col-lg-8 mx-auto text-center">
+        <div class="hero-tagline-badge">
+          <i class="bi bi-patch-check-fill"></i> Professional Recruitment Consultancy &bull; Mohali
+        </div>
+        <h1 class="hero-title">Connecting Talent. Creating Opportunities.</h1>
+        <p class="hero-subtitle mx-auto">
+          HALCON CAREER bridges the gap between ambitious job seekers and forward-thinking employers. We provide transparent, ethical, and tailored recruitment services across diverse industries.
+        </p>
+
+        <!-- Search Bar -->
+        <div class="search-card-hero text-start">
+          <form method="get" action="{% url 'jobs:job_list' %}" class="row g-2 align-items-center">
+            <div class="col-md-4">
+              <label for="heroSearchQ" class="form-label text-muted small mb-1"><i class="bi bi-search text-teal me-1"></i> Job Title / Keyword</label>
+              <div class="input-group">
+                <input type="text" class="form-control border-light-subtle" id="heroSearchQ" name="q" placeholder="e.g. Developer, HR, Accountant">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <label for="heroSearchLoc" class="form-label text-muted small mb-1"><i class="bi bi-geo-alt text-teal me-1"></i> Location</label>
+              <input type="text" class="form-control border-light-subtle" id="heroSearchLoc" name="location" placeholder="e.g. Mohali, Chandigarh">
+            </div>
+            <div class="col-md-3">
+              <label for="heroSearchType" class="form-label text-muted small mb-1"><i class="bi bi-briefcase text-teal me-1"></i> Job Type</label>
+              <select class="form-select border-light-subtle" id="heroSearchType" name="type">
+                <option value="">All Employment Types</option>
+                {% for code, label in employment_types %}
+                  <option value="{{ code }}">{{ label }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-2 mt-md-4 pt-md-1">
+              <button type="submit" class="btn btn-teal w-100 py-2">
+                <i class="bi bi-search me-1"></i> Search
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="mt-3 text-white-50 small">
+          <span>Popular searches:</span>
+          <a href="{% url 'jobs:job_list' %}?q=Developer" class="text-white-50 text-decoration-underline ms-1 me-2">Software</a>
+          <a href="{% url 'jobs:job_list' %}?q=Accountant" class="text-white-50 text-decoration-underline me-2">Finance</a>
+          <a href="{% url 'jobs:job_list' %}?location=Mohali" class="text-white-50 text-decoration-underline me-2">Mohali</a>
+          <a href="{% url 'jobs:job_list' %}?type=Full-time" class="text-white-50 text-decoration-underline">Full-time</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Active Job Categories -->
+{% if categories %}
+<section class="section-py bg-white">
+  <div class="container">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
+      <div>
+        <h6 class="text-uppercase fw-bold text-teal mb-1" style="color: var(--color-accent-teal); letter-spacing: 0.05em;">Sectors &amp; Industries</h6>
+        <h2 class="section-title mb-0">Browse by Industry</h2>
+      </div>
+      <a href="{% url 'jobs:job_list' %}" class="btn btn-outline-custom mt-3 mt-md-0">
+        View All Jobs <i class="bi bi-arrow-right ms-1"></i>
+      </a>
+    </div>
+
+    <div class="row g-3">
+      {% for cat in categories %}
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          <a href="{% url 'jobs:job_list' %}?category={{ cat.slug }}" class="card-custom p-3 d-flex align-items-center gap-3 text-decoration-none h-100">
+            <div class="service-icon-box mb-0 flex-shrink-0" style="width: 44px; height: 44px; font-size: 1.3rem;">
+              <i class="bi {{ cat.icon|default:'bi-briefcase' }}"></i>
+            </div>
+            <div>
+              <h6 class="mb-1 fw-bold text-dark">{{ cat.name }}</h6>
+              <span class="text-muted small">{{ cat.active_jobs_count }} active opening{{ cat.active_jobs_count|pluralize }}</span>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- Featured Job Openings -->
+<section class="section-py" style="background-color: var(--color-bg-light);">
+  <div class="container">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
+      <div>
+        <h6 class="text-uppercase fw-bold text-teal mb-1" style="color: var(--color-accent-teal); letter-spacing: 0.05em;">Spotlight Opportunities</h6>
+        <h2 class="section-title mb-0">Featured Job Openings</h2>
+        <p class="text-muted mb-0">Carefully curated career opportunities from verified employers.</p>
+      </div>
+      <a href="{% url 'jobs:job_list' %}" class="btn btn-primary-custom mt-3 mt-md-0">
+        Browse All Vacancies <i class="bi bi-arrow-right ms-1"></i>
+      </a>
+    </div>
+
+    <div class="row g-4">
+      {% for job in featured_jobs %}
+        <div class="col-lg-4 col-md-6">
+          <div class="job-card">
+            <div>
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <span class="badge bg-light text-primary border" style="font-size: 0.75rem;">
+                  <i class="bi bi-bookmark-star-fill text-warning me-1"></i> Featured
+                </span>
+                <span class="text-muted small"><i class="bi bi-clock me-1"></i>{{ job.created_at|date:"M d, Y" }}</span>
+              </div>
+              <h3 class="job-card-title">
+                <a href="{{ job.get_absolute_url }}" class="text-decoration-none text-dark">{{ job.title }}</a>
+              </h3>
+              <div class="job-card-company">
+                <i class="bi bi-building"></i>
+                <span>{{ job.employer_name|default:"Confidential Client" }}</span>
+              </div>
+              <div class="d-flex flex-wrap gap-2 mb-3">
+                <span class="job-meta-tag"><i class="bi bi-geo-alt"></i> {{ job.location }}</span>
+                <span class="job-meta-tag"><i class="bi bi-briefcase"></i> {{ job.employment_type }}</span>
+                <span class="job-meta-tag"><i class="bi bi-mortarboard"></i> {{ job.experience_requirements }}</span>
+              </div>
+              <p class="text-muted small mb-3">
+                {{ job.description|striptags|truncatewords:20 }}
+              </p>
+            </div>
+            <div class="border-top pt-3 d-flex justify-content-between align-items-center">
+              <div>
+                <span class="d-block text-muted" style="font-size: 0.75rem;">Offered Package</span>
+                <span class="job-salary-badge">{{ job.salary_display }}</span>
+              </div>
+              <a href="{{ job.get_absolute_url }}" class="btn btn-sm btn-outline-custom">
+                View Details
+              </a>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <div class="col-12">
+          <div class="card-custom p-5 text-center">
+            <i class="bi bi-briefcase text-muted" style="font-size: 3rem;"></i>
+            <h5 class="mt-3 mb-1 text-dark fw-bold">No Featured Vacancies at This Moment</h5>
+            <p class="text-muted mb-3">New positions are regularly updated by our recruitment team.</p>
+            <a href="{% url 'jobs:job_list' %}" class="btn btn-outline-custom mx-auto">Explore All Open Vacancies</a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Latest Job Listings -->
+<section class="section-py bg-white">
+  <div class="container">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
+      <div>
+        <h6 class="text-uppercase fw-bold text-teal mb-1" style="color: var(--color-accent-teal); letter-spacing: 0.05em;">Fresh Openings</h6>
+        <h2 class="section-title mb-0">Latest Job Vacancies</h2>
+        <p class="text-muted mb-0">Recently posted positions across Mohali, Chandigarh, and remote hubs.</p>
+      </div>
+      <a href="{% url 'jobs:job_list' %}" class="btn btn-outline-custom mt-3 mt-md-0">
+        View All ({{ GLOBAL_ACTIVE_JOBS_COUNT }}) <i class="bi bi-arrow-right ms-1"></i>
+      </a>
+    </div>
+
+    <div class="row g-3">
+      {% for job in latest_jobs %}
+        <div class="col-lg-6">
+          <div class="card-custom p-3 h-100 d-flex flex-column justify-content-between">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <div>
+                <h5 class="mb-1 fw-bold">
+                  <a href="{{ job.get_absolute_url }}" class="text-dark text-decoration-none">{{ job.title }}</a>
+                </h5>
+                <span class="text-muted small"><i class="bi bi-building me-1"></i>{{ job.employer_name }} &bull; <i class="bi bi-geo-alt me-1"></i>{{ job.location }}</span>
+              </div>
+              <span class="badge bg-light text-dark border">{{ job.employment_type }}</span>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mt-3 pt-2 border-top">
+              <span class="text-teal fw-semibold" style="color: var(--color-accent-teal);">{{ job.salary_display }}</span>
+              <a href="{{ job.get_absolute_url }}" class="btn btn-sm btn-teal">
+                Apply Now <i class="bi bi-chevron-right ms-1"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <div class="col-12 text-center py-4 text-muted">
+          <p>No active openings posted yet. Check back soon.</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Recruitment Services Section -->
+<section class="section-py" style="background-color: var(--color-bg-light);">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h6 class="text-uppercase fw-bold text-teal mb-1" style="color: var(--color-accent-teal); letter-spacing: 0.05em;">Comprehensive Solutions</h6>
+      <h2 class="section-title">Our Recruitment Services</h2>
+      <p class="section-subtitle">
+        Tailored staffing approaches designed to address complex talent challenges for startups, SMEs, and corporate enterprises.
+      </p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-lg-4 col-md-6">
+        <div class="card-custom p-4 h-100">
+          <div class="service-icon-box">
+            <i class="bi bi-people-fill"></i>
+          </div>
+          <h4 class="fw-bold fs-5 mb-2">Permanent Staffing</h4>
+          <p class="text-muted small mb-0">
+            End-to-end talent sourcing, skill assessment, and candidate verification for long-term full-time corporate hires.
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="card-custom p-4 h-100">
+          <div class="service-icon-box">
+            <i class="bi bi-mortarboard-fill"></i>
+          </div>
+          <h4 class="fw-bold fs-5 mb-2">Fresher &amp; Graduate Hiring</h4>
+          <p class="text-muted small mb-0">
+            Connecting emerging graduates and entry-level talent with structured corporate onboarding and trainee programs.
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="card-custom p-4 h-100">
+          <div class="service-icon-box">
+            <i class="bi bi-award-fill"></i>
+          </div>
+          <h4 class="fw-bold fs-5 mb-2">Executive &amp; Lateral Search</h4>
+          <p class="text-muted small mb-0">
+            Confidential identification of seasoned managers, technical leads, and subject-matter experts with proven domain expertise.
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="card-custom p-4 h-100">
+          <div class="service-icon-box">
+            <i class="bi bi-gear-wide-connected"></i>
+          </div>
+          <h4 class="fw-bold fs-5 mb-2">Workforce Solutions</h4>
+          <p class="text-muted small mb-0">
+            Scalable hiring pipelines, skill mapping, and recruitment process support to match dynamic business growth.
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="card-custom p-4 h-100">
+          <div class="service-icon-box">
+            <i class="bi bi-clock-history"></i>
+          </div>
+          <h4 class="fw-bold fs-5 mb-2">Contract &amp; Temporary Staffing</h4>
+          <p class="text-muted small mb-2">
+            Flexible staffing arrangements for seasonal projects, specialized skill surges, or interim operational coverage.
+          </p>
+          <span class="badge bg-light text-secondary border small">Configurable / On Request</span>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="card-custom p-4 h-100">
+          <div class="service-icon-box">
+            <i class="bi bi-headset"></i>
+          </div>
+          <h4 class="fw-bold fs-5 mb-2">Employer Hiring Support</h4>
+          <p class="text-muted small mb-0">
+            Dedicated recruitment consultation, compensation benchmarking, JD drafting assistance, and candidate interview scheduling.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="section-py bg-white">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h6 class="text-uppercase fw-bold text-teal mb-1" style="color: var(--color-accent-teal); letter-spacing: 0.05em;">Clear &amp; Transparent Workflow</h6>
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-subtitle">
+        A seamless recruitment journey tailored for both job aspirants and hiring managers.
+      </p>
+    </div>
+
+    <div class="row g-4">
+      <!-- Candidate Workflow -->
+      <div class="col-lg-6">
+        <div class="card-custom p-4 p-md-5 h-100 border-start border-4 border-primary" style="border-left-color: var(--color-accent-teal) !important;">
+          <h4 class="fw-bold mb-4 d-flex align-items-center gap-2">
+            <i class="bi bi-person-badge text-teal" style="color: var(--color-accent-teal);"></i>
+            For Job Seekers
+          </h4>
+          <div class="d-flex gap-3 mb-4">
+            <div class="badge rounded-circle bg-light text-dark border p-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; font-size: 1.1rem; font-weight: 700;">1</div>
+            <div>
+              <h5 class="fs-6 fw-bold mb-1">Create Candidate Profile</h5>
+              <p class="text-muted small mb-0">Register your account, outline your skills, qualifications, and upload an up-to-date resume.</p>
+            </div>
+          </div>
+          <div class="d-flex gap-3 mb-4">
+            <div class="badge rounded-circle bg-light text-dark border p-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; font-size: 1.1rem; font-weight: 700;">2</div>
+            <div>
+              <h5 class="fs-6 fw-bold mb-1">Browse &amp; Apply Directly</h5>
+              <p class="text-muted small mb-0">Filter active vacancies by location, experience, and domain. Submit targeted applications in one click.</p>
+            </div>
+          </div>
+          <div class="d-flex gap-3">
+            <div class="badge rounded-circle bg-light text-dark border p-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; font-size: 1.1rem; font-weight: 700;">3</div>
+            <div>
+              <h5 class="fs-6 fw-bold mb-1">Interview &amp; Onboarding</h5>
+              <p class="text-muted small mb-0">Track real-time status updates from our recruitment consultants from initial review to final offer.</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-top">
+            <a href="{% url 'accounts:register' %}" class="btn btn-teal">
+              Register as Candidate <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Employer Workflow -->
+      <div class="col-lg-6">
+        <div class="card-custom p-4 p-md-5 h-100 border-start border-4 border-primary" style="border-left-color: var(--color-primary-navy) !important;">
+          <h4 class="fw-bold mb-4 d-flex align-items-center gap-2">
+            <i class="bi bi-building text-primary" style="color: var(--color-primary-navy);"></i>
+            For Employers &amp; HR Teams
+          </h4>
+          <div class="d-flex gap-3 mb-4">
+            <div class="badge rounded-circle bg-light text-dark border p-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; font-size: 1.1rem; font-weight: 700;">1</div>
+            <div>
+              <h5 class="fs-6 fw-bold mb-1">Submit Hiring Mandate</h5>
+              <p class="text-muted small mb-0">Share job specifications, candidate profiles, required skills, and timeline through our enquiry form.</p>
+            </div>
+          </div>
+          <div class="d-flex gap-3 mb-4">
+            <div class="badge rounded-circle bg-light text-dark border p-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; font-size: 1.1rem; font-weight: 700;">2</div>
+            <div>
+              <h5 class="fs-6 fw-bold mb-1">Screening &amp; Shortlisting</h5>
+              <p class="text-muted small mb-0">HALCON CAREER filters candidate applications, tests credentials, and conducts preliminary assessments.</p>
+            </div>
+          </div>
+          <div class="d-flex gap-3">
+            <div class="badge rounded-circle bg-light text-dark border p-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; font-size: 1.1rem; font-weight: 700;">3</div>
+            <div>
+              <h5 class="fs-6 fw-bold mb-1">Hire Qualified Talent</h5>
+              <p class="text-muted small mb-0">Interview curated candidate shortlists and finalize job offers with minimal turnaround time.</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-top">
+            <a href="{% url 'employers:enquiry' %}" class="btn btn-primary-custom">
+              Submit Hiring Request <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Value Proposition / Benefits Section -->
+<section class="section-py" style="background-color: var(--color-bg-light);">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h6 class="text-uppercase fw-bold text-teal mb-1" style="color: var(--color-accent-teal); letter-spacing: 0.05em;">Why HALCON CAREER</h6>
+      <h2 class="section-title">Professional Consultancy Values</h2>
+      <p class="section-subtitle">
+        We prioritize high-trust relationships, candidate confidentiality, and rigorous recruitment standards.
+      </p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card-custom p-4 text-center h-100">
+          <div class="service-icon-box mx-auto">
+            <i class="bi bi-shield-check"></i>
+          </div>
+          <h4 class="fs-5 fw-bold mb-2">Verified Vacancies</h4>
+          <p class="text-muted small mb-0">
+            Every position hosted on HALCON CAREER undergoes recruiter validation to protect candidates from illegitimate listings.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card-custom p-4 text-center h-100">
+          <div class="service-icon-box mx-auto">
+            <i class="bi bi-lock-fill"></i>
+          </div>
+          <h4 class="fs-5 fw-bold mb-2">Confidential &amp; Private</h4>
+          <p class="text-muted small mb-0">
+            Resumes and contact details are securely managed with role-based access control and strict data privacy protocols.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card-custom p-4 text-center h-100">
+          <div class="service-icon-box mx-auto">
+            <i class="bi bi-geo-alt-fill"></i>
+          </div>
+          <h4 class="fs-5 fw-bold mb-2">Strategic Regional Presence</h4>
+          <p class="text-muted small mb-0">
+            Centrally based in Mohali Phase 11, serving the Tricity corporate corridor and regional northern hubs.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Employer CTA Callout Section -->
+<section class="section-py" style="background: linear-gradient(135deg, #142B4A 0%, #0D1C30 100%); color: #FFFFFF;">
+  <div class="container text-center">
+    <div class="col-lg-8 mx-auto">
+      <h2 class="fw-bold mb-3 text-white">Need Qualified Candidates for Your Open Positions?</h2>
+      <p class="text-light opacity-75 mb-4 fs-5">
+        Partner with HALCON CAREER to accelerate your hiring pipeline. Share your requirement profile, and our recruitment team will present tailored candidate shortlists.
+      </p>
+      <div class="d-flex flex-wrap justify-content-center gap-3">
+        <a href="{% url 'employers:enquiry' %}" class="btn btn-teal btn-lg px-4">
+          <i class="bi bi-send me-1"></i> Post Hiring Requirements
+        </a>
+        <a href="tel:{{ COMPANY_PHONE_PRIMARY }}" class="btn btn-outline-light btn-lg px-4">
+          <i class="bi bi-telephone me-1"></i> Call Recruiter: {{ COMPANY_PHONE_PRIMARY }}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+

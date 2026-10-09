@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Candidate Consent & Resume Handling Policy | HALCON CAREER{% endblock %}
+
+{% block content %}
+<div class="py-5" style="background: linear-gradient(135deg, #0F1E33 0%, #142B4A 100%); color: #FFFFFF;">
+  <div class="container text-center">
+    <h1 class="fw-bold mb-2 text-white">Candidate Consent &amp; Resume Handling Policy</h1>
+    <p class="text-light opacity-75 mb-0 mx-auto" style="max-width: 650px;">
+      Our commitment to ethical resume processing and candidate data sovereignty.
+    </p>
+  </div>
+</div>
+
+<section class="section-py bg-white">
+  <div class="container" style="max-width: 860px;">
+    <div class="card-custom p-4 p-md-5">
+      <p class="text-muted small"><strong>Effective Date:</strong> October 2026 | <strong>Version:</strong> 1.0 (Draft for Review)</p>
+
+      <h4 class="fw-bold mt-4 mb-2">1. Scope of Consent</h4>
+      <p class="text-muted">
+        When you submit your resume or complete your candidate profile on HALCON CAREER, you grant explicit consent for our recruitment team to evaluate your credentials, cross-reference your skills with relevant vacancies, and contact you via telephone or email regarding employment opportunities.
+      </p>
+
+      <h4 class="fw-bold mt-4 mb-2">2. Secure Document Management</h4>
+      <p class="text-muted">
+        Uploaded candidate resumes (PDF, DOCX, DOC) are encrypted at rest where supported and restricted through role-based access control. Public search engines are barred from indexing candidate resumes.
+      </p>
+
+      <h4 class="fw-bold mt-4 mb-2">3. Forwarding to Prospective Employers</h4>
+      <p class="text-muted">
+        Your resume is shared with prospective employers only after preliminary screening or explicit communication about the role and organization involved. We do not blast resumes blindly to unverified entities.
+      </p>
+
+      <h4 class="fw-bold mt-4 mb-2">4. Data Retention and Right to Deletion</h4>
+      <p class="text-muted">
+        Candidates maintain full control over their uploaded resumes. You may update your resume at any time from your Candidate Profile or request the complete purging of your account and files by emailing <a href="mailto:{{ COMPANY_EMAIL }}">{{ COMPANY_EMAIL }}</a>.
+      </p>
+
+      <h4 class="fw-bold mt-4 mb-2">5. Verification and Reference Checks</h4>
+      <p class="text-muted mb-0">
+        Prior to extending employment offers, hiring employers may conduct standard academic credential verifications, employment history confirmations, or criminal background checks in accordance with applicable labor regulations.
+      </p>
+    </div>
+  </div>
+</section>
+{% endblock %}
+

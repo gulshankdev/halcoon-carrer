@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}Candidate Registration | HALCON CAREER{% endblock %}
+
+{% block content %}
+<div class="py-5 bg-white">
+  <div class="container" style="max-width: 580px;">
+    <div class="card-custom p-4 p-md-5 border shadow-sm">
+      <div class="text-center mb-4">
+        <div class="brand-icon mx-auto mb-3" style="width: 48px; height: 48px; font-size: 1.5rem;">
+          <i class="bi bi-person-plus-fill"></i>
+        </div>
+        <h2 class="fw-bold fs-3 mb-1" style="color: var(--color-primary-navy);">Create Candidate Account</h2>
+        <p class="text-muted small">Join HALCON CAREER to browse and apply for verified career openings.</p>
+      </div>
+
+      <form method="post" action="{% url 'accounts:register' %}" novalidate>
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+          <div class="alert alert-danger py-2 small">
+            {% for error in form.non_field_errors %}
+              <div>{{ error }}</div>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">First Name <span class="text-danger">*</span></label>
+            {{ form.first_name }}
+            {% if form.first_name.errors %}<div class="text-danger small mt-1">{{ form.first_name.errors.0 }}</div>{% endif %}
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Last Name <span class="text-danger">*</span></label>
+            {{ form.last_name }}
+            {% if form.last_name.errors %}<div class="text-danger small mt-1">{{ form.last_name.errors.0 }}</div>{% endif %}
+          </div>
+          <div class="col-12">
+            <label class="form-label">Username <span class="text-danger">*</span></label>
+            {{ form.username }}
+            <div class="form-text small">{{ form.username.help_text }}</div>
+            {% if form.username.errors %}<div class="text-danger small mt-1">{{ form.username.errors.0 }}</div>{% endif %}
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Email Address <span class="text-danger">*</span></label>
+            {{ form.email }}
+            {% if form.email.errors %}<div class="text-danger small mt-1">{{ form.email.errors.0 }}</div>{% endif %}
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Phone Number</label>
+            {{ form.phone }}
+            {% if form.phone.errors %}<div class="text-danger small mt-1">{{ form.phone.errors.0 }}</div>{% endif %}
+          </div>
+          <div class="col-12">
+            <label class="form-label">Password <span class="text-danger">*</span></label>
+            {{ form.password1 }}
+            {% if form.password1.errors %}<div class="text-danger small mt-1">{{ form.password1.errors.0 }}</div>{% endif %}
+          </div>
+          <div class="col-12">
+            <label class="form-label">Confirm Password <span class="text-danger">*</span></label>
+            {{ form.password2 }}
+            {% if form.password2.errors %}<div class="text-danger small mt-1">{{ form.password2.errors.0 }}</div>{% endif %}
+          </div>
+          <div class="col-12 mt-4">
+            <button type="submit" class="btn btn-teal w-100 py-2">
+              <i class="bi bi-check-circle me-1"></i> Register Account
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <div class="text-center mt-4 pt-3 border-top">
+        <span class="text-muted small">Already have an account?</span>
+        <a href="{% url 'accounts:login' %}" class="small fw-semibold ms-1">Sign In here</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

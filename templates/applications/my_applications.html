@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Job Applications | HALCON CAREER{% endblock %}
+
+{% block content %}
+<div class="py-4 bg-white border-bottom">
+  <div class="container">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+      <div>
+        <h1 class="h3 fw-bold mb-1" style="color: var(--color-primary-navy);">My Job Applications</h1>
+        <p class="text-muted small mb-0">Track the real-time review status of your submitted candidatures.</p>
+      </div>
+      <div>
+        <a href="{% url 'jobs:job_list' %}" class="btn btn-teal btn-sm">
+          <i class="bi bi-search me-1"></i> Browse More Vacancies
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-py" style="background-color: var(--color-bg-light);">
+  <div class="container">
+    {% if applications %}
+      <div class="card-custom p-0 overflow-hidden border">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+              <tr class="small text-uppercase text-muted" style="letter-spacing: 0.04em;">
+                <th scope="col" class="ps-4 py-3">Applied Vacancy</th>
+                <th scope="col" class="py-3">Location &amp; Type</th>
+                <th scope="col" class="py-3">Submitted On</th>
+                <th scope="col" class="py-3">Application Status</th>
+                <th scope="col" class="py-3">Attached Resume</th>
+                <th scope="col" class="text-end pe-4 py-3">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for app in applications %}
+                <tr>
+                  <!-- Job Title & Employer -->
+                  <td class="ps-4 py-3">
+                    <a href="{{ app.job.get_absolute_url }}" class="fw-bold text-dark text-decoration-none d-block">
+                      {{ app.job.title }}
+                    </a>
+                    <span class="text-muted small">
+                      <i class="bi bi-building me-1"></i> {{ app.job.employer_name|default:"Confidential Client" }}
+                    </span>
+                  </td>
+
+                  <!-- Location & Type -->
+                  <td class="py-3">
+                    <span class="small d-block text-dark"><i class="bi bi-geo-alt me-1 text-muted"></i> {{ app.job.location }}</span>
+                    <span class="badge bg-light text-dark border small mt-1">{{ app.job.employment_type }}</span>
+                  </td>
+
+                  <!-- Date Submitted -->
+                  <td class="py-3 text-muted small">
+                    {{ app.submitted_at|date:"M d, Y" }}
+                    <span class="d-block" style="font-size: 0.75rem;">{{ app.submitted_at|time:"H:i" }}</span>
+                  </td>
+
+                  <!-- Status Badge -->
+                  <td class="py-3">
+                    <span class="{{ app.status_badge_class }} px-2 py-1" style="font-size: 0.8rem;">
+                      {{ app.status }}
+                    </span>
+                  </td>
+
+                  <!-- Resume Download -->
+                  <td class="py-3">
+                    {% if app.resume_file %}
+                      <a href="{% url 'applications:download_resume' app.id %}" class="btn btn-sm btn-outline-secondary py-1 px-2" target="_blank" title="Download submitted resume">
+                        <i class="bi bi-file-earmark-arrow-down me-1 text-danger"></i> PDF / Doc
+                      </a>
+                    {% else %}
+                      <span class="text-muted small">-</span>
+                    {% endif %}
+                  </td>
+
+                  <!-- Action Buttons -->
+                  <td class="text-end pe-4 py-3">
+                    <a href="{{ app.job.get_absolute_url }}" class="btn btn-sm btn-outline-custom">
+                      View Job
+                    </a>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Application Status Legend -->
+      <div class="mt-4 p-3 bg-white rounded-3 border">
+        <h6 class="fw-bold text-dark mb-2 small">Application Status Legend:</h6>
+        <div class="d-flex flex-wrap gap-3 small text-muted">
+          <span><span class="badge bg-secondary me-1">Submitted</span> Initial submission received</span>
+          <span><span class="badge bg-info text-dark me-1">Under Review</span> Being screened by recruiters</span>
+          <span><span class="badge bg-primary me-1">Shortlisted</span> Forwarded to hiring team</span>
+          <span><span class="badge bg-warning text-dark me-1">Interview</span> Interview rounds scheduled</span>
+          <span><span class="badge bg-success me-1">Selected</span> Offer extended</span>
+          <span><span class="badge bg-danger me-1">Rejected</span> Not moving forward</span>
+        </div>
+      </div>
+
+    {% else %}
+      <!-- Empty State -->
+      <div class="card-custom p-5 text-center">
+        <div class="service-icon-box mx-auto mb-3" style="width: 64px; height: 64px; font-size: 1.8rem;">
+          <i class="bi bi-folder2-open"></i>
+        </div>
+        <h4 class="fw-bold mb-2 text-dark">No Job Applications Yet</h4>
+        <p class="text-muted small mb-4" style="max-width: 480px; margin: 0 auto;">
+          You haven't submitted applications for any open positions. Explore our active vacancies and apply for roles matching your skillset.
+        </p>
+        <a href="{% url 'jobs:job_list' %}" class="btn btn-teal px-4">
+          <i class="bi bi-briefcase me-1"></i> Explore Open Vacancies
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+

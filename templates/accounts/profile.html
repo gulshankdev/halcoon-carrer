@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+
+{% block title %}Candidate Profile | HALCON CAREER{% endblock %}
+
+{% block content %}
+<div class="py-4 bg-white border-bottom">
+  <div class="container">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+      <div>
+        <h1 class="h3 fw-bold mb-1" style="color: var(--color-primary-navy);">Candidate Profile &amp; Dashboard</h1>
+        <p class="text-muted small mb-0">Manage your contact credentials, curriculum vitae, and professional background.</p>
+      </div>
+      <div class="d-flex gap-2">
+        <a href="{% url 'jobs:job_list' %}" class="btn btn-teal btn-sm">
+          <i class="bi bi-search me-1"></i> Browse Vacancies
+        </a>
+        <a href="{% url 'applications:my_applications' %}" class="btn btn-outline-custom btn-sm">
+          <i class="bi bi-file-earmark-check me-1"></i> View Applications
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-py" style="background-color: var(--color-bg-light);">
+  <div class="container">
+    <div class="row g-4">
+      <!-- Left Sidebar: Profile Summary & Resume Status -->
+      <div class="col-lg-4">
+        <!-- Overview Card -->
+        <div class="card-custom p-4 mb-4">
+          <div class="text-center mb-3">
+            <div class="service-icon-box mx-auto mb-2" style="width: 64px; height: 64px; font-size: 2rem;">
+              <i class="bi bi-person-fill"></i>
+            </div>
+            <h5 class="fw-bold mb-0 text-dark">{{ profile.full_name }}</h5>
+            <span class="text-muted small">@{{ user.username }}</span>
+          </div>
+
+          <hr class="my-3">
+
+          <div class="d-flex flex-column gap-2 small">
+            <div>
+              <span class="text-muted d-block">Email Address</span>
+              <span class="fw-semibold text-dark">{{ user.email|default:"Not specified" }}</span>
+            </div>
+            <div>
+              <span class="text-muted d-block">Phone Number</span>
+              <span class="fw-semibold text-dark">{{ profile.phone|default:"Not specified" }}</span>
+            </div>
+            <div>
+              <span class="text-muted d-block">Location</span>
+              <span class="fw-semibold text-dark">{{ profile.location|default:"Not specified" }}</span>
+            </div>
+            <div>
+              <span class="text-muted d-block">Account Registered</span>
+              <span class="text-muted">{{ user.date_joined|date:"M d, Y" }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Resume Attachment Card -->
+        <div class="card-custom p-4 mb-4">
+          <h6 class="fw-bold mb-3 d-flex align-items-center gap-2" style="color: var(--color-primary-navy);">
+            <i class="bi bi-file-earmark-pdf-fill text-danger fs-5"></i> Primary Resume File
+          </h6>
+          {% if profile.resume %}
+            <div class="alert alert-success py-2 px-3 small d-flex align-items-center justify-content-between mb-3">
+              <span><i class="bi bi-check-circle-fill me-1"></i> Active Resume Stored</span>
+            </div>
+            <a href="{% url 'accounts:download_resume' user.id %}" class="btn btn-outline-custom w-100 btn-sm mb-2" target="_blank">
+              <i class="bi bi-download me-1"></i> Download Stored Resume
+            </a>
+            <span class="text-muted d-block text-center" style="font-size: 0.75rem;">
+              Updated {{ profile.updated_at|date:"M d, Y" }}
+            </span>
+          {% else %}
+            <div class="alert alert-warning py-2 px-3 small mb-3">
+              <i class="bi bi-exclamation-triangle-fill me-1"></i> No resume uploaded yet.
+            </div>
+            <p class="text-muted small mb-0">Upload a PDF or DOCX file to speed up your job applications.</p>
+          {% endif %}
+        </div>
+
+        <!-- Recent Applications Widget -->
+        <div class="card-custom p-4">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h6 class="fw-bold mb-0 text-dark">Recent Submissions</h6>
+            <a href="{% url 'applications:my_applications' %}" class="small text-teal">View All</a>
+          </div>
+          {% if recent_applications %}
+            <div class="list-group list-group-flush">
+              {% for app in recent_applications %}
+                <div class="list-group-item px-0 py-2 border-bottom">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <a href="{{ app.job.get_absolute_url }}" class="fw-semibold text-dark text-decoration-none small d-block">
+                        {{ app.job.title }}
+                      </a>
+                      <span class="text-muted" style="font-size: 0.75rem;">{{ app.submitted_at|date:"M d, Y" }}</span>
+                    </div>
+                    <span class="{{ app.status_badge_class }}" style="font-size: 0.7rem;">{{ app.status }}</span>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <p class="text-muted small mb-0">No job applications submitted yet.</p>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Right Column: Profile Edit Form -->
+      <div class="col-lg-8">
+        <div class="card-custom p-4 p-md-5">
+          <h4 class="fw-bold mb-3" style="color: var(--color-primary-navy);">Edit Profile &amp; Qualifications</h4>
+          <p class="text-muted small mb-4">Keep your skills and background updated so our recruiters can match you with suitable mandates.</p>
+
+          <form method="post" enctype="multipart/form-data" data-loading-feedback novalidate>
+            {% csrf_token %}
+
+            <h6 class="text-uppercase fw-bold text-teal small mb-3" style="letter-spacing: 0.05em; color: var(--color-accent-teal);">1. Basic Information</h6>
+            <div class="row g-3 mb-4">
+              <div class="col-md-6">
+                <label class="form-label">First Name <span class="text-danger">*</span></label>
+                {{ u_form.first_name }}
+                {% if u_form.first_name.errors %}<div class="text-danger small mt-1">{{ u_form.first_name.errors.0 }}</div>{% endif %}
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Last Name <span class="text-danger">*</span></label>
+                {{ u_form.last_name }}
+                {% if u_form.last_name.errors %}<div class="text-danger small mt-1">{{ u_form.last_name.errors.0 }}</div>{% endif %}
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Email Address <span class="text-danger">*</span></label>
+                {{ u_form.email }}
+                {% if u_form.email.errors %}<div class="text-danger small mt-1">{{ u_form.email.errors.0 }}</div>{% endif %}
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Contact Phone</label>
+                {{ p_form.phone }}
+                {% if p_form.phone.errors %}<div class="text-danger small mt-1">{{ p_form.phone.errors.0 }}</div>{% endif %}
+              </div>
+              <div class="col-12">
+                <label class="form-label">Current / Preferred Location</label>
+                {{ p_form.location }}
+                {% if p_form.location.errors %}<div class="text-danger small mt-1">{{ p_form.location.errors.0 }}</div>{% endif %}
+              </div>
+            </div>
+
+            <h6 class="text-uppercase fw-bold text-teal small mb-3" style="letter-spacing: 0.05em; color: var(--color-accent-teal);">2. Professional Background</h6>
+            <div class="row g-3 mb-4">
+              <div class="col-12">
+                <label class="form-label">Core Skills</label>
+                {{ p_form.skills }}
+                <div class="form-text small">{{ p_form.skills.help_text }}</div>
+                {% if p_form.skills.errors %}<div class="text-danger small mt-1">{{ p_form.skills.errors.0 }}</div>{% endif %}
+              </div>
+              <div class="col-12">
+                <label class="form-label">Education &amp; Credentials</label>
+                {{ p_form.education }}
+                <div class="form-text small">{{ p_form.education.help_text }}</div>
+                {% if p_form.education.errors %}<div class="text-danger small mt-1">{{ p_form.education.errors.0 }}</div>{% endif %}
+              </div>
+              <div class="col-12">
+                <label class="form-label">Work Experience Summary</label>
+                {{ p_form.experience_summary }}
+                <div class="form-text small">{{ p_form.experience_summary.help_text }}</div>
+                {% if p_form.experience_summary.errors %}<div class="text-danger small mt-1">{{ p_form.experience_summary.errors.0 }}</div>{% endif %}
+              </div>
+            </div>
+
+            <h6 class="text-uppercase fw-bold text-teal small mb-3" style="letter-spacing: 0.05em; color: var(--color-accent-teal);">3. Resume File Upload</h6>
+            <div class="mb-4">
+              <label class="form-label">Upload New Resume (PDF or DOCX, Max 5MB)</label>
+              {{ p_form.resume }}
+              <div class="form-text small">Accepted formats: .pdf, .docx, .doc (Maximum size 5 MB). Uploading a new file will replace your existing resume.</div>
+              {% if p_form.resume.errors %}<div class="text-danger small mt-1">{{ p_form.resume.errors.0 }}</div>{% endif %}
+            </div>
+
+            <div class="d-flex justify-content-end gap-2 border-top pt-3">
+              <a href="{% url 'accounts:profile' %}" class="btn btn-outline-custom">Cancel</a>
+              <button type="submit" class="btn btn-teal px-4">
+                <i class="bi bi-save me-1"></i> Save Profile Changes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

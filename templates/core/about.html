@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us | HALCON CAREER Recruitment Consultancy{% endblock %}
+{% block meta_description %}Learn about HALCON CAREER, our recruitment philosophy, candidate-first support, and structured hiring solutions for employers in Mohali and nationwide.{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<div class="py-5" style="background: linear-gradient(135deg, #0F1E33 0%, #142B4A 100%); color: #FFFFFF;">
+  <div class="container text-center">
+    <span class="badge bg-light text-dark px-3 py-2 mb-2" style="font-size: 0.8rem;">About HALCON CAREER</span>
+    <h1 class="fw-bold mb-2 text-white">About Our Consultancy</h1>
+    <p class="text-light opacity-75 mb-0 mx-auto" style="max-width: 650px;">
+      Connecting Talent. Creating Opportunities. A professional recruitment consultancy focused on integrity, structured talent acquisition, and long-term organizational fit.
+    </p>
+  </div>
+</div>
+
+<!-- Main About Content -->
+<section class="section-py bg-white">
+  <div class="container">
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-6">
+        <h6 class="text-uppercase fw-bold text-teal mb-2" style="color: var(--color-accent-teal);">Who We Are</h6>
+        <h2 class="fw-bold mb-3" style="color: var(--color-primary-navy);">Connecting Talent with Meaningful Career Pathways</h2>
+        <p class="text-muted leading-relaxed">
+          <strong>HALCON CAREER</strong> is a dedicated recruitment and staffing consultancy operating from Mohali, Punjab. We specialize in matching ambitious professionals with reputable employers across technology, commercial, and operational domains.
+        </p>
+        <p class="text-muted leading-relaxed">
+          The contemporary employment landscape demands precision, transparency, and personal engagement. Rather than relying on generic mass matching, our recruitment methodology emphasizes understanding employer operational cultures and candidate career objectives.
+        </p>
+        <div class="p-3 rounded-3 mt-4" style="background-color: var(--color-bg-light); border-left: 4px solid var(--color-accent-teal);">
+          <div class="d-flex align-items-center gap-3">
+            <i class="bi bi-geo-alt-fill fs-3 text-teal" style="color: var(--color-accent-teal);"></i>
+            <div>
+              <div class="fw-bold text-dark">Consultancy Headquarters</div>
+              <div class="text-muted small">{{ COMPANY_ADDRESS }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card-custom p-4 p-md-5 border-0 shadow-sm" style="background-color: #F8FAFC;">
+          <h4 class="fw-bold mb-4" style="color: var(--color-primary-navy);">Mission &amp; Vision</h4>
+          <div class="mb-4">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <i class="bi bi-compass-fill text-teal fs-5" style="color: var(--color-accent-teal);"></i>
+              <h5 class="mb-0 fw-bold fs-6">Our Mission</h5>
+            </div>
+            <p class="text-muted small mb-0">
+              To deliver dependable, transparent, and ethical recruitment solutions that empower candidates to realize their professional aspirations while helping organizations build sustainable, high-performing teams.
+            </p>
+          </div>
+          <div class="border-top pt-3">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <i class="bi bi-eye-fill text-teal fs-5" style="color: var(--color-accent-teal);"></i>
+              <h5 class="mb-0 fw-bold fs-6">Our Vision</h5>
+            </div>
+            <p class="text-muted small mb-0">
+              To become a trusted, premier recruitment consultancy renowned for human-centric service, rigorous talent verification, and enduring professional relationships across regional and national job markets.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Dual Approach: Candidates & Employers -->
+<section class="section-py" style="background-color: var(--color-bg-light);">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h6 class="text-uppercase fw-bold text-teal mb-1" style="color: var(--color-accent-teal);">Our Methodology</h6>
+      <h2 class="section-title">Our Recruitment Philosophy</h2>
+      <p class="section-subtitle">Balanced value creation for candidates seeking upward career mobility and employers building resilient workforces.</p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-lg-6">
+        <div class="card-custom p-4 p-md-5 h-100">
+          <div class="service-icon-box">
+            <i class="bi bi-person-heart"></i>
+          </div>
+          <h3 class="fs-4 fw-bold mb-3" style="color: var(--color-primary-navy);">Candidate-Focused Approach</h3>
+          <p class="text-muted">
+            We treat job seekers as individuals with distinct professional capabilities and career goals, not mere CV submissions.
+          </p>
+          <ul class="list-unstyled text-muted small d-flex flex-column gap-2 mb-4">
+            <li><i class="bi bi-check-circle-fill text-success me-2"></i> Free registration and confidential profile handling</li>
+            <li><i class="bi bi-check-circle-fill text-success me-2"></i> Thorough job role context before interview rounds</li>
+            <li><i class="bi bi-check-circle-fill text-success me-2"></i> No placement fees charged to candidates for public job listings</li>
+            <li><i class="bi bi-check-circle-fill text-success me-2"></i> Respectful feedback and application status tracking</li>
+          </ul>
+          <a href="{% url 'jobs:job_list' %}" class="btn btn-outline-custom">Explore Job Vacancies</a>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="card-custom p-4 p-md-5 h-100">
+          <div class="service-icon-box">
+            <i class="bi bi-building-check"></i>
+          </div>
+          <h3 class="fs-4 fw-bold mb-3" style="color: var(--color-primary-navy);">Employer-Focused Approach</h3>
+          <p class="text-muted">
+            We operate as an agile talent acquisition partner, decreasing hiring friction, reducing time-to-fill, and elevating hire quality.
+          </p>
+          <ul class="list-unstyled text-muted small d-flex flex-column gap-2 mb-4">
+            <li><i class="bi bi-check-circle-fill text-success me-2"></i> Comprehensive requirement gathering and skill benchmarking</li>
+            <li><i class="bi bi-check-circle-fill text-success me-2"></i> Rigorous preliminary screening and resume verification</li>
+            <li><i class="bi bi-check-circle-fill text-success me-2"></i> Only relevant, qualified candidate profiles forwarded</li>
+            <li><i class="bi bi-check-circle-fill text-success me-2"></i> Responsive coordination throughout interview and offer stages</li>
+          </ul>
+          <a href="{% url 'employers:enquiry' %}" class="btn btn-teal">Partner With Us</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Core Corporate Values -->
+<section class="section-py bg-white">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h6 class="text-uppercase fw-bold text-teal mb-1" style="color: var(--color-accent-teal);">Guiding Principles</h6>
+      <h2 class="section-title">Professional Values</h2>
+      <p class="section-subtitle">The standards that guide every communication, placement, and corporate engagement.</p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-3 col-sm-6">
+        <div class="card-custom p-4 text-center h-100">
+          <div class="service-icon-box mx-auto">
+            <i class="bi bi-shield-shaded"></i>
+          </div>
+          <h5 class="fw-bold mb-2">Integrity</h5>
+          <p class="text-muted small mb-0">Transparent communication without undisclosed conditions, false promises, or fabricated listings.</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="card-custom p-4 text-center h-100">
+          <div class="service-icon-box mx-auto">
+            <i class="bi bi-bullseye"></i>
+          </div>
+          <h5 class="fw-bold mb-2">Accuracy</h5>
+          <p class="text-muted small mb-0">Focused alignment between employer expectations and candidate technical skillsets.</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="card-custom p-4 text-center h-100">
+          <div class="service-icon-box mx-auto">
+            <i class="bi bi-lock"></i>
+          </div>
+          <h5 class="fw-bold mb-2">Confidentiality</h5>
+          <p class="text-muted small mb-0">Strict data protection protocols safeguarding candidate resumes and proprietary client searches.</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="card-custom p-4 text-center h-100">
+          <div class="service-icon-box mx-auto">
+            <i class="bi bi-speedometer2"></i>
+          </div>
+          <h5 class="fw-bold mb-2">Responsiveness</h5>
+          <p class="text-muted small mb-0">Agile response times for both candidate queries and corporate recruitment requirements.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
