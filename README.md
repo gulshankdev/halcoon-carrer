@@ -278,3 +278,4 @@ SCO 12–13, 2nd Floor, Phase 11, Mohali, Punjab – 160065
 Phone: +91 9216033444 / +91 8699000984  
 Email: contact@halconcareer.com  
 Hours: Monday - Friday: 9:30 AM – 6:30 PM | Saturday: 10:00 AM – 2:00 PM  
+

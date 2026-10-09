@@ -24,6 +24,9 @@ ALLOWED_HOSTS = config(
     default='localhost,127.0.0.1,0.0.0.0,testserver',
     cast=Csv()
 )
+if 'testserver' not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append('testserver')
+
 
 # Application definition
 INSTALLED_APPS = [
