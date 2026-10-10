@@ -4,9 +4,26 @@
 {% block title %}HALCON CAREER | Connecting Talent. Creating Opportunities.{% endblock %}
 
 {% block content %}
-<!-- Hero Section -->
+<!-- Hero Section with Interactive 3D Canvas -->
 <section class="hero-section">
-  <div class="container position-relative">
+  <!-- Interactive 3D Mesh Canvas Background -->
+  <canvas id="hero3DCanvas" class="hero-3d-canvas"></canvas>
+
+  <!-- 3D Interactive Floating Badges (Reacts to cursor movement) -->
+  <div class="floating-stat-badge badge-left d-none d-lg-inline-flex">
+    <i class="bi bi-patch-check-fill" style="color: var(--color-accent-teal); font-size: 1.1rem;"></i>
+    <span>98.4% Verified Mandates</span>
+  </div>
+  <div class="floating-stat-badge badge-right d-none d-lg-inline-flex">
+    <i class="bi bi-award-fill" style="color: var(--color-accent-teal); font-size: 1.1rem;"></i>
+    <span>Executive &amp; Lateral Staffing</span>
+  </div>
+  <div class="floating-stat-badge badge-bottom d-none d-xl-inline-flex">
+    <i class="bi bi-geo-alt-fill" style="color: var(--color-accent-teal); font-size: 1.1rem;"></i>
+    <span>Mohali &amp; Tricity Network</span>
+  </div>
+
+  <div class="container hero-interactive-content position-relative">
     <div class="row align-items-center">
       <div class="col-lg-8 mx-auto text-center">
         <div class="hero-tagline-badge">
@@ -47,12 +64,15 @@
           </form>
         </div>
 
-        <div class="mt-3 text-white-50 small">
+        <div class="d-flex flex-wrap justify-content-center align-items-center gap-2 mt-3 text-white-50 small">
           <span>Popular searches:</span>
           <a href="{% url 'jobs:job_list' %}?q=Developer" class="text-white-50 text-decoration-underline ms-1 me-2">Software</a>
           <a href="{% url 'jobs:job_list' %}?q=Accountant" class="text-white-50 text-decoration-underline me-2">Finance</a>
           <a href="{% url 'jobs:job_list' %}?location=Mohali" class="text-white-50 text-decoration-underline me-2">Mohali</a>
-          <a href="{% url 'jobs:job_list' %}?type=Full-time" class="text-white-50 text-decoration-underline">Full-time</a>
+          <a href="{% url 'jobs:job_list' %}?type=Full-time" class="text-white-50 text-decoration-underline me-3">Full-time</a>
+          <button id="toggle3DMotionBtn" class="canvas-toggle-btn active" type="button">
+            <i class="bi bi-pause-circle me-1"></i> Interactive 3D Mesh
+          </button>
         </div>
       </div>
     </div>
@@ -371,6 +391,319 @@
     </div>
   </div>
 </section>
+
+<!-- 8K Corporate Recruitment Showcase Gallery -->
+<section class="section-py bg-white">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h6 class="text-uppercase fw-bold text-teal mb-1" style="color: var(--color-accent-teal); letter-spacing: 0.05em;">8K Visual Gallery</h6>
+      <h2 class="section-title">Consultancy in Action</h2>
+      <p class="section-subtitle">
+        Explore our authentic corporate environments, interview facilities, and collaborative talent acquisition operations.
+      </p>
+    </div>
+
+    <div class="row g-4">
+      <!-- Image Card 1 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card-custom tilt-card-3d h-100 overflow-hidden border">
+          <div class="corp-img-zoom-container" style="height: 220px;">
+            <img src="{% static 'images/corporate-interview.jpg' %}" alt="Executive Candidate Screening at HALCON CAREER" class="corp-img-zoom" loading="lazy">
+          </div>
+          <div class="p-4">
+            <span class="badge bg-light text-primary border small mb-2"><i class="bi bi-person-video2 me-1"></i> Interview Suites</span>
+            <h5 class="fw-bold fs-6 mb-1 text-dark">Executive Candidate Screening</h5>
+            <p class="text-muted small mb-0">Structured competency assessments and face-to-face evaluations in sunlit glass conference pods.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Card 2 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card-custom tilt-card-3d h-100 overflow-hidden border">
+          <div class="corp-img-zoom-container" style="height: 220px;">
+            <img src="{% static 'images/team-collaboration.jpg' %}" alt="Talent Acquisition Strategy Team" class="corp-img-zoom" loading="lazy">
+          </div>
+          <div class="p-4">
+            <span class="badge bg-light text-success border small mb-2"><i class="bi bi-diagram-3 me-1"></i> Strategy Room</span>
+            <h5 class="fw-bold fs-6 mb-1 text-dark">Collaborative Talent Acquisition</h5>
+            <p class="text-muted small mb-0">Cross-domain recruiters mapping talent pipelines, skill taxonomies, and hiring roadmaps.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Card 3 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card-custom tilt-card-3d h-100 overflow-hidden border">
+          <div class="corp-img-zoom-container" style="height: 220px;">
+            <img src="{% static 'images/executive-handshake.jpg' %}" alt="Job Offer Handshake and Placement" class="corp-img-zoom" loading="lazy">
+          </div>
+          <div class="p-4">
+            <span class="badge bg-light text-warning border small mb-2"><i class="bi bi-hand-thumbs-up me-1"></i> High Trust</span>
+            <h5 class="fw-bold fs-6 mb-1 text-dark">Offer Finalization &amp; Onboarding</h5>
+            <p class="text-muted small mb-0">Facilitating employment agreements with complete transparency between candidates and employers.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Card 4 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card-custom tilt-card-3d h-100 overflow-hidden border">
+          <div class="corp-img-zoom-container" style="height: 220px;">
+            <img src="{% static 'images/tech-talent-office.jpg' %}" alt="Technology Staffing Solutions" class="corp-img-zoom" loading="lazy">
+          </div>
+          <div class="p-4">
+            <span class="badge bg-light text-info border small mb-2"><i class="bi bi-laptop me-1"></i> IT &amp; Engineering</span>
+            <h5 class="fw-bold fs-6 mb-1 text-dark">Modern Technology Staffing</h5>
+            <p class="text-muted small mb-0">Connecting high-growth startups and enterprises with vetted software developers and technical leads.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Card 5 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card-custom tilt-card-3d h-100 overflow-hidden border">
+          <div class="corp-img-zoom-container" style="height: 220px;">
+            <img src="{% static 'images/corporate-headquarters.jpg' %}" alt="HALCON CAREER Corporate Presence" class="corp-img-zoom" loading="lazy">
+          </div>
+          <div class="p-4">
+            <span class="badge bg-light text-secondary border small mb-2"><i class="bi bi-geo-alt me-1"></i> Head Office</span>
+            <h5 class="fw-bold fs-6 mb-1 text-dark">Mohali Headquarters Presence</h5>
+            <p class="text-muted small mb-0">Centrally located at SCO 12–13, Phase 11, serving Tricity and regional northern corporate hubs.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Card 6 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card-custom tilt-card-3d h-100 overflow-hidden border">
+          <div class="corp-img-zoom-container" style="height: 220px;">
+            <img src="{% static 'images/graduate-placement.jpg' %}" alt="Graduate Placement Programs" class="corp-img-zoom" loading="lazy">
+          </div>
+          <div class="p-4">
+            <span class="badge bg-light text-primary border small mb-2"><i class="bi bi-mortarboard me-1"></i> Campus to Career</span>
+            <h5 class="fw-bold fs-6 mb-1 text-dark">Fresher &amp; Graduate Placement</h5>
+            <p class="text-muted small mb-0">Structured placement pathways empowering fresh talent to launch rewarding professional careers.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Card 7 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card-custom tilt-card-3d h-100 overflow-hidden border">
+          <div class="corp-img-zoom-container" style="height: 220px;">
+            <img src="{% static 'images/candidate-coaching.jpg' %}" alt="Candidate Interview Coaching at HALCON CAREER" class="corp-img-zoom" loading="lazy">
+          </div>
+          <div class="p-4">
+            <span class="badge bg-light text-teal border small mb-2" style="color: var(--color-accent-teal);"><i class="bi bi-chat-quote me-1"></i> 1-on-1 Guidance</span>
+            <h5 class="fw-bold fs-6 mb-1 text-dark">Personalized Interview Coaching</h5>
+            <p class="text-muted small mb-0">Constructive resume feedback, behavioral role-play, and compensation calibration in glass acoustic pods.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Card 8 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card-custom tilt-card-3d h-100 overflow-hidden border">
+          <div class="corp-img-zoom-container" style="height: 220px;">
+            <img src="{% static 'images/consultant-portrait.jpg' %}" alt="Dedicated Senior Recruitment Advisor" class="corp-img-zoom" loading="lazy">
+          </div>
+          <div class="p-4">
+            <span class="badge bg-light text-success border small mb-2"><i class="bi bi-person-check me-1"></i> Expert Advisors</span>
+            <h5 class="fw-bold fs-6 mb-1 text-dark">Senior Recruitment Advisors</h5>
+            <p class="text-muted small mb-0">Seasoned talent partners with deep vertical insights across technology, manufacturing, and BFSI sectors.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Card 9 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card-custom tilt-card-3d h-100 overflow-hidden border">
+          <div class="corp-img-zoom-container" style="height: 220px;">
+            <img src="{% static 'images/hr-director-review.jpg' %}" alt="HR Analytics and Profile Calibration" class="corp-img-zoom" loading="lazy">
+          </div>
+          <div class="p-4">
+            <span class="badge bg-light text-info border small mb-2"><i class="bi bi-bar-chart-line me-1"></i> Talent Intelligence</span>
+            <h5 class="fw-bold fs-6 mb-1 text-dark">Analytics-Driven Shortlisting</h5>
+            <p class="text-muted small mb-0">Utilizing structured assessment metrics to evaluate candidate skills against employer culture criteria.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Card 10 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card-custom tilt-card-3d h-100 overflow-hidden border">
+          <div class="corp-img-zoom-container" style="height: 220px;">
+            <img src="{% static 'images/executive-strategy.jpg' %}" alt="Executive Search Strategy Meeting" class="corp-img-zoom" loading="lazy">
+          </div>
+          <div class="p-4">
+            <span class="badge bg-light text-warning border small mb-2"><i class="bi bi-briefcase me-1"></i> C-Suite Advisory</span>
+            <h5 class="fw-bold fs-6 mb-1 text-dark">Strategic Leadership Acquisition</h5>
+            <p class="text-muted small mb-0">Discreet executive search mandates aligning high-impact leaders with organizational growth mandates.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Card 11 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card-custom tilt-card-3d h-100 overflow-hidden border">
+          <div class="corp-img-zoom-container" style="height: 220px;">
+            <img src="{% static 'images/healthcare-staffing.jpg' %}" alt="Healthcare and Clinical Staffing Solutions" class="corp-img-zoom" loading="lazy">
+          </div>
+          <div class="p-4">
+            <span class="badge bg-light text-danger border small mb-2"><i class="bi bi-heart-pulse me-1"></i> Healthcare &amp; Pharma</span>
+            <h5 class="fw-bold fs-6 mb-1 text-dark">Specialized Medical &amp; Clinical Hiring</h5>
+            <p class="text-muted small mb-0">Certified medical staffing, healthcare administration, and pharmaceutical research placements.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Card 12 -->
+      <div class="col-lg-4 col-md-6">
+        <div class="card-custom tilt-card-3d h-100 overflow-hidden border">
+          <div class="corp-img-zoom-container" style="height: 220px;">
+            <img src="{% static 'images/modern-consultancy-lobby.jpg' %}" alt="HALCON CAREER Corporate Reception Suites" class="corp-img-zoom" loading="lazy">
+          </div>
+          <div class="p-4">
+            <span class="badge bg-light text-secondary border small mb-2"><i class="bi bi-building me-1"></i> Mohali Presence</span>
+            <h5 class="fw-bold fs-6 mb-1 text-dark">Executive Suites &amp; Consultation Rooms</h5>
+            <p class="text-muted small mb-0">Modern, welcoming facilities situated at SCO 12–13, Phase 11, designed for discreet interviews.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3D Video Experience & Media Tour Section -->
+<section class="video-motion-section">
+  <div class="video-ambient-mesh"></div>
+  <div class="container position-relative" style="z-index: 2;">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <span class="badge bg-light text-dark px-3 py-2 mb-3" style="font-size: 0.8rem; border: 1px solid rgba(255, 255, 255, 0.2);">
+          <i class="bi bi-play-btn-fill text-teal me-1" style="color: var(--color-accent-teal);"></i> 3D Video Experience &bull; Tour
+        </span>
+        <h2 class="display-6 fw-bold text-white mb-3">Experience Modern Recruitment in Motion</h2>
+        <p class="text-light opacity-75 mb-4">
+          Discover how HALCON CAREER connects ambitious professionals with leading corporate partners through advanced screening, rapid 48-hour calibration, and human-centric interview guidance.
+        </p>
+
+        <div class="d-flex flex-column gap-3 mb-4">
+          <div class="d-flex align-items-center gap-3">
+            <div class="badge rounded-circle p-2 d-flex align-items-center justify-content-center" style="background: rgba(15, 157, 149, 0.25); color: #2DD4BF; width: 38px; height: 38px;">
+              <i class="bi bi-check-lg fs-5"></i>
+            </div>
+            <div>
+              <div class="fw-bold text-white">Full-Funnel Talent Calibration</div>
+              <div class="text-light opacity-75 small">Over 5,000+ candidates screened monthly across Indian corporate corridors.</div>
+            </div>
+          </div>
+          <div class="d-flex align-items-center gap-3">
+            <div class="badge rounded-circle p-2 d-flex align-items-center justify-content-center" style="background: rgba(15, 157, 149, 0.25); color: #2DD4BF; width: 38px; height: 38px;">
+              <i class="bi bi-shield-check fs-5"></i>
+            </div>
+            <div>
+              <div class="fw-bold text-white">Ethical, Fee-Free Candidate Placement</div>
+              <div class="text-light opacity-75 small">Candidates never pay registration fees. Verified employers only.</div>
+            </div>
+          </div>
+          <div class="d-flex align-items-center gap-3">
+            <div class="badge rounded-circle p-2 d-flex align-items-center justify-content-center" style="background: rgba(15, 157, 149, 0.25); color: #2DD4BF; width: 38px; height: 38px;">
+              <i class="bi bi-lightning-charge-fill fs-5"></i>
+            </div>
+            <div>
+              <div class="fw-bold text-white">48-Hour Shortlist Delivery</div>
+              <div class="text-light opacity-75 small">Rapid candidate deployment minimizing corporate hiring lag.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex flex-wrap gap-3">
+          <button id="launchVideoTourBtn" class="btn btn-teal btn-lg px-4" type="button">
+            <i class="bi bi-play-circle-fill me-2"></i> Launch 3D Media Tour
+          </button>
+          <a href="{% url 'employers:enquiry' %}" class="btn btn-outline-light btn-lg px-4">
+            Partner With Us
+          </a>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <!-- Interactive 3D Video Preview Card -->
+        <div class="video-player-preview-card" title="Click to launch interactive 3D media tour">
+          <img src="{% static 'images/modern-consultancy-lobby.jpg' %}" alt="HALCON CAREER Corporate Video Preview">
+          <div class="video-overlay-gradient"></div>
+
+          <!-- Live Badge -->
+          <div class="video-badge-live">
+            <span class="live-dot"></span> LIVE 3D TOUR
+          </div>
+
+          <!-- Duration Badge -->
+          <div class="video-duration-badge">
+            <i class="bi bi-clock me-1"></i> 02:30 MIN
+          </div>
+
+          <!-- Pulsing Play Button -->
+          <div class="video-play-pulse-btn">
+            <i class="bi bi-play-fill"></i>
+          </div>
+
+          <!-- Bottom Caption Bar -->
+          <div class="video-caption-bar">
+            <span class="badge bg-teal text-white mb-2" style="background-color: var(--color-accent-teal);">Mohali Head Office</span>
+            <h5 class="fw-bold text-white mb-1">Inside HALCON CAREER</h5>
+            <p class="text-light opacity-75 small mb-0">Click to explore our corporate suites, talent advisors, and placement methodology.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Interactive 3D Video Modal -->
+<div class="modal fade" id="corporateVideoModal" tabindex="-1" aria-labelledby="corporateVideoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-video-dialog">
+    <div class="modal-content modal-video-content">
+      <div class="modal-header border-0 bg-transparent px-4 pt-3 pb-2">
+        <h5 class="modal-title text-white fw-bold d-flex align-items-center gap-2" id="corporateVideoModalLabel">
+          <i class="bi bi-play-circle-fill text-teal" style="color: var(--color-accent-teal);"></i>
+          HALCON CAREER &bull; Corporate Media Showcase
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-0">
+        <!-- 3D Video Simulation Canvas Screen -->
+        <div class="video-screen-simulation">
+          <canvas id="videoSimCanvas"></canvas>
+        </div>
+
+        <!-- Video Player Controls -->
+        <div class="video-controls-bar">
+          <div class="d-flex align-items-center gap-3">
+            <button id="modalVideoPlayPauseBtn" class="btn btn-sm btn-teal rounded-circle p-2" style="width: 38px; height: 38px;" title="Play/Pause">
+              <i class="bi bi-pause-fill"></i>
+            </button>
+            <button id="modalVideoSoundBtn" class="btn btn-sm text-teal p-1" title="Toggle Audio Soundwaves">
+              <i class="bi bi-volume-up-fill fs-5"></i>
+            </button>
+          </div>
+
+          <!-- Scrubbing Progress Bar -->
+          <div id="modalVideoProgressBar" class="video-progress-container" title="Click to seek">
+            <div id="modalVideoProgressFill" class="video-progress-fill"></div>
+          </div>
+
+          <div class="d-flex align-items-center gap-3">
+            <span id="modalVideoTimer" class="text-light small fw-bold font-monospace">00:00 / 02:30</span>
+            <span class="badge bg-dark border border-secondary text-teal small">60 FPS 3D</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Value Proposition / Benefits Section -->
 <section class="section-py" style="background-color: var(--color-bg-light);">

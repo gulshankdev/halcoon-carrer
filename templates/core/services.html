@@ -22,128 +22,277 @@
     <div class="row g-4">
       <!-- 1. Permanent Staffing -->
       <div class="col-lg-4 col-md-6">
-        <div class="card-custom p-4 h-100 d-flex flex-column justify-content-between">
-          <div>
-            <div class="service-icon-box">
-              <i class="bi bi-people-fill"></i>
-            </div>
-            <h4 class="fw-bold fs-5 mb-2">Permanent Staffing</h4>
-            <p class="text-muted small">
-              Structured talent acquisition for core, full-time positions. We conduct initial screening, competency mapping, and background cross-verification to ensure long-term cultural and professional fit.
-            </p>
-            <ul class="list-unstyled text-muted small d-flex flex-column gap-1 mb-3">
-              <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Comprehensive job profiling</li>
-              <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Multi-stage talent screening</li>
-              <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Reference checking support</li>
-            </ul>
+        <div class="card-custom tilt-card-3d p-0 h-100 d-flex flex-column justify-content-between overflow-hidden">
+          <div class="corp-img-zoom-container" style="height: 190px;">
+            <img src="{% static 'images/team-collaboration.jpg' %}" alt="Permanent Staffing Collaboration" class="corp-img-zoom" loading="lazy">
           </div>
-          <a href="{% url 'employers:enquiry' %}" class="btn btn-sm btn-outline-custom w-100">Enquire for Permanent Staffing</a>
+          <div class="p-4 d-flex flex-column flex-grow-1 justify-content-between">
+            <div>
+              <div class="service-icon-box mb-3">
+                <i class="bi bi-people-fill"></i>
+              </div>
+              <h4 class="fw-bold fs-5 mb-2">Permanent Staffing</h4>
+              <p class="text-muted small">
+                Structured talent acquisition for core, full-time positions. We conduct initial screening, competency mapping, and background cross-verification to ensure long-term cultural and professional fit.
+              </p>
+              <ul class="list-unstyled text-muted small d-flex flex-column gap-1 mb-3">
+                <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Comprehensive job profiling</li>
+                <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Multi-stage talent screening</li>
+                <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Reference checking support</li>
+              </ul>
+            </div>
+            <a href="{% url 'employers:enquiry' %}" class="btn btn-sm btn-outline-custom w-100 mt-2">Enquire for Permanent Staffing</a>
+          </div>
         </div>
       </div>
 
       <!-- 2. Fresher & Graduate Recruitment -->
       <div class="col-lg-4 col-md-6">
-        <div class="card-custom p-4 h-100 d-flex flex-column justify-content-between">
-          <div>
-            <div class="service-icon-box">
-              <i class="bi bi-mortarboard-fill"></i>
-            </div>
-            <h4 class="fw-bold fs-5 mb-2">Fresher Recruitment</h4>
-            <p class="text-muted small">
-              Assisting employers in discovering eager, trainable entry-level candidates and fresh graduates ready to contribute to business operations, customer support, sales, and software development.
-            </p>
-            <ul class="list-unstyled text-muted small d-flex flex-column gap-1 mb-3">
-              <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Aptitude and communication evaluation</li>
-              <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Batch intake coordination</li>
-              <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Onboarding readiness orientation</li>
-            </ul>
+        <div class="card-custom tilt-card-3d p-0 h-100 d-flex flex-column justify-content-between overflow-hidden">
+          <div class="corp-img-zoom-container" style="height: 190px;">
+            <img src="{% static 'images/graduate-placement.jpg' %}" alt="Graduate Placement Campus" class="corp-img-zoom" loading="lazy">
           </div>
-          <a href="{% url 'employers:enquiry' %}" class="btn btn-sm btn-outline-custom w-100">Enquire for Fresher Hiring</a>
+          <div class="p-4 d-flex flex-column flex-grow-1 justify-content-between">
+            <div>
+              <div class="service-icon-box mb-3">
+                <i class="bi bi-mortarboard-fill"></i>
+              </div>
+              <h4 class="fw-bold fs-5 mb-2">Fresher Recruitment</h4>
+              <p class="text-muted small">
+                Assisting employers in discovering eager, trainable entry-level candidates and fresh graduates ready to contribute to business operations, customer support, sales, and software development.
+              </p>
+              <ul class="list-unstyled text-muted small d-flex flex-column gap-1 mb-3">
+                <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Aptitude and communication evaluation</li>
+                <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Batch intake coordination</li>
+                <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Onboarding readiness orientation</li>
+              </ul>
+            </div>
+            <a href="{% url 'employers:enquiry' %}" class="btn btn-sm btn-outline-custom w-100 mt-2">Enquire for Fresher Hiring</a>
+          </div>
         </div>
       </div>
 
       <!-- 3. Lateral / Experienced Recruitment -->
       <div class="col-lg-4 col-md-6">
-        <div class="card-custom p-4 h-100 d-flex flex-column justify-content-between">
-          <div>
-            <div class="service-icon-box">
-              <i class="bi bi-briefcase-fill"></i>
-            </div>
-            <h4 class="fw-bold fs-5 mb-2">Experienced Professional Search</h4>
-            <p class="text-muted small">
-              Targeted headhunting and sourcing for middle-to-senior level talent who possess specific technical competencies, leadership traits, and industry exposure.
-            </p>
-            <ul class="list-unstyled text-muted small d-flex flex-column gap-1 mb-3">
-              <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Passive talent engagement</li>
-              <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Discrete and confidential outreach</li>
-              <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Compensation alignment</li>
-            </ul>
+        <div class="card-custom tilt-card-3d p-0 h-100 d-flex flex-column justify-content-between overflow-hidden">
+          <div class="corp-img-zoom-container" style="height: 190px;">
+            <img src="{% static 'images/consultant-portrait.jpg' %}" alt="Senior Recruitment Consultant" class="corp-img-zoom" loading="lazy">
           </div>
-          <a href="{% url 'employers:enquiry' %}" class="btn btn-sm btn-outline-custom w-100">Request Lateral Hiring</a>
+          <div class="p-4 d-flex flex-column flex-grow-1 justify-content-between">
+            <div>
+              <div class="service-icon-box mb-3">
+                <i class="bi bi-briefcase-fill"></i>
+              </div>
+              <h4 class="fw-bold fs-5 mb-2">Experienced Professional Search</h4>
+              <p class="text-muted small">
+                Targeted headhunting and sourcing for middle-to-senior level talent who possess specific technical competencies, leadership traits, and industry exposure.
+              </p>
+              <ul class="list-unstyled text-muted small d-flex flex-column gap-1 mb-3">
+                <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Passive talent engagement</li>
+                <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Discrete and confidential outreach</li>
+                <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Compensation alignment</li>
+              </ul>
+            </div>
+            <a href="{% url 'employers:enquiry' %}" class="btn btn-sm btn-outline-custom w-100 mt-2">Request Lateral Hiring</a>
+          </div>
         </div>
       </div>
 
       <!-- 4. Workforce Solutions -->
       <div class="col-lg-4 col-md-6">
-        <div class="card-custom p-4 h-100 d-flex flex-column justify-content-between">
-          <div>
-            <div class="service-icon-box">
-              <i class="bi bi-diagram-3-fill"></i>
-            </div>
-            <h4 class="fw-bold fs-5 mb-2">Workforce Solutions</h4>
-            <p class="text-muted small">
-              Scalable staffing models designed to handle rapid team expansion, ramp-up schedules, and domain-specific talent pipelines for expanding corporate enterprises.
-            </p>
-            <ul class="list-unstyled text-muted small d-flex flex-column gap-1 mb-3">
-              <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Volume hiring pipelines</li>
-              <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Structured interview logistics</li>
-              <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Turnaround time reduction</li>
-            </ul>
+        <div class="card-custom tilt-card-3d p-0 h-100 d-flex flex-column justify-content-between overflow-hidden">
+          <div class="corp-img-zoom-container" style="height: 190px;">
+            <img src="{% static 'images/tech-talent-office.jpg' %}" alt="Workforce Solutions Tech Workspace" class="corp-img-zoom" loading="lazy">
           </div>
-          <a href="{% url 'employers:enquiry' %}" class="btn btn-sm btn-outline-custom w-100">Enquire for Workforce Solutions</a>
+          <div class="p-4 d-flex flex-column flex-grow-1 justify-content-between">
+            <div>
+              <div class="service-icon-box mb-3">
+                <i class="bi bi-diagram-3-fill"></i>
+              </div>
+              <h4 class="fw-bold fs-5 mb-2">Workforce Solutions</h4>
+              <p class="text-muted small">
+                Scalable staffing models designed to handle rapid team expansion, ramp-up schedules, and domain-specific talent pipelines for expanding corporate enterprises.
+              </p>
+              <ul class="list-unstyled text-muted small d-flex flex-column gap-1 mb-3">
+                <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Volume hiring pipelines</li>
+                <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Structured interview logistics</li>
+                <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Turnaround time reduction</li>
+              </ul>
+            </div>
+            <a href="{% url 'employers:enquiry' %}" class="btn btn-sm btn-outline-custom w-100 mt-2">Enquire for Workforce Solutions</a>
+          </div>
         </div>
       </div>
 
       <!-- 5. Temporary & Contract Staffing (Configurable) -->
       <div class="col-lg-4 col-md-6">
-        <div class="card-custom p-4 h-100 d-flex flex-column justify-content-between">
-          <div>
-            <div class="service-icon-box">
-              <i class="bi bi-clock-history"></i>
-            </div>
-            <div class="d-flex align-items-center gap-2 mb-2">
-              <h4 class="fw-bold fs-5 mb-0">Temporary Staffing</h4>
-              <span class="badge bg-light text-secondary border small">On Request</span>
-            </div>
-            <p class="text-muted small">
-              Flexible staffing models to accommodate seasonal spikes, interim assignments, or specialized short-term engagements.
-            </p>
-            <div class="alert alert-light border small text-muted py-2 px-3 mb-3">
-              <em>Note: Contract and temporary staffing terms are evaluated on a mandate-by-mandate basis upon employer consultation.</em>
-            </div>
+        <div class="card-custom tilt-card-3d p-0 h-100 d-flex flex-column justify-content-between overflow-hidden">
+          <div class="corp-img-zoom-container" style="height: 190px;">
+            <img src="{% static 'images/candidate-coaching.jpg' %}" alt="Temporary Staffing Consultation" class="corp-img-zoom" loading="lazy">
           </div>
-          <a href="{% url 'employers:enquiry' %}" class="btn btn-sm btn-outline-custom w-100">Consult for Contract Staffing</a>
+          <div class="p-4 d-flex flex-column flex-grow-1 justify-content-between">
+            <div>
+              <div class="service-icon-box mb-3">
+                <i class="bi bi-clock-history"></i>
+              </div>
+              <div class="d-flex align-items-center gap-2 mb-2">
+                <h4 class="fw-bold fs-5 mb-0">Temporary Staffing</h4>
+                <span class="badge bg-light text-secondary border small">On Request</span>
+              </div>
+              <p class="text-muted small">
+                Flexible staffing models to accommodate seasonal spikes, interim assignments, or specialized short-term engagements.
+              </p>
+              <div class="alert alert-light border small text-muted py-2 px-3 mb-3">
+                <em>Note: Contract and temporary staffing terms are evaluated on a mandate-by-mandate basis upon employer consultation.</em>
+              </div>
+            </div>
+            <a href="{% url 'employers:enquiry' %}" class="btn btn-sm btn-outline-custom w-100 mt-2">Consult for Contract Staffing</a>
+          </div>
         </div>
       </div>
 
       <!-- 6. Employer Hiring Support -->
       <div class="col-lg-4 col-md-6">
-        <div class="card-custom p-4 h-100 d-flex flex-column justify-content-between">
-          <div>
-            <div class="service-icon-box">
-              <i class="bi bi-headset"></i>
-            </div>
-            <h4 class="fw-bold fs-5 mb-2">Employer Hiring Support</h4>
-            <p class="text-muted small">
-              Advisory consultation for internal HR teams, including job description optimization, market salary benchmarking, and candidate evaluation metrics.
-            </p>
-            <ul class="list-unstyled text-muted small d-flex flex-column gap-1 mb-3">
-              <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> JD refinement &amp; skill taxonomy</li>
-              <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Tricity salary benchmarking</li>
-              <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Interview coordination</li>
-            </ul>
+        <div class="card-custom tilt-card-3d p-0 h-100 d-flex flex-column justify-content-between overflow-hidden">
+          <div class="corp-img-zoom-container" style="height: 190px;">
+            <img src="{% static 'images/hr-director-review.jpg' %}" alt="HR Advisory Review" class="corp-img-zoom" loading="lazy">
           </div>
-          <a href="{% url 'employers:enquiry' %}" class="btn btn-sm btn-outline-custom w-100">Request Hiring Support</a>
+          <div class="p-4 d-flex flex-column flex-grow-1 justify-content-between">
+            <div>
+              <div class="service-icon-box mb-3">
+                <i class="bi bi-headset"></i>
+              </div>
+              <h4 class="fw-bold fs-5 mb-2">Employer Hiring Support</h4>
+              <p class="text-muted small">
+                Advisory consultation for internal HR teams, including job description optimization, market salary benchmarking, and candidate evaluation metrics.
+              </p>
+              <ul class="list-unstyled text-muted small d-flex flex-column gap-1 mb-3">
+                <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> JD refinement &amp; skill taxonomy</li>
+                <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Tricity salary benchmarking</li>
+                <li><i class="bi bi-check2 text-teal me-1" style="color: var(--color-accent-teal);"></i> Interview coordination</li>
+              </ul>
+            </div>
+            <a href="{% url 'employers:enquiry' %}" class="btn btn-sm btn-outline-custom w-100 mt-2">Request Hiring Support</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Specialized Recruitment Verticals & Architecture Showcase -->
+<section class="section-py" style="background-color: #F8FAFC;">
+  <div class="container">
+    <div class="text-center mb-5">
+      <span class="badge bg-light text-dark px-3 py-2 mb-2" style="font-size: 0.8rem; border: 1px solid var(--color-border);">Enterprise Architecture</span>
+      <h2 class="section-title">Specialized Recruitment Verticals</h2>
+      <p class="section-subtitle">
+        Visual breakdown of our high-precision recruitment pipelines, assessment panels, and corporate talent infrastructure.
+      </p>
+    </div>
+
+    <div class="row g-4">
+      <!-- Architecture 1: Workforce Solutions -->
+      <div class="col-lg-6">
+        <div class="card-custom tilt-card-3d p-0 overflow-hidden h-100 shadow-sm border">
+          <div class="corp-img-zoom-container" style="height: 260px;">
+            <img src="{% static 'images/workforce-solutions.svg' %}" alt="Workforce Deployment Architecture" class="corp-img-zoom" loading="lazy">
+          </div>
+          <div class="p-4 bg-white">
+            <h5 class="fw-bold text-navy mb-1">Workforce Deployment &amp; Scale Architecture</h5>
+            <p class="text-muted small mb-0">High-capacity screening funnel with 48-hour calibration and multi-stage verification.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Architecture 2: Financial & Analytical -->
+      <div class="col-lg-6">
+        <div class="card-custom tilt-card-3d p-0 overflow-hidden h-100 shadow-sm border">
+          <div class="corp-img-zoom-container" style="height: 260px;">
+            <img src="{% static 'images/finance-analyst.svg' %}" alt="Financial Analyst Talent Search" class="corp-img-zoom" loading="lazy">
+          </div>
+          <div class="p-4 bg-white">
+            <h5 class="fw-bold text-navy mb-1">Financial, Risk &amp; Analytical Hiring</h5>
+            <p class="text-muted small mb-0">Chartered Accountants, financial analysts, and risk officers with benchmarked salary brackets.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Architecture 3: Enterprise Sales -->
+      <div class="col-lg-6">
+        <div class="card-custom tilt-card-3d p-0 overflow-hidden h-100 shadow-sm border">
+          <div class="corp-img-zoom-container" style="height: 260px;">
+            <img src="{% static 'images/sales-growth.svg' %}" alt="Enterprise Sales Performance" class="corp-img-zoom" loading="lazy">
+          </div>
+          <div class="p-4 bg-white">
+            <h5 class="fw-bold text-navy mb-1">Enterprise Sales &amp; Growth Specialists</h5>
+            <p class="text-muted small mb-0">Assessed B2B business development professionals with proven quota-hitting performance.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Architecture 4: Global Talent Network -->
+      <div class="col-lg-6">
+        <div class="card-custom tilt-card-3d p-0 overflow-hidden h-100 shadow-sm border">
+          <div class="corp-img-zoom-container" style="height: 260px;">
+            <img src="{% static 'images/global-talent.svg' %}" alt="Pan-India & Global Talent Network" class="corp-img-zoom" loading="lazy">
+          </div>
+          <div class="p-4 bg-white">
+            <h5 class="fw-bold text-navy mb-1">Pan-India &amp; Global Talent Network</h5>
+            <p class="text-muted small mb-0">Connecting Mohali HQ to 50+ tier-1 &amp; tier-2 cities across Indian enterprise corridors.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Architecture 5: Hybrid & Remote -->
+      <div class="col-lg-6">
+        <div class="card-custom tilt-card-3d p-0 overflow-hidden h-100 shadow-sm border">
+          <div class="corp-img-zoom-container" style="height: 260px;">
+            <img src="{% static 'images/remote-work.svg' %}" alt="Remote & Hybrid Engineering" class="corp-img-zoom" loading="lazy">
+          </div>
+          <div class="p-4 bg-white">
+            <h5 class="fw-bold text-navy mb-1">Hybrid &amp; Remote Engineering Sourcing</h5>
+            <p class="text-muted small mb-0">Synchronized remote onboarding and code-verified technical talent.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Architecture 6: Interview Panel Matrix -->
+      <div class="col-lg-6">
+        <div class="card-custom tilt-card-3d p-0 overflow-hidden h-100 shadow-sm border">
+          <div class="corp-img-zoom-container" style="height: 260px;">
+            <img src="{% static 'images/interview-panel.svg' %}" alt="Interview Panel Assessment" class="corp-img-zoom" loading="lazy">
+          </div>
+          <div class="p-4 bg-white">
+            <h5 class="fw-bold text-navy mb-1">Multi-Stage Competency Evaluation Matrix</h5>
+            <p class="text-muted small mb-0">Rigorous candidate scoring cards across technical skill, leadership, and cultural alignment.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Architecture 7: Executive Search -->
+      <div class="col-lg-6">
+        <div class="card-custom tilt-card-3d p-0 overflow-hidden h-100 shadow-sm border">
+          <div class="corp-img-zoom-container" style="height: 260px;">
+            <img src="{% static 'images/executive-search.svg' %}" alt="Executive Search & Board Placement" class="corp-img-zoom" loading="lazy">
+          </div>
+          <div class="p-4 bg-white">
+            <h5 class="fw-bold text-navy mb-1">Executive Headhunting &amp; Board Appointments</h5>
+            <p class="text-muted small mb-0">Discreet C-suite leadership sourcing with verified track records and board alignment.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Architecture 8: Candidate Success -->
+      <div class="col-lg-6">
+        <div class="card-custom tilt-card-3d p-0 overflow-hidden h-100 shadow-sm border">
+          <div class="corp-img-zoom-container" style="height: 260px;">
+            <img src="{% static 'images/candidate-success.svg' %}" alt="Candidate Placement Confirmation" class="corp-img-zoom" loading="lazy">
+          </div>
+          <div class="p-4 bg-white">
+            <h5 class="fw-bold text-navy mb-1">Candidate Placement &amp; Career Trajectory</h5>
+            <p class="text-muted small mb-0">Zero recruitment fees for candidates, verified job offers, and high satisfaction ratings.</p>
+          </div>
         </div>
       </div>
     </div>

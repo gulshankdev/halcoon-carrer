@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="100%" height="100%">
+  <defs>
+    <linearGradient id="execBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080F1A"/>
+      <stop offset="50%" stop-color="#142B4A"/>
+      <stop offset="100%" stop-color="#0F243E"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FCD34D"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+    <filter id="execShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="675" fill="url(#execBg)"/>
+
+  <!-- Ambient Golden & Teal Glow -->
+  <circle cx="600" cy="220" r="260" fill="#D97706" opacity="0.12"/>
+  <circle cx="200" cy="400" r="220" fill="#0F9D95" opacity="0.15"/>
+
+  <!-- Top Glass Banner -->
+  <g transform="translate(180, 50)" filter="url(#execShadow)">
+    <rect width="840" height="85" rx="20" fill="rgba(20,43,74,0.9)" stroke="rgba(245,158,11,0.4)" stroke-width="1.5"/>
+    <text x="35" y="42" fill="#FFFFFF" font-family="'Inter', sans-serif" font-weight="800" font-size="22">HALCON EXECUTIVE SEARCH &amp; BOARD APPOINTMENTS</text>
+    <text x="35" y="68" fill="#FBBF24" font-family="'Inter', sans-serif" font-weight="600" font-size="13">Confidential C-Suite Headhunting • CEOs, CTOs, CFOs &amp; Independent Directors</text>
+  </g>
+
+  <!-- Central Executive Emblem & Pedestal -->
+  <g transform="translate(600, 360)">
+    <!-- Concentric Rings -->
+    <circle cx="0" cy="0" r="160" fill="none" stroke="rgba(245,158,11,0.3)" stroke-width="2"/>
+    <circle cx="0" cy="0" r="130" fill="rgba(20,43,74,0.85)" stroke="url(#goldGrad)" stroke-width="3" filter="url(#execShadow)"/>
+
+    <!-- Executive Crown / Crest Icon -->
+    <path d="M -50 25 L -40 -35 L -15 -10 L 0 -50 L 15 -10 L 40 -35 L 50 25 Z" fill="url(#goldGrad)"/>
+    <rect x="-45" y="32" width="90" height="8" rx="4" fill="url(#goldGrad)"/>
+
+    <!-- Subtle Teal Anchor Dots -->
+    <circle cx="-40" cy="-35" r="4" fill="#FFFFFF"/>
+    <circle cx="0" cy="-50" r="5" fill="#FFFFFF"/>
+    <circle cx="40" cy="-35" r="4" fill="#FFFFFF"/>
+  </g>
+
+  <!-- Left Executive Pillar Card -->
+  <g transform="translate(140, 180)" filter="url(#execShadow)">
+    <rect width="280" height="360" rx="18" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+    <rect x="25" y="25" width="230" height="40" rx="8" fill="rgba(245,158,11,0.15)"/>
+    <text x="140" y="50" fill="#FBBF24" font-family="'Inter', sans-serif" font-weight="700" font-size="13" text-anchor="middle">DISCREET HEADHUNTING</text>
+    
+    <text x="25" y="105" fill="#FFFFFF" font-family="'Inter', sans-serif" font-size="16" font-weight="700">100% Confidential</text>
+    <text x="25" y="130" fill="#94A3B8" font-family="'Inter', sans-serif" font-size="12" line-height="1.5">Direct senior partner-led outreach with signed non-disclosure agreements before candidate identity disclosure.</text>
+
+    <line x1="25" y1="200" x2="255" y2="200" stroke="rgba(255,255,255,0.1)"/>
+    <text x="25" y="235" fill="#94A3B8" font-family="'Inter', sans-serif" font-size="11" font-weight="600">AVERAGE TENURE PLACED</text>
+    <text x="25" y="270" fill="#FFFFFF" font-family="'Inter', sans-serif" font-size="28" font-weight="800">4.8+ Years</text>
+    <text x="25" y="315" fill="#2DD4BF" font-family="'Inter', sans-serif" font-size="12" font-weight="600">Board Alignment Guarantee</text>
+  </g>
+
+  <!-- Right Executive Pillar Card -->
+  <g transform="translate(780, 180)" filter="url(#execShadow)">
+    <rect width="280" height="360" rx="18" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+    <rect x="25" y="25" width="230" height="40" rx="8" fill="rgba(15,157,149,0.18)"/>
+    <text x="140" y="50" fill="#2DD4BF" font-family="'Inter', sans-serif" font-weight="700" font-size="13" text-anchor="middle">EXECUTIVE CALIBRATION</text>
+
+    <text x="25" y="105" fill="#FFFFFF" font-family="'Inter', sans-serif" font-size="16" font-weight="700">Leadership Due Diligence</text>
+    <text x="25" y="130" fill="#94A3B8" font-family="'Inter', sans-serif" font-size="12" line-height="1.5">Exhaustive 360-degree executive referencing, financial track record verification, and strategic vision mapping.</text>
+
+    <line x1="25" y1="200" x2="255" y2="200" stroke="rgba(255,255,255,0.1)"/>
+    <text x="25" y="235" fill="#94A3B8" font-family="'Inter', sans-serif" font-size="11" font-weight="600">PLACEMENT RETENTION</text>
+    <text x="25" y="270" fill="#2DD4BF" font-family="'Inter', sans-serif" font-size="28" font-weight="800">97.2%</text>
+    <text x="25" y="315" fill="#FBBF24" font-family="'Inter', sans-serif" font-size="12" font-weight="600">Executive Search Success</text>
+  </g>
+</svg>
+

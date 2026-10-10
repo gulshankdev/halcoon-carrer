@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="100%" height="100%">
+  <defs>
+    <linearGradient id="salesBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#091424"/>
+      <stop offset="50%" stop-color="#142B4A"/>
+      <stop offset="100%" stop-color="#1E3F6C"/>
+    </linearGradient>
+    <linearGradient id="salesCardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.14)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0.03)"/>
+    </linearGradient>
+    <linearGradient id="glowOrangeTeal" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#0F9D95"/>
+    </linearGradient>
+    <filter id="salesShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="22" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="675" fill="url(#salesBg)"/>
+
+  <!-- Radial Lights -->
+  <circle cx="250" cy="180" r="240" fill="#0F9D95" opacity="0.16"/>
+  <circle cx="1000" cy="480" r="260" fill="#F59E0B" opacity="0.12"/>
+
+  <!-- Glass Card -->
+  <rect x="160" y="75" width="880" height="510" rx="24" fill="url(#salesCardGrad)" stroke="rgba(255,255,255,0.18)" stroke-width="1.5" filter="url(#salesShadow)"/>
+
+  <!-- Header -->
+  <rect x="160" y="75" width="880" height="70" rx="24" fill="rgba(20,43,74,0.7)"/>
+  <text x="200" y="117" fill="#FFFFFF" font-family="'Inter', sans-serif" font-weight="800" font-size="19">ENTERPRISE SALES &amp; BUSINESS DEVELOPMENT TALENT</text>
+  <rect x="850" y="92" width="160" height="34" rx="17" fill="rgba(245,158,11,0.2)" stroke="#F59E0B" stroke-width="1"/>
+  <text x="866" y="114" fill="#FBBF24" font-family="'Inter', sans-serif" font-weight="700" font-size="12">REVENUE GENERATORS</text>
+
+  <!-- Sales Performance Funnel & Arc Graphic -->
+  <g transform="translate(200, 180)">
+    <rect x="0" y="0" width="460" height="370" rx="16" fill="rgba(10,25,48,0.7)" stroke="rgba(255,255,255,0.1)"/>
+    <text x="25" y="38" fill="#E2E8F0" font-family="'Inter', sans-serif" font-size="14" font-weight="700">Enterprise Hiring Conversion Funnel</text>
+
+    <!-- Funnel Stage 1 -->
+    <path d="M 40 70 L 420 70 L 380 130 L 80 130 Z" fill="rgba(15,157,149,0.3)" stroke="#0F9D95" stroke-width="1.5"/>
+    <text x="230" y="106" fill="#FFFFFF" font-family="'Inter', sans-serif" font-weight="700" font-size="13" text-anchor="middle">5,000+ Sourced B2B Sales Leads</text>
+
+    <!-- Funnel Stage 2 -->
+    <path d="M 85 140 L 375 140 L 335 200 L 125 200 Z" fill="rgba(15,157,149,0.5)" stroke="#0F9D95" stroke-width="1.5"/>
+    <text x="230" y="176" fill="#FFFFFF" font-family="'Inter', sans-serif" font-weight="700" font-size="13" text-anchor="middle">1,200 Assessed &amp; Role-Played</text>
+
+    <!-- Funnel Stage 3 -->
+    <path d="M 130 210 L 330 210 L 290 270 L 170 270 Z" fill="rgba(245,158,11,0.6)" stroke="#F59E0B" stroke-width="1.5"/>
+    <text x="230" y="246" fill="#FFFFFF" font-family="'Inter', sans-serif" font-weight="700" font-size="13" text-anchor="middle">380 Shortlisted Candidates</text>
+
+    <!-- Funnel Stage 4 -->
+    <path d="M 175 280 L 285 280 L 255 335 L 205 335 Z" fill="rgba(16,185,129,0.85)" stroke="#10B981" stroke-width="1.5"/>
+    <text x="230" y="313" fill="#FFFFFF" font-family="'Inter', sans-serif" font-weight="800" font-size="13" text-anchor="middle">185 Placed</text>
+  </g>
+
+  <!-- Side Metrics Column -->
+  <g transform="translate(685, 180)">
+    <rect x="0" y="0" width="325" height="110" rx="14" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)"/>
+    <text x="20" y="32" fill="#94A3B8" font-family="'Inter', sans-serif" font-size="11" font-weight="600">CLIENT REVENUE IMPACT</text>
+    <text x="20" y="70" fill="#FBBF24" font-family="'Inter', sans-serif" font-size="28" font-weight="800">₹24.8 Cr+</text>
+    <text x="20" y="94" fill="#E2E8F0" font-family="'Inter', sans-serif" font-size="12">Direct Pipeline Generated for Partners</text>
+
+    <rect x="0" y="130" width="325" height="110" rx="14" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.1)"/>
+    <text x="20" y="162" fill="#94A3B8" font-family="'Inter', sans-serif" font-size="11" font-weight="600">ATTRITION RETENTION RATE</text>
+    <text x="20" y="200" fill="#2DD4BF" font-family="'Inter', sans-serif" font-size="28" font-weight="800">92.5%</text>
+    <text x="20" y="224" fill="#E2E8F0" font-family="'Inter', sans-serif" font-size="12">12-Month Role Retention</text>
+
+    <rect x="0" y="260" width="325" height="90" rx="14" fill="rgba(15,157,149,0.15)" stroke="#0F9D95" stroke-width="1.2"/>
+    <text x="20" y="292" fill="#FFFFFF" font-family="'Inter', sans-serif" font-size="14" font-weight="700">B2B SaaS &amp; Corporate Sales</text>
+    <text x="20" y="322" fill="#2DD4BF" font-family="'Inter', sans-serif" font-size="12" font-weight="600">Explore Specialized Mandates →</text>
+  </g>
+</svg>
+

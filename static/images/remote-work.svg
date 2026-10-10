@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="100%" height="100%">
+  <defs>
+    <linearGradient id="remoteBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#091424"/>
+      <stop offset="50%" stop-color="#142B4A"/>
+      <stop offset="100%" stop-color="#083344"/>
+    </linearGradient>
+    <linearGradient id="laptopGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#334155"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+    <linearGradient id="screenGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0F1E33"/>
+      <stop offset="100%" stop-color="#142B4A"/>
+    </linearGradient>
+    <filter id="remoteGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="24" result="blur"/>
+    </filter>
+    <filter id="remoteShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="675" fill="url(#remoteBg)"/>
+
+  <!-- Glowing Ambiance -->
+  <circle cx="600" cy="280" r="280" fill="#0F9D95" opacity="0.15" filter="url(#remoteGlow)"/>
+
+  <!-- Top Glass Banner -->
+  <g transform="translate(180, 50)" filter="url(#remoteShadow)">
+    <rect width="840" height="80" rx="20" fill="rgba(20,43,74,0.8)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+    <text x="35" y="40" fill="#FFFFFF" font-family="'Inter', sans-serif" font-weight="800" font-size="20">HYBRID &amp; REMOTE TALENT COLLABORATION ECOSYSTEM</text>
+    <text x="35" y="64" fill="#2DD4BF" font-family="'Inter', sans-serif" font-weight="600" font-size="13">Empowering High-Performance Engineering Teams with Frictionless Cloud Onboarding</text>
+  </g>
+
+  <!-- Central Modern Workstation Display (Isometric/Flat 3D) -->
+  <g transform="translate(320, 160)" filter="url(#remoteShadow)">
+    <!-- Monitor Base & Stand -->
+    <rect x="250" y="360" width="60" height="60" rx="6" fill="#475569"/>
+    <rect x="180" y="415" width="200" height="15" rx="7" fill="#334155"/>
+
+    <!-- Ultrawide Curved Screen Frame -->
+    <rect x="0" y="0" width="560" height="360" rx="18" fill="url(#laptopGrad)" stroke="#64748B" stroke-width="2"/>
+    <!-- Screen Glass -->
+    <rect x="15" y="15" width="530" height="330" rx="12" fill="url(#screenGrad)"/>
+
+    <!-- Screen Elements: Video Conference Grid + Code Workspace -->
+    <!-- Window Bar -->
+    <rect x="15" y="15" width="530" height="34" rx="12" fill="rgba(20,43,74,0.9)"/>
+    <circle cx="35" cy="32" r="5" fill="#EF4444"/>
+    <circle cx="50" cy="32" r="5" fill="#F59E0B"/>
+    <circle cx="65" cy="32" r="5" fill="#10B981"/>
+    <text x="85" y="36" fill="#94A3B8" font-family="'Inter', sans-serif" font-size="11">halcon-remote-workspace://active-session</text>
+
+    <!-- Video participant tile 1 -->
+    <rect x="30" y="65" width="150" height="100" rx="8" fill="rgba(15,157,149,0.2)" stroke="#0F9D95" stroke-width="1"/>
+    <circle cx="105" cy="105" r="22" fill="#0F9D95"/>
+    <text x="105" y="112" fill="#FFFFFF" font-family="'Inter', sans-serif" font-size="16" text-anchor="middle">HR</text>
+    <text x="40" y="155" fill="#E2E8F0" font-family="'Inter', sans-serif" font-size="10">Aditi • Talent Lead</text>
+
+    <!-- Video participant tile 2 -->
+    <rect x="195" y="65" width="150" height="100" rx="8" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+    <circle cx="270" cy="105" r="22" fill="#1E3F6C"/>
+    <text x="270" y="112" fill="#FFFFFF" font-family="'Inter', sans-serif" font-size="16" text-anchor="middle">CTO</text>
+    <text x="205" y="155" fill="#E2E8F0" font-family="'Inter', sans-serif" font-size="10">Rajiv • Tech Director</text>
+
+    <!-- Video participant tile 3 -->
+    <rect x="360" y="65" width="165" height="100" rx="8" fill="rgba(45,212,191,0.2)" stroke="#2DD4BF" stroke-width="1"/>
+    <circle cx="442" cy="105" r="22" fill="#2DD4BF"/>
+    <text x="442" y="112" fill="#091424" font-family="'Inter', sans-serif" font-size="16" font-weight="800" text-anchor="middle">C</text>
+    <text x="375" y="155" fill="#2DD4BF" font-family="'Inter', sans-serif" font-weight="700" font-size="10">Simran • Senior Dev</text>
+
+    <!-- Bottom Code / Analytics Dashboard -->
+    <rect x="30" y="180" width="495" height="150" rx="10" fill="rgba(9,20,36,0.85)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <text x="45" y="208" fill="#2DD4BF" font-family="'Inter', monospace" font-size="12">def evaluate_candidate(profile, assessment_score):</text>
+    <text x="65" y="232" fill="#E2E8F0" font-family="'Inter', monospace" font-size="12">if assessment_score &gt;= 95.0 and profile.skills_verified:</text>
+    <text x="85" y="256" fill="#34D399" font-family="'Inter', monospace" font-size="12">return FastTrackOffer(status="APPROVED", role="Staff Engineer")</text>
+    <text x="45" y="295" fill="#F59E0B" font-family="'Inter', monospace" font-size="11">✓ Git commits verified  |  ✓ 100% Remote ready  |  ✓ Equipment dispatched</text>
+  </g>
+
+  <!-- Floating 3D Badges -->
+  <g transform="translate(100, 260)" filter="url(#remoteShadow)">
+    <rect width="180" height="90" rx="16" fill="rgba(20,43,74,0.95)" stroke="#0F9D95" stroke-width="1.5"/>
+    <text x="20" y="32" fill="#94A3B8" font-family="'Inter', sans-serif" font-size="11" font-weight="600">PRODUCTIVITY</text>
+    <text x="20" y="64" fill="#FFFFFF" font-family="'Inter', sans-serif" font-size="22" font-weight="800">100% Sync</text>
+    <text x="20" y="80" fill="#2DD4BF" font-family="'Inter', sans-serif" font-size="10">Zero Downtime</text>
+  </g>
+
+  <g transform="translate(920, 260)" filter="url(#remoteShadow)">
+    <rect width="180" height="90" rx="16" fill="rgba(20,43,74,0.95)" stroke="#2DD4BF" stroke-width="1.5"/>
+    <text x="20" y="32" fill="#94A3B8" font-family="'Inter', sans-serif" font-size="11" font-weight="600">TIME TO HIRE</text>
+    <text x="20" y="64" fill="#2DD4BF" font-family="'Inter', sans-serif" font-size="22" font-weight="800">&lt; 7 Days</text>
+    <text x="20" y="80" fill="#E2E8F0" font-family="'Inter', sans-serif" font-size="10">Remote Technicals</text>
+  </g>
+</svg>
+

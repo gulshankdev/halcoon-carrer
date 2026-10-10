@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="100%" height="100%">
+  <defs>
+    <linearGradient id="panelBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#081424"/>
+      <stop offset="50%" stop-color="#142B4A"/>
+      <stop offset="100%" stop-color="#193860"/>
+    </linearGradient>
+    <filter id="panelShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="675" fill="url(#panelBg)"/>
+
+  <!-- Top Glass Header -->
+  <g transform="translate(180, 50)" filter="url(#panelShadow)">
+    <rect width="840" height="80" rx="20" fill="rgba(20,43,74,0.85)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+    <text x="35" y="40" fill="#FFFFFF" font-family="'Inter', sans-serif" font-weight="800" font-size="20">MULTIPLE-STAGE INTERVIEW PANEL &amp; COMPETENCY MATRIX</text>
+    <text x="35" y="64" fill="#2DD4BF" font-family="'Inter', sans-serif" font-weight="600" font-size="13">Structured Behavioral, Technical &amp; Cultural Alignment Assessment</text>
+  </g>
+
+  <!-- Interview Board Assessment Cards -->
+  <g transform="translate(150, 160)" filter="url(#panelShadow)">
+    <!-- Candidate Assessment Overview -->
+    <rect x="0" y="0" width="900" height="440" rx="24" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
+
+    <!-- Left: Candidate Profile Card -->
+    <g transform="translate(40, 40)">
+      <rect width="260" height="360" rx="16" fill="rgba(10,25,48,0.7)" stroke="rgba(255,255,255,0.1)"/>
+      <circle cx="130" cy="75" r="45" fill="#1E3F6C" stroke="#0F9D95" stroke-width="3"/>
+      <text x="130" y="83" fill="#FFFFFF" font-family="'Inter', sans-serif" font-size="28" font-weight="800" text-anchor="middle">CK</text>
+      <text x="130" y="150" fill="#FFFFFF" font-family="'Inter', sans-serif" font-size="17" font-weight="700" text-anchor="middle">Candidate Profile</text>
+      <text x="130" y="172" fill="#2DD4BF" font-family="'Inter', sans-serif" font-size="12" font-weight="600" text-anchor="middle">Principal Architect (11 Yrs)</text>
+
+      <line x1="30" y1="195" x2="230" y2="195" stroke="rgba(255,255,255,0.1)"/>
+
+      <text x="30" y="225" fill="#94A3B8" font-family="'Inter', sans-serif" font-size="12">Domain Expertise:</text>
+      <text x="30" y="245" fill="#FFFFFF" font-family="'Inter', sans-serif" font-size="13" font-weight="600">Cloud Architecture, Golang</text>
+
+      <text x="30" y="275" fill="#94A3B8" font-family="'Inter', sans-serif" font-size="12">Previous CTC:</text>
+      <text x="30" y="295" fill="#FFFFFF" font-family="'Inter', sans-serif" font-size="13" font-weight="600">₹32.0 LPA (Verified)</text>
+
+      <rect x="30" y="315" width="200" height="28" rx="8" fill="#0F9D95"/>
+      <text x="130" y="333" fill="#FFFFFF" font-family="'Inter', sans-serif" font-size="11" font-weight="700" text-anchor="middle">RECOMMENDED FOR OFFER</text>
+    </g>
+
+    <!-- Right: Panel Evaluation Scorecards -->
+    <g transform="translate(330, 40)">
+      <!-- Scorecard 1 -->
+      <rect x="0" y="0" width="530" height="100" rx="14" fill="rgba(10,25,48,0.7)" stroke="rgba(255,255,255,0.1)"/>
+      <circle cx="45" cy="50" r="22" fill="#0F9D95"/>
+      <text x="45" y="56" fill="#FFFFFF" font-family="'Inter', sans-serif" font-size="16" font-weight="800" text-anchor="middle">P1</text>
+      <text x="85" y="42" fill="#FFFFFF" font-family="'Inter', sans-serif" font-size="15" font-weight="700">Technical Depth &amp; System Design</text>
+      <text x="85" y="65" fill="#94A3B8" font-family="'Inter', sans-serif" font-size="12">Evaluated by: VP of Engineering • Exceptional Scalability Mastery</text>
+      <rect x="420" y="35" width="85" height="32" rx="8" fill="rgba(16,185,129,0.2)" stroke="#10B981" stroke-width="1"/>
+      <text x="462" y="56" fill="#34D399" font-family="'Inter', sans-serif" font-weight="800" font-size="14" text-anchor="middle">9.6 / 10</text>
+
+      <!-- Scorecard 2 -->
+      <rect x="0" y="115" width="530" height="100" rx="14" fill="rgba(10,25,48,0.7)" stroke="rgba(255,255,255,0.1)"/>
+      <circle cx="45" cy="165" r="22" fill="#1E3F6C"/>
+      <text x="45" y="171" fill="#FFFFFF" font-family="'Inter', sans-serif" font-size="16" font-weight="800" text-anchor="middle">P2</text>
+      <text x="85" y="157" fill="#FFFFFF" font-family="'Inter', sans-serif" font-size="15" font-weight="700">Leadership &amp; Mentorship Aptitude</text>
+      <text x="85" y="180" fill="#94A3B8" font-family="'Inter', sans-serif" font-size="12">Evaluated by: Director of People &amp; Culture • Empathetic Direction</text>
+      <rect x="420" y="150" width="85" height="32" rx="8" fill="rgba(16,185,129,0.2)" stroke="#10B981" stroke-width="1"/>
+      <text x="462" y="171" fill="#34D399" font-family="'Inter', sans-serif" font-weight="800" font-size="14" text-anchor="middle">9.2 / 10</text>
+
+      <!-- Scorecard 3 -->
+      <rect x="0" y="230" width="530" height="100" rx="14" fill="rgba(10,25,48,0.7)" stroke="rgba(255,255,255,0.1)"/>
+      <circle cx="45" cy="280" r="22" fill="#2DD4BF"/>
+      <text x="45" y="286" fill="#091424" font-family="'Inter', sans-serif" font-size="16" font-weight="900" text-anchor="middle">P3</text>
+      <text x="85" y="272" fill="#FFFFFF" font-family="'Inter', sans-serif" font-size="15" font-weight="700">HALCON Recruitment Advisor Alignment</text>
+      <text x="85" y="295" fill="#94A3B8" font-family="'Inter', sans-serif" font-size="12">Evaluated by: Senior Talent Advisor • Background &amp; Notice Verified</text>
+      <rect x="420" y="265" width="85" height="32" rx="8" fill="rgba(15,157,149,0.3)" stroke="#0F9D95" stroke-width="1"/>
+      <text x="462" y="286" fill="#2DD4BF" font-family="'Inter', sans-serif" font-weight="800" font-size="14" text-anchor="middle">10 / 10</text>
+    </g>
+  </g>
+</svg>
+
