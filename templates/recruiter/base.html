@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'css/recruiter.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="recruiter-shell py-4 py-lg-5">
+  <div class="container-fluid px-3 px-lg-5">
+    <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3 mb-4">
+      <div>
+        <span class="recruiter-eyebrow">HALCON CAREER · PRIVATE WORKSPACE</span>
+        <h1 class="h3 mb-0">{% block page_heading %}Recruiter dashboard{% endblock %}</h1>
+      </div>
+      <div class="d-flex flex-wrap gap-2">
+        <a class="btn btn-outline-custom btn-sm" href="{% url 'recruiter:dashboard' %}"><i class="bi bi-grid me-1"></i>Overview</a>
+        <a class="btn btn-outline-custom btn-sm" href="{% url 'recruiter:jobs' %}"><i class="bi bi-briefcase me-1"></i>Jobs</a>
+        <a class="btn btn-outline-custom btn-sm" href="{% url 'recruiter:applications' %}"><i class="bi bi-people me-1"></i>Applications</a>
+        <a class="btn btn-outline-custom btn-sm" href="{% url 'recruiter:categories' %}"><i class="bi bi-tags me-1"></i>Categories</a>
+        <a class="btn btn-outline-custom btn-sm" href="{% url 'recruiter:companies' %}"><i class="bi bi-building me-1"></i>Companies</a>
+        <a class="btn btn-outline-custom btn-sm" href="{% url 'recruiter:enquiries' %}"><i class="bi bi-inbox me-1"></i>Enquiries</a>
+        <form method="post" action="{% url 'recruiter:logout' %}">
+          {% csrf_token %}
+          <button class="btn btn-outline-danger btn-sm" type="submit"><i class="bi bi-box-arrow-right me-1"></i>Logout</button>
+        </form>
+      </div>
+    </div>
+    {% block recruiter_content %}{% endblock %}
+  </div>
+</section>
+{% endblock %}

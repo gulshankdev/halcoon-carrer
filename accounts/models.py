@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from .validators import validate_resume_file
+from .storage import ProtectedResumeStorage
 
 
 class CandidateProfile(models.Model):
@@ -30,6 +31,7 @@ class CandidateProfile(models.Model):
     )
     resume = models.FileField(
         upload_to='resumes/candidate_profiles/',
+        storage=ProtectedResumeStorage(),
         blank=True,
         null=True,
         validators=[validate_resume_file],
@@ -56,4 +58,3 @@ def create_or_update_candidate_profile(sender, instance, created, **kwargs):
     """Ensure a CandidateProfile exists whenever a User is created."""
     if created:
         CandidateProfile.objects.get_or_create(user=instance)
-

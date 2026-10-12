@@ -86,6 +86,10 @@
                 <li><a class="dropdown-item py-2" href="{% url 'accounts:profile' %}"><i class="bi bi-person me-2"></i> My Profile</a></li>
                 <li><a class="dropdown-item py-2" href="{% url 'applications:my_applications' %}"><i class="bi bi-file-earmark-check me-2"></i> My Applications</a></li>
                 <li><a class="dropdown-item py-2" href="{% url 'accounts:password_change' %}"><i class="bi bi-key me-2"></i> Change Password</a></li>
+                {% if user.is_staff or perms.jobs.manage_recruiter_dashboard %}
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item py-2 text-success" href="{% url 'recruiter:dashboard' %}"><i class="bi bi-speedometer2 me-2"></i> Recruiter Dashboard</a></li>
+                {% endif %}
                 {% if user.is_staff %}
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item py-2 text-primary" href="/admin/" target="_blank"><i class="bi bi-shield-lock me-2"></i> Admin Portal</a></li>
@@ -229,4 +233,3 @@
   {% block extra_js %}{% endblock %}
 </body>
 </html>
-

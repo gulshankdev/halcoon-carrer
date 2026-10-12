@@ -20,6 +20,8 @@ sitemaps = {
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('recruiter/', include('jobs.recruiter_urls')),
+    path('api/jobs/', include('jobs.api_urls')),
     path('', include('core.urls')),
     path('accounts/', include('accounts.urls')),
     path('jobs/', include('jobs.urls')),

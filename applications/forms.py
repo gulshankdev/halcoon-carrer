@@ -13,12 +13,17 @@ class JobApplicationForm(forms.ModelForm):
 
     class Meta:
         model = JobApplication
-        fields = ['full_name', 'email', 'phone', 'resume_file', 'cover_letter']
+        fields = [
+            'full_name', 'email', 'phone', 'resume_file', 'skills',
+            'relevant_experience', 'cover_letter',
+        ]
         widgets = {
             'full_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Full Name'}),
             'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'name@example.com'}),
             'phone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '+91 9216033444'}),
             'resume_file': forms.FileInput(attrs={'class': 'form-control', 'accept': '.pdf,.docx,.doc'}),
+            'skills': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'relevant_experience': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
             'cover_letter': forms.Textarea(attrs={
                 'class': 'form-control',
                 'rows': 4,
@@ -50,4 +55,3 @@ class JobApplicationForm(forms.ModelForm):
             validate_resume_file(uploaded_resume)
 
         return cleaned_data
-

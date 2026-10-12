@@ -1,0 +1,43 @@
+{% extends 'recruiter/base.html' %}
+{% block page_heading %}Dashboard overview{% endblock %}
+{% block recruiter_content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <p class="text-muted mb-0">Manage vacancies, candidates, and employer requests from one place.</p>
+  <a class="btn btn-teal" href="{% url 'recruiter:job_add' %}"><i class="bi bi-plus-lg me-1"></i>Add New Job</a>
+</div>
+<div class="row g-3 mb-4">
+  <div class="col-6 col-xl"><div class="recruiter-stat"><span>Total jobs</span><strong>{{ total_jobs }}</strong></div></div>
+  <div class="col-6 col-xl"><div class="recruiter-stat"><span>Published</span><strong>{{ published_jobs }}</strong></div></div>
+  <div class="col-6 col-xl"><div class="recruiter-stat"><span>Drafts</span><strong>{{ draft_jobs }}</strong></div></div>
+  <div class="col-6 col-xl"><div class="recruiter-stat"><span>Closed</span><strong>{{ closed_jobs }}</strong></div></div>
+  <div class="col-6 col-xl"><div class="recruiter-stat"><span>Applications</span><strong>{{ applications_count }}</strong></div></div>
+</div>
+<div class="row g-4">
+  <div class="col-xl-7">
+    <div class="recruiter-panel">
+      <div class="d-flex justify-content-between align-items-center mb-3"><h2 class="h5 mb-0">Recent jobs</h2><a href="{% url 'recruiter:jobs' %}">Manage all</a></div>
+      {% for job in recent_jobs %}
+        <div class="recruiter-row">
+          <div><strong>{{ job.title }}</strong><div class="small text-muted">{{ job.company_display_name }} · {{ job.location }}</div></div>
+          <span class="badge recruiter-status-{{ job.status|lower }}">{{ job.get_status_display }}</span>
+        </div>
+      {% empty %}
+        <div class="recruiter-empty">No jobs have been added yet. Create a draft or publish your first opening.</div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="col-xl-5">
+    <div class="recruiter-panel">
+      <div class="d-flex justify-content-between align-items-center mb-3"><h2 class="h5 mb-0">Recent applications</h2><a href="{% url 'recruiter:applications' %}">Review all</a></div>
+      {% for application in recent_applications %}
+        <div class="recruiter-row">
+          <div><strong>{{ application.full_name }}</strong><div class="small text-muted">{{ application.job.title }} · {{ application.submitted_at|date:"M d, Y" }}</div></div>
+          <span class="badge bg-light text-dark">{{ application.status }}</span>
+        </div>
+      {% empty %}
+        <div class="recruiter-empty">No applications received yet.</div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,10 +1,16 @@
 import io
+import tempfile
+from pathlib import Path
+from types import SimpleNamespace
+
 from django.test import TestCase, Client
+from django.test import override_settings
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.exceptions import ValidationError
 from accounts.models import CandidateProfile
+from accounts.storage import get_resume_path
 from accounts.validators import validate_resume_file
 
 
@@ -160,3 +166,20 @@ class AccountsTestCase(TestCase):
         self.client.login(username='staffadmin', password='SecurePassword123!')
         staff_resp = self.client.get(reverse('accounts:download_resume', args=[self.candidate_user.id]))
         self.assertEqual(staff_resp.status_code, 200)
+
+    def test_resume_path_falls_back_to_legacy_media_location(self):
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            media_root = Path(temporary_directory)
+            legacy_path = media_root / 'resumes' / 'applications' / 'legacy_resume.pdf'
+            legacy_path.parent.mkdir(parents=True)
+            legacy_path.write_bytes(b'%PDF-1.4 legacy resume')
+            missing_protected_path = media_root / 'protected' / 'resumes' / 'applications' / 'legacy_resume.pdf'
+            file_field = SimpleNamespace(
+                path=str(missing_protected_path),
+                name='resumes/applications/legacy_resume.pdf',
+            )
+
+            with override_settings(MEDIA_ROOT=media_root):
+                resolved_path = get_resume_path(file_field)
+                self.assertIsNotNone(resolved_path)
+                self.assertEqual(resolved_path.read_bytes(), b'%PDF-1.4 legacy resume')

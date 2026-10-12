@@ -7,14 +7,9 @@ from django.conf import settings
 
 def company_context(request):
     """Provides HALCON CAREER corporate metadata and contact details globally."""
-    # Lazy import to avoid circular dependencies during initialization
-    try:
-        from jobs.models import Category, Job
-        categories = Category.objects.filter(active=True).order_by('name')[:8]
-        total_active_jobs = Job.objects.filter(is_published=True).count()
-    except Exception:
-        categories = []
-        total_active_jobs = 0
+    from jobs.models import Category, Job
+    categories = Category.objects.filter(active=True).order_by('name')[:8]
+    total_active_jobs = Job.objects.open().count()
 
     return {
         'COMPANY_NAME': getattr(settings, 'COMPANY_NAME', 'HALCON CAREER'),
@@ -28,4 +23,3 @@ def company_context(request):
         'NAV_CATEGORIES': categories,
         'GLOBAL_ACTIVE_JOBS_COUNT': total_active_jobs,
     }
-

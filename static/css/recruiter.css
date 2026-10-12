@@ -1,0 +1,111 @@
+.recruiter-shell {
+  min-height: 70vh;
+  background: #f5f7fa;
+}
+
+.recruiter-shell h1,
+.recruiter-shell h2 {
+  color: #142b4a;
+}
+
+.recruiter-eyebrow {
+  color: #0f9d95;
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+}
+
+.recruiter-panel,
+.recruiter-login-card,
+.recruiter-stat {
+  background: #fff;
+  border: 1px solid #e4e7ec;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(20, 43, 74, .05);
+}
+
+.recruiter-panel {
+  padding: 1.25rem;
+}
+
+.recruiter-login-card {
+  padding: 2rem;
+}
+
+.recruiter-stat {
+  height: 100%;
+  padding: 1rem 1.1rem;
+}
+
+.recruiter-stat span {
+  display: block;
+  color: #667085;
+  font-size: .85rem;
+}
+
+.recruiter-stat strong {
+  display: block;
+  color: #142b4a;
+  font-size: 1.8rem;
+  line-height: 1.2;
+  margin-top: .4rem;
+}
+
+.recruiter-row {
+  align-items: center;
+  border-top: 1px solid #eef0f3;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  padding: .8rem 0;
+}
+
+.recruiter-empty {
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 8px;
+  color: #667085;
+  padding: 1.4rem;
+  text-align: center;
+}
+
+.recruiter-status-draft {
+  background: #eef2f6;
+  color: #344054;
+}
+
+.recruiter-status-published {
+  background: #e8f7f6;
+  color: #08766f;
+}
+
+.recruiter-status-closed {
+  background: #fff1f0;
+  color: #b42318;
+}
+
+.recruiter-table thead th {
+  background: #f8fafc;
+  color: #475467;
+  font-size: .76rem;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.recruiter-table td {
+  min-width: 92px;
+}
+
+.recruiter-form-panel .form-label {
+  font-weight: 600;
+}
+
+@media (max-width: 767.98px) {
+  .recruiter-panel {
+    padding: 1rem;
+  }
+
+  .recruiter-login-card {
+    padding: 1.4rem;
+  }
+}

@@ -6,25 +6,38 @@ Configured for production-ready deployment and local development.
 from pathlib import Path
 from decouple import config, Csv
 import dj_database_url
+from django.core.exceptions import ImproperlyConfigured
+from django.core.management.utils import get_random_secret_key
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config(
-    'SECRET_KEY',
-    default='django-insecure-halcon-career-recruitment-platform-secret-key-change-in-prod'
-)
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
+SECRET_KEY = config('SECRET_KEY', default='')
+if not SECRET_KEY:
+    if not DEBUG:
+        raise ImproperlyConfigured("SECRET_KEY must be set when DEBUG=False.")
+    SECRET_KEY = get_random_secret_key()
+elif not DEBUG and (len(SECRET_KEY) < 50 or SECRET_KEY.startswith('django-insecure-')):
+    raise ImproperlyConfigured(
+        "Set SECRET_KEY to a strong, randomly generated production secret."
+    )
 
 ALLOWED_HOSTS = config(
     'ALLOWED_HOSTS',
-    default='localhost,127.0.0.1,0.0.0.0,testserver',
+    default='localhost,127.0.0.1,0.0.0.0,testserver' if DEBUG else '',
     cast=Csv()
 )
-if 'testserver' not in ALLOWED_HOSTS:
+if not DEBUG and (
+    not ALLOWED_HOSTS
+    or '*' in ALLOWED_HOSTS
+    or any(host in ALLOWED_HOSTS for host in ('localhost', '127.0.0.1', '0.0.0.0', 'testserver'))
+):
+    raise ImproperlyConfigured(
+        "Set ALLOWED_HOSTS to the exact production hostnames; wildcards are not allowed."
+    )
+if DEBUG and 'testserver' not in ALLOWED_HOSTS:
     ALLOWED_HOSTS.append('testserver')
 
 
@@ -84,10 +97,18 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # Uses PostgreSQL in production when DATABASE_URL is set, falls back to SQLite locally.
 DATABASE_URL = config('DATABASE_URL', default='')
+if not DEBUG and not DATABASE_URL:
+    raise ImproperlyConfigured(
+        "DATABASE_URL must point to PostgreSQL when DEBUG=False."
+    )
 if DATABASE_URL:
     DATABASES = {
         'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600)
     }
+    if not DEBUG and DATABASES['default']['ENGINE'] != 'django.db.backends.postgresql':
+        raise ImproperlyConfigured(
+            "Production DATABASE_URL must use PostgreSQL."
+        )
 else:
     DATABASES = {
         'default': {
@@ -128,10 +149,25 @@ if not DEBUG:
 
 # Media files
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = Path(config('MEDIA_ROOT', default=str(BASE_DIR / 'media')))
 
 # Protected media directory for sensitive documents (e.g., candidate resumes)
-PROTECTED_MEDIA_ROOT = BASE_DIR / 'protected_media'
+PROTECTED_MEDIA_ROOT = Path(
+    config('PROTECTED_MEDIA_ROOT', default=str(BASE_DIR / 'protected_media'))
+)
+if not DEBUG:
+    if not MEDIA_ROOT.is_absolute() or not PROTECTED_MEDIA_ROOT.is_absolute():
+        raise ImproperlyConfigured(
+            "MEDIA_ROOT and PROTECTED_MEDIA_ROOT must be absolute persistent paths in production."
+        )
+    if (
+        MEDIA_ROOT == PROTECTED_MEDIA_ROOT
+        or MEDIA_ROOT in PROTECTED_MEDIA_ROOT.parents
+        or PROTECTED_MEDIA_ROOT in MEDIA_ROOT.parents
+    ):
+        raise ImproperlyConfigured(
+            "PROTECTED_MEDIA_ROOT must be separate from and outside public MEDIA_ROOT."
+        )
 
 # Authentication URLs
 LOGIN_URL = 'accounts:login'
@@ -144,6 +180,21 @@ EMAIL_BACKEND = config(
     default='django.core.mail.backends.console.EmailBackend'
 )
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='HALCON CAREER <noreply@halconcareer.com>')
+EMAIL_HOST = config('EMAIL_HOST', default='')
+EMAIL_PORT = config('EMAIL_PORT', default=587, cast=int)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
+EMAIL_USE_SSL = config('EMAIL_USE_SSL', default=False, cast=bool)
+EMAIL_TIMEOUT = config('EMAIL_TIMEOUT', default=20, cast=int)
+if EMAIL_USE_TLS and EMAIL_USE_SSL:
+    raise ImproperlyConfigured("EMAIL_USE_TLS and EMAIL_USE_SSL cannot both be enabled.")
+if not DEBUG and EMAIL_BACKEND == 'django.core.mail.backends.console.EmailBackend':
+    raise ImproperlyConfigured(
+        "Configure a real production email backend; console email does not deliver messages."
+    )
+if not DEBUG and EMAIL_BACKEND == 'django.core.mail.backends.smtp.EmailBackend' and not EMAIL_HOST:
+    raise ImproperlyConfigured("EMAIL_HOST must be configured when using SMTP in production.")
 
 # Company Details Configuration
 COMPANY_NAME = config('COMPANY_NAME', default='HALCON CAREER')
@@ -163,12 +214,30 @@ if not DEBUG:
     SECURE_SSL_REDIRECT = config('SECURE_SSL_REDIRECT', default=True, cast=bool)
     SESSION_COOKIE_SECURE = config('SESSION_COOKIE_SECURE', default=True, cast=bool)
     CSRF_COOKIE_SECURE = config('CSRF_COOKIE_SECURE', default=True, cast=bool)
-    SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
     X_FRAME_OPTIONS = 'DENY'
     SECURE_HSTS_SECONDS = config('SECURE_HSTS_SECONDS', default=31536000, cast=int)
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
+    SECURE_REFERRER_POLICY = 'strict-origin-when-cross-origin'
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    CSRF_TRUSTED_ORIGINS = config(
+        'CSRF_TRUSTED_ORIGINS',
+        default='',
+        cast=Csv(),
+    )
+    if not CSRF_TRUSTED_ORIGINS:
+        raise ImproperlyConfigured(
+            "Set CSRF_TRUSTED_ORIGINS to the HTTPS production site origins."
+        )
+    STORAGES = {
+        'default': {
+            'BACKEND': 'django.core.files.storage.FileSystemStorage',
+        },
+        'staticfiles': {
+            'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+        },
+    }
 
 # Django REST Framework settings
 REST_FRAMEWORK = {

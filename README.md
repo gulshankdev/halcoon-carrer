@@ -23,7 +23,7 @@ The codebase follows high-cohesion, low-coupling design principles divided into 
 | :--- | :--- |
 | **`core`** | Corporate homepage, About Us, Services catalog, Contact Us with spam protection, Legal pages (Privacy Policy, Terms of Service, Candidate Consent Policy), Health Check endpoint (`/health/`), dynamic `robots.txt`, XML sitemap (`/sitemap.xml`), and custom 400/403/404/500 error handlers. |
 | **`accounts`** | Candidate account registration, session authentication, password management, profile management (education, skills, experience summary), and permission-controlled resume downloads. |
-| **`jobs`** | Vacancy catalog, slug-based URLs, keyword search, multi-parameter filtering (category, location, job type, experience), salary formatting, and pagination. |
+| **`jobs`** | Vacancy catalog, slug-based URLs, keyword search, multi-parameter filtering, recruiter dashboard, public read-only JSON API, and scheduled expiry command. |
 | **`applications`** | Candidate job application submission, profile resume reuse, duplicate application prevention, application review statuses, and secure candidate dashboards. |
 | **`employers`** | B2B employer hiring mandate intake form, vacancy specifications, server-side validation, anti-spam honeypot, and management dashboard. |
 
@@ -103,19 +103,17 @@ The codebase follows high-cohesion, low-coupling design principles divided into 
    python manage.py migrate
    ```
 
-6. **Seed industry categories and initial placeholder vacancies:**
+6. **Optional: seed demo categories and placeholder vacancies locally:**
    ```bash
    python manage.py seed_sample_data
    ```
+   Do not run this on the live site unless you intentionally want sample/placeholder vacancies visible.
 
 7. **Create the administrator superuser:**
    ```bash
    python manage.py create_admin
    ```
-   *Default generated credentials:*
-   - **Username:** `admin`
-   - **Password:** `Admin@Halcon2026`
-   *(You can modify credentials in Django admin or via `--username` and `--password` flags).*
+   Enter a strong password when prompted. The command supports `--username` and `--email`; omitting `--password` keeps it out of shell history.
 
 8. **Collect static assets:**
    ```bash
@@ -151,6 +149,18 @@ python manage.py test
 ```bash
 python manage.py test -v 2
 ```
+
+### Public jobs API and expiry
+
+- `GET /api/jobs/` returns published, active jobs with pagination.
+- `GET /api/jobs/<slug>/` returns one eligible public job.
+- List query parameters include `q`, `category`, `location`, `employment_type` (or `type`), `experience`, `work_mode`, `min_salary`, `max_salary`, `min_experience`, `max_experience`, `date_posted`, and `sort`.
+- The API is read-only; job management remains behind recruiter authentication.
+- Expired jobs stop appearing publicly immediately. To also change their stored status to `Closed`, run:
+  ```bash
+  python manage.py close_expired_jobs
+  ```
+  Schedule this command daily using your host's scheduler (or Windows Task Scheduler for a self-hosted Windows server).
 
 ---
 
@@ -233,18 +243,24 @@ Access the admin dashboard at `http://127.0.0.1:8000/admin/`:
    - `SECURE_SSL_REDIRECT`: `True`
    - `SESSION_COOKIE_SECURE`: `True`
    - `CSRF_COOKIE_SECURE`: `True`
+   - `CSRF_TRUSTED_ORIGINS`: `https://halconcareer.com,https://www.halconcareer.com`
+   - `MEDIA_ROOT`: path on a persistent disk, for example `/var/data/media`
+   - `PROTECTED_MEDIA_ROOT`: a separate persistent path, for example `/var/data/protected_media`
+   - For SMTP, configure `EMAIL_BACKEND`, `EMAIL_HOST`, `EMAIL_PORT`, `EMAIL_USE_TLS` (or SSL), `EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD`, and `DEFAULT_FROM_EMAIL`.
+   - The production settings require `DATABASE_URL`; set it to the managed PostgreSQL URL. Do not leave production on SQLite.
+   - `MEDIA_ROOT` and `PROTECTED_MEDIA_ROOT` must be absolute paths on persistent storage. The protected-resume path must be separate from and outside public `MEDIA_ROOT`.
+   - Production startup intentionally fails if `SECRET_KEY`, exact `ALLOWED_HOSTS`, HTTPS `CSRF_TRUSTED_ORIGINS`, persistent upload paths, PostgreSQL, or a real email backend are not configured.
 
-5. **Initial Data Seeding on Production:**
-   - Go to your Web Service in Render -> **Shell** tab:
+5. **Create the production administrator:**
+   - Use the service shell or a one-off job and enter the password at the prompt:
      ```bash
-     python manage.py seed_sample_data
-     python manage.py create_admin --password 'YourStrongProdPassword!'
+     python manage.py create_admin --username recruiter --email contact@halconcareer.com
      ```
+   - Category migrations seed standard categories; do not seed placeholder jobs into production.
 
-### Production Media Storage Recommendation
+### Production Media Storage Requirement
 > **Important Note on Uploaded Resumes:**  
-> Ephemeral cloud containers (such as Render free tiers or Heroku dynos) reset their local disk upon redeployment. While WhiteNoise permanently manages static assets (CSS, JS, logos), user-uploaded media (candidate resumes) requires persistent storage in production.  
-> **Recommended Solution:** Connect **AWS S3** or **Google Cloud Storage** using `django-storages` with private ACLs (`default_acl = 'private'`), or attach a Render Persistent Disk mounted to `/media/`.
+> Ephemeral cloud containers reset their local disk upon redeployment. Job images and company logos need persistent public-media storage; candidate resumes must be stored separately and remain private. Configure `MEDIA_ROOT` and `PROTECTED_MEDIA_ROOT` to persistent mounted directories, or choose and configure a private object-storage provider. Do not serve the protected resume directory as public static/media content. Back up the database and both upload stores.
 
 ---
 
@@ -278,4 +294,3 @@ SCO 12–13, 2nd Floor, Phase 11, Mohali, Punjab – 160065
 Phone: +91 9216033444 / +91 8699000984  
 Email: contact@halconcareer.com  
 Hours: Monday - Friday: 9:30 AM – 6:30 PM | Saturday: 10:00 AM – 2:00 PM  
-

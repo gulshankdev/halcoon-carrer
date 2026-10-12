@@ -854,4 +854,368 @@ a:hover {
   transition: width 0.1s linear;
 }
 
+/* ==============================================================================
+   3D Dimensional Consultant Showcase Stage & Holographic Projection Styles
+   ============================================================================== */
+
+/* Multi-depth 3D Viewport */
+.consultant-3d-stage-wrapper {
+  position: relative;
+  perspective: 1400px;
+  transform-style: preserve-3d;
+  width: 100%;
+  max-width: 460px;
+  margin: 0 auto;
+}
+
+.consultant-3d-stage {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+/* Hologram Base Projector Ring */
+.stage-hologram-base {
+  position: absolute;
+  bottom: -45px;
+  left: 50%;
+  transform: translateX(-50%) rotateX(75deg);
+  width: 340px;
+  height: 180px;
+  border-radius: 50%;
+  border: 2px solid rgba(45, 212, 191, 0.45);
+  box-shadow: 
+    0 0 45px rgba(15, 157, 149, 0.6),
+    inset 0 0 35px rgba(45, 212, 191, 0.4);
+  pointer-events: none;
+  animation: hologramPulse 4s ease-in-out infinite alternate;
+  z-index: 1;
+}
+
+.stage-hologram-base::after {
+  content: "";
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 255, 255, 0.3);
+  animation: hologramRotate 18s linear infinite;
+}
+
+@keyframes hologramPulse {
+  0% { transform: translateX(-50%) rotateX(75deg) scale(0.92); opacity: 0.6; }
+  100% { transform: translateX(-50%) rotateX(75deg) scale(1.06); opacity: 0.95; }
+}
+
+@keyframes hologramRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* 3D Consultant Card Slide */
+.consultant-3d-slide {
+  display: none;
+  transform-style: preserve-3d;
+}
+
+.consultant-3d-slide.active {
+  display: block;
+  animation: slideFadeIn3D 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideFadeIn3D {
+  from {
+    opacity: 0;
+    transform: rotateY(-18deg) translateZ(-40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: rotateY(0deg) translateZ(0px) scale(1);
+  }
+}
+
+/* The Glassmorphism 3D Consultant Card */
+.consultant-glass-card {
+  position: relative;
+  background: linear-gradient(145deg, rgba(16, 35, 61, 0.92) 0%, rgba(9, 20, 36, 0.96) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(45, 212, 191, 0.35);
+  border-radius: var(--radius-lg);
+  box-shadow: 
+    0 25px 60px rgba(0, 0, 0, 0.55),
+    0 0 35px rgba(15, 157, 149, 0.25);
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transition: transform 0.2s ease-out, box-shadow 0.3s ease;
+}
+
+.consultant-glass-card:hover {
+  box-shadow: 
+    0 30px 70px rgba(0, 0, 0, 0.65),
+    0 0 50px rgba(45, 212, 191, 0.4);
+}
+
+.consultant-card-img-wrapper {
+  position: relative;
+  height: 270px;
+  overflow: hidden;
+  transform-style: preserve-3d;
+}
+
+.consultant-card-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.consultant-glass-card:hover .consultant-card-img-wrapper img {
+  transform: scale(1.06);
+}
+
+.consultant-card-img-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(9, 20, 36, 0.1) 0%, rgba(9, 20, 36, 0.85) 100%);
+  pointer-events: none;
+}
+
+/* Floating 3D Micro-Badges popping out in Z space */
+.badge-3d-floating {
+  position: absolute;
+  z-index: 10;
+  background: rgba(9, 20, 36, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(45, 212, 191, 0.5);
+  color: #FFFFFF;
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+  font-size: 0.78rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transform: translateZ(42px);
+  transition: transform 0.2s ease-out;
+  pointer-events: none;
+}
+
+.badge-3d-top-right {
+  top: 16px;
+  right: 16px;
+  border-color: #2DD4BF;
+  color: #2DD4BF;
+}
+
+.badge-3d-bottom-left {
+  bottom: 16px;
+  left: 16px;
+  border-color: #FBBF24;
+  color: #FDE047;
+}
+
+/* Consultant Content Body */
+.consultant-card-body {
+  padding: 1.5rem 1.8rem;
+  position: relative;
+  transform-style: preserve-3d;
+  z-index: 5;
+}
+
+.consultant-name-heading {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin-bottom: 0.2rem;
+  letter-spacing: -0.01em;
+}
+
+.consultant-title-sub {
+  color: #2DD4BF;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.consultant-tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 1.1rem;
+}
+
+.consultant-tag-pill {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #CBD5E1;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-pill);
+  font-weight: 500;
+}
+
+/* 3D Controller Bar below Consultant Stage */
+.consultant-stage-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1.25rem;
+  padding: 0.6rem 1.2rem;
+  background: rgba(20, 43, 74, 0.75);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.stage-nav-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #FFFFFF;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.stage-nav-btn:hover {
+  background: var(--color-accent-teal);
+  border-color: #2DD4BF;
+  color: #FFFFFF;
+  transform: scale(1.08);
+}
+
+.stage-dots-container {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.stage-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.stage-dot.active {
+  background: #2DD4BF;
+  width: 24px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(45, 212, 191, 0.8);
+}
+
+.stage-autoplay-toggle {
+  font-size: 0.76rem;
+  color: #94A3B8;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+}
+
+.stage-autoplay-toggle.active {
+  color: #2DD4BF;
+}
+
+/* Dedicated "Meet Our Lead Recruitment Consultants" Section Cards */
+.consultant-grid-card {
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+  transform-style: preserve-3d;
+}
+
+.consultant-grid-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 38px rgba(20, 43, 74, 0.12);
+  border-color: rgba(15, 157, 149, 0.4);
+}
+
+.consultant-grid-img-wrap {
+  position: relative;
+  height: 240px;
+  overflow: hidden;
+}
+
+.consultant-grid-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.consultant-grid-card:hover .consultant-grid-img-wrap img {
+  transform: scale(1.05);
+}
+
+.consultant-grid-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(20, 43, 74, 0.88);
+  backdrop-filter: blur(8px);
+  color: #2DD4BF;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(45, 212, 191, 0.3);
+}
+
+/* 3D Hologram Volumetric Feature Banner */
+.hologram-feature-card {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid rgba(45, 212, 191, 0.35);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+  background: #091424;
+}
+
+.hologram-feature-card img {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+  filter: brightness(0.9);
+  transition: transform 0.6s ease;
+}
+
+.hologram-feature-card:hover img {
+  transform: scale(1.03);
+}
+
+.hologram-feature-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(9, 20, 36, 0.2) 0%, rgba(9, 20, 36, 0.85) 100%);
+  pointer-events: none;
+}
+
+
 

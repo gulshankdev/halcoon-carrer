@@ -79,11 +79,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // 8. Interactive 3D Video Media Tour Modal & Animation Player
   initVideoPlayerModal();
+
+  // 9. Interactive 3D Consultant Showcase Stage & Holographic Controller
+  initConsultantStage3D();
 });
 
 /**
- * Interactive 3D Particle Mesh Canvas Engine
- * Recreates high-end 8K futuristic recruitment network visualization with mouse attraction and click shockwaves.
+ * Interactive 3D Particle Mesh & Undulating Terrain Canvas Engine
+ * Renders an interactive 3D particle constellation, 3D undulating wave surface grid, 
+ * rotating polyhedral crystal wireframes, mouse magnetic well, and click shockwaves.
  */
 function initHero3DCanvas() {
   const canvas = document.getElementById('hero3DCanvas');
@@ -95,14 +99,15 @@ function initHero3DCanvas() {
   let shockwaves = [];
   let animationFrameId = null;
   let isMotionActive = true;
-  const numParticles = window.innerWidth < 768 ? 40 : 85;
-  const fov = 350;
+  const numParticles = window.innerWidth < 768 ? 35 : 75;
+  const fov = 380;
+  let animTime = 0;
 
   const mouse = {
     x: null,
     y: null,
     isActive: false,
-    radius: 160
+    radius: 180
   };
 
   function resizeCanvas() {
@@ -123,13 +128,13 @@ function initHero3DCanvas() {
 
     reset() {
       this.x = (Math.random() - 0.5) * width * 1.5;
-      this.y = (Math.random() - 0.5) * height * 1.5;
+      this.y = (Math.random() - 0.5) * height * 1.4;
       this.z = Math.random() * 500 - 150;
-      this.vx = (Math.random() - 0.5) * 0.8;
-      this.vy = (Math.random() - 0.5) * 0.8;
-      this.vz = (Math.random() - 0.5) * 0.6;
+      this.vx = (Math.random() - 0.5) * 0.75;
+      this.vy = (Math.random() - 0.5) * 0.75;
+      this.vz = (Math.random() - 0.5) * 0.5;
       this.radius = Math.random() * 2.2 + 1.2;
-      this.baseColor = Math.random() > 0.4 ? '15, 157, 149' : '77, 208, 225'; // Teal or Cyan
+      this.baseColor = Math.random() > 0.4 ? '15, 157, 149' : '45, 212, 191'; // Teal or Cyan
     }
 
     update() {
@@ -153,7 +158,7 @@ function initHero3DCanvas() {
         const dist = Math.sqrt(dx * dx + dy * dy);
 
         if (dist < mouse.radius) {
-          const force = (1 - dist / mouse.radius) * 0.5;
+          const force = (1 - dist / mouse.radius) * 0.55;
           this.vx += (dx / dist) * force;
           this.vy += (dy / dist) * force;
         }
@@ -169,7 +174,7 @@ function initHero3DCanvas() {
         const dist = Math.sqrt(dx * dx + dy * dy);
 
         if (Math.abs(dist - sw.radius) < 25) {
-          const push = (1 - sw.radius / sw.maxRadius) * 4;
+          const push = (1 - sw.radius / sw.maxRadius) * 4.5;
           this.vx += (dx / dist) * push;
           this.vy += (dy / dist) * push;
         }
@@ -195,7 +200,85 @@ function initHero3DCanvas() {
       ctx.shadowBlur = renderRadius * 4;
       ctx.shadowColor = `rgba(${this.baseColor}, 0.8)`;
       ctx.fill();
-      ctx.shadowBlur = 0; // reset
+      ctx.shadowBlur = 0;
+    }
+  }
+
+  // 3D Polyhedron Crystal Wireframe
+  class Crystal3D {
+    constructor(baseX, baseY, baseZ, size, rotSpeed) {
+      this.baseX = baseX;
+      this.baseY = baseY;
+      this.baseZ = baseZ;
+      this.size = size;
+      this.rotSpeed = rotSpeed;
+      this.rx = Math.random() * Math.PI;
+      this.ry = Math.random() * Math.PI;
+      this.rz = Math.random() * Math.PI;
+      // Octahedron vertices
+      this.vertices = [
+        { x: 0, y: -1, z: 0 },
+        { x: 1, y: 0, z: 0 },
+        { x: 0, y: 0, z: 1 },
+        { x: -1, y: 0, z: 0 },
+        { x: 0, y: 0, z: -1 },
+        { x: 0, y: 1, z: 0 }
+      ];
+      this.edges = [
+        [0, 1], [0, 2], [0, 3], [0, 4],
+        [5, 1], [5, 2], [5, 3], [5, 4],
+        [1, 2], [2, 3], [3, 4], [4, 1]
+      ];
+    }
+
+    update() {
+      this.rx += this.rotSpeed.x;
+      this.ry += this.rotSpeed.y;
+      this.rz += this.rotSpeed.z;
+    }
+
+    draw() {
+      const scale = fov / (fov + this.baseZ);
+      if (scale <= 0) return;
+
+      const screenCenterX = centerX + this.baseX * scale;
+      const screenCenterY = centerY + this.baseY * scale;
+
+      // Project vertices with rotation
+      const projected = this.vertices.map(v => {
+        let x = v.x * this.size;
+        let y = v.y * this.size;
+        let z = v.z * this.size;
+
+        // Rotation around X
+        let y1 = y * Math.cos(this.rx) - z * Math.sin(this.rx);
+        let z1 = y * Math.sin(this.rx) + z * Math.cos(this.rx);
+
+        // Rotation around Y
+        let x2 = x * Math.cos(this.ry) + z1 * Math.sin(this.ry);
+        let z2 = -x * Math.sin(this.ry) + z1 * Math.cos(this.ry);
+
+        // Rotation around Z
+        let x3 = x2 * Math.cos(this.rz) - y1 * Math.sin(this.rz);
+        let y3 = x2 * Math.sin(this.rz) + y1 * Math.cos(this.rz);
+
+        return {
+          x: screenCenterX + x3 * scale,
+          y: screenCenterY + y3 * scale
+        };
+      });
+
+      // Draw edges
+      ctx.beginPath();
+      for (let edge of this.edges) {
+        const p1 = projected[edge[0]];
+        const p2 = projected[edge[1]];
+        ctx.moveTo(p1.x, p1.y);
+        ctx.lineTo(p2.x, p2.y);
+      }
+      ctx.strokeStyle = 'rgba(45, 212, 191, 0.28)';
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
     }
   }
 
@@ -203,6 +286,13 @@ function initHero3DCanvas() {
   for (let i = 0; i < numParticles; i++) {
     particles.push(new Particle3D());
   }
+
+  // Create 3D Crystals
+  const crystals = [
+    new Crystal3D(-width * 0.38, -height * 0.25, 80, 48, { x: 0.008, y: 0.012, z: 0.006 }),
+    new Crystal3D(width * 0.42, -height * 0.18, 120, 56, { x: -0.01, y: 0.009, z: -0.007 }),
+    new Crystal3D(width * 0.32, height * 0.32, 50, 42, { x: 0.007, y: -0.011, z: 0.008 })
+  ];
 
   // Mouse Move Event Listener (3D Tracking)
   const heroSection = canvas.parentElement;
@@ -237,19 +327,95 @@ function initHero3DCanvas() {
       x: clickX,
       y: clickY,
       radius: 5,
-      maxRadius: Math.min(width, height) * 0.6,
+      maxRadius: Math.min(width, height) * 0.65,
       speed: 7,
       alpha: 0.9
     });
   });
 
+  // Render Undulating 3D Perspective Wave Grid
+  function render3DWaveTerrain() {
+    const gridCols = window.innerWidth < 768 ? 16 : 28;
+    const gridRows = 10;
+    const spacingX = (width * 1.4) / gridCols;
+    const spacingZ = 45;
+    const startX = -width * 0.7;
+    const startZ = 20;
+    const baseY = height * 0.65;
+
+    const points = [];
+
+    for (let r = 0; r < gridRows; r++) {
+      points[r] = [];
+      const z = startZ + r * spacingZ;
+      const scale = fov / (fov + z);
+
+      for (let c = 0; c <= gridCols; c++) {
+        const x = startX + c * spacingX;
+
+        // Wave elevation math
+        let waveY = Math.sin(animTime * 0.0022 + c * 0.35 + r * 0.28) * 18 +
+                    Math.cos(animTime * 0.0018 + r * 0.45) * 12;
+
+        // Mouse interactive terrain elevation
+        if (mouse.isActive && mouse.x !== null) {
+          const screenX = centerX + x * scale;
+          const screenY = centerY + (baseY + waveY - centerY) * scale;
+          const mDist = Math.sqrt((mouse.x - screenX) ** 2 + (mouse.y - screenY) ** 2);
+          if (mDist < 160) {
+            waveY += (1 - mDist / 160) * 28;
+          }
+        }
+
+        const projX = centerX + x * scale;
+        const projY = centerY + (baseY + waveY - centerY) * scale;
+
+        points[r][c] = { x: projX, y: projY, alpha: (1 - r / gridRows) * 0.22 };
+      }
+    }
+
+    // Draw horizontal grid wave lines
+    for (let r = 0; r < gridRows; r++) {
+      ctx.beginPath();
+      ctx.moveTo(points[r][0].x, points[r][0].y);
+      for (let c = 1; c <= gridCols; c++) {
+        ctx.lineTo(points[r][c].x, points[r][c].y);
+      }
+      ctx.strokeStyle = `rgba(15, 157, 149, ${points[r][0].alpha})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+
+    // Draw connecting longitudinal perspective lines
+    for (let c = 0; c <= gridCols; c += 2) {
+      ctx.beginPath();
+      ctx.moveTo(points[0][c].x, points[0][c].y);
+      for (let r = 1; r < gridRows; r++) {
+        ctx.lineTo(points[r][c].x, points[r][c].y);
+      }
+      ctx.strokeStyle = 'rgba(45, 212, 191, 0.1)';
+      ctx.lineWidth = 0.8;
+      ctx.stroke();
+    }
+  }
+
   // Animation Loop (60 FPS)
-  function render() {
+  function render(timestamp) {
     if (!isMotionActive) return;
 
+    animTime = timestamp || 0;
     ctx.clearRect(0, 0, width, height);
 
-    // Update and draw shockwaves
+    // 1. Render 3D undulating terrain surface mesh
+    render3DWaveTerrain();
+
+    // 2. Render 3D rotating crystals
+    for (let crystal of crystals) {
+      crystal.update();
+      crystal.draw();
+    }
+
+    // 3. Update and draw shockwaves
     for (let i = shockwaves.length - 1; i >= 0; i--) {
       const sw = shockwaves[i];
       sw.radius += sw.speed;
@@ -262,19 +428,19 @@ function initHero3DCanvas() {
 
       ctx.beginPath();
       ctx.arc(sw.x, sw.y, sw.radius, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(15, 157, 149, ${sw.alpha * 0.7})`;
+      ctx.strokeStyle = `rgba(45, 212, 191, ${sw.alpha * 0.8})`;
       ctx.lineWidth = 2.5;
       ctx.stroke();
     }
 
-    // Update particles
+    // 4. Update particles
     for (let p of particles) {
       p.update();
       p.draw();
     }
 
-    // Draw connecting 3D constellation lines
-    const maxDist = 130;
+    // 5. Draw connecting 3D constellation lines
+    const maxDist = 135;
     for (let i = 0; i < particles.length; i++) {
       for (let j = i + 1; j < particles.length; j++) {
         const p1 = particles[i];
@@ -658,6 +824,107 @@ function initVideoPlayerModal() {
 
   window.addEventListener('resize', resizeSimCanvas);
 }
+
+/**
+ * Interactive 3D Consultant Showcase Stage & Holographic Controller
+ * Manages 3D multi-plane perspective tilt on cursor movement, 3D consultant slides,
+ * autoplay timer, dot controls, and holographic depth interactions.
+ */
+function initConsultantStage3D() {
+  const stage = document.querySelector('.consultant-3d-stage');
+  const wrapper = document.querySelector('.consultant-3d-stage-wrapper');
+  const slides = document.querySelectorAll('.consultant-3d-slide');
+  const dots = document.querySelectorAll('.stage-dot');
+  const nextBtn = document.getElementById('stageNextBtn');
+  const prevBtn = document.getElementById('stagePrevBtn');
+  const autoplayBtn = document.getElementById('stageAutoplayBtn');
+
+  if (!stage || !slides.length) return;
+
+  let currentIdx = 0;
+  let isAutoplay = true;
+  let autoplayTimer = null;
+
+  function showSlide(index) {
+    if (index < 0) index = slides.length - 1;
+    if (index >= slides.length) index = 0;
+    currentIdx = index;
+
+    slides.forEach((s, i) => {
+      s.classList.toggle('active', i === currentIdx);
+    });
+
+    dots.forEach((d, i) => {
+      d.classList.toggle('active', i === currentIdx);
+    });
+  }
+
+  function nextSlide() {
+    showSlide(currentIdx + 1);
+  }
+
+  function prevSlide() {
+    showSlide(currentIdx - 1);
+  }
+
+  if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+  if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+
+  dots.forEach(dot => {
+    dot.addEventListener('click', function () {
+      const idx = parseInt(this.getAttribute('data-index'), 10);
+      if (!isNaN(idx)) showSlide(idx);
+    });
+  });
+
+  // Autoplay loop
+  function startAutoplay() {
+    if (autoplayTimer) clearInterval(autoplayTimer);
+    autoplayTimer = setInterval(() => {
+      if (isAutoplay) nextSlide();
+    }, 4500);
+  }
+
+  startAutoplay();
+
+  if (autoplayBtn) {
+    autoplayBtn.addEventListener('click', function () {
+      isAutoplay = !isAutoplay;
+      this.classList.toggle('active', isAutoplay);
+      this.innerHTML = isAutoplay 
+        ? '<i class="bi bi-arrow-repeat me-1"></i> Auto 3D' 
+        : '<i class="bi bi-pause-circle me-1"></i> Paused';
+    });
+  }
+
+  // Mouse hover pause & resume
+  if (wrapper) {
+    wrapper.addEventListener('mouseenter', () => { isAutoplay = false; });
+    wrapper.addEventListener('mouseleave', () => { 
+      if (autoplayBtn && autoplayBtn.classList.contains('active')) {
+        isAutoplay = true; 
+      }
+    });
+
+    // 3D Perspective Tilt on Mouse Movement
+    wrapper.addEventListener('mousemove', function (e) {
+      const rect = wrapper.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+
+      // Restrained elegant rotation (+/- 14 deg on Y, +/- 12 deg on X)
+      const rotY = (x / (rect.width / 2)) * 14;
+      const rotX = -(y / (rect.height / 2)) * 12;
+
+      stage.style.transform = `rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) scale3d(1.025, 1.025, 1.025)`;
+    });
+
+    wrapper.addEventListener('mouseleave', function () {
+      stage.style.transform = 'rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+    });
+  }
+}
+
 
 
 

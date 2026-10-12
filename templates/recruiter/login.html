@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Recruiter sign in | HALCON CAREER{% endblock %}
+{% block content %}
+<section class="recruiter-shell py-5">
+  <div class="container" style="max-width: 480px;">
+    <div class="recruiter-login-card p-4 p-md-5">
+      <div class="brand-icon mb-3"><i class="bi bi-shield-lock-fill"></i></div>
+      <span class="recruiter-eyebrow">PRIVATE RECRUITER ACCESS</span>
+      <h1 class="h3 mt-2">Sign in to manage jobs</h1>
+      <p class="text-muted">This area is restricted to authorized HALCON CAREER recruiters.</p>
+      <form method="post" novalidate>
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+          <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+        {% endif %}
+        <div class="mb-3">
+          <label class="form-label" for="{{ form.username.id_for_label }}">Username</label>
+          {{ form.username }}
+          {{ form.username.errors }}
+        </div>
+        <div class="mb-4">
+          <label class="form-label" for="{{ form.password.id_for_label }}">Password</label>
+          {{ form.password }}
+          {{ form.password.errors }}
+        </div>
+        <button class="btn btn-teal w-100 py-2" type="submit">Sign in securely</button>
+      </form>
+      <p class="small text-muted mt-3 mb-0">Recruiter accounts are created by a site administrator. There is no public recruiter registration.</p>
+    </div>
+  </div>
+</section>
+{% endblock %}

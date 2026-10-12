@@ -19,8 +19,7 @@ class JobSitemap(Sitemap):
     changefreq = 'daily'
 
     def items(self):
-        return Job.objects.filter(is_published=True).order_by('-created_at')
+        return Job.objects.open().order_by('-published_at', '-created_at')
 
     def lastmod(self, obj):
         return obj.updated_at
-

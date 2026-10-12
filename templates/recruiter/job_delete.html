@@ -1,0 +1,13 @@
+{% extends 'recruiter/base.html' %}
+{% block page_heading %}Delete job{% endblock %}
+{% block recruiter_content %}
+<div class="recruiter-panel" style="max-width: 680px;">
+  <div class="alert alert-warning"><strong>Confirm deletion</strong><br>Deleting this job will also delete its associated applications.</div>
+  <p>Are you sure you want to permanently delete <strong>{{ job.title }}</strong>?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button class="btn btn-danger" type="submit">Delete job and applications</button>
+    <a class="btn btn-outline-custom" href="{% url 'recruiter:jobs' %}">Cancel</a>
+  </form>
+</div>
+{% endblock %}

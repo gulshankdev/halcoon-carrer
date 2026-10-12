@@ -15,17 +15,17 @@ class CategoryAdmin(admin.ModelAdmin):
 class JobAdmin(admin.ModelAdmin):
     list_display = (
         'title',
-        'employer_name',
+        'company_display_name',
         'category',
         'location',
         'employment_type',
         'experience_requirements',
-        'is_published',
+        'status',
         'is_featured',
         'created_at',
     )
     list_filter = (
-        'is_published',
+        'status',
         'is_featured',
         'employment_type',
         'experience_requirements',
@@ -35,24 +35,33 @@ class JobAdmin(admin.ModelAdmin):
     search_fields = (
         'title',
         'employer_name',
+        'company__name',
         'location',
         'description',
         'required_skills',
         'responsibilities',
     )
     prepopulated_fields = {'slug': ('title',)}
-    list_editable = ('is_published', 'is_featured')
+    list_editable = ('status', 'is_featured')
     date_hierarchy = 'created_at'
     actions = ['publish_jobs', 'unpublish_jobs', 'feature_jobs']
 
     @admin.action(description="Publish selected vacancies")
     def publish_jobs(self, request, queryset):
-        count = queryset.update(is_published=True)
+        count = 0
+        for job in queryset:
+            job.status = Job.Status.PUBLISHED
+            job.save(update_fields=['status', 'published_at'])
+            count += 1
         self.message_user(request, f"{count} vacancies successfully published.")
 
     @admin.action(description="Unpublish/Archive selected vacancies")
     def unpublish_jobs(self, request, queryset):
-        count = queryset.update(is_published=False)
+        count = 0
+        for job in queryset:
+            job.status = Job.Status.DRAFT
+            job.save(update_fields=['status', 'published_at'])
+            count += 1
         self.message_user(request, f"{count} vacancies moved to draft/archive.")
 
     @admin.action(description="Mark selected vacancies as Featured")

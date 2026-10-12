@@ -1,0 +1,13 @@
+{% extends 'recruiter/base.html' %}
+{% block page_heading %}Job categories{% endblock %}
+{% block recruiter_content %}
+<div class="recruiter-panel">
+  <div class="d-flex justify-content-between align-items-center mb-3"><p class="text-muted mb-0">Categories appear automatically in public search and job forms.</p><a class="btn btn-teal" href="{% url 'recruiter:category_add' %}"><i class="bi bi-plus-lg me-1"></i>Add Category</a></div>
+  <div class="table-responsive"><table class="table align-middle recruiter-table">
+    <thead><tr><th>Category</th><th>Jobs</th><th>Visibility</th><th></th></tr></thead>
+    <tbody>{% for category in categories %}
+      <tr><td><i class="bi {{ category.icon }} me-2 text-teal"></i><strong>{{ category.name }}</strong><div class="small text-muted">{{ category.description|truncatewords:16 }}</div></td><td>{{ category.job_count }}</td><td>{% if category.active %}<span class="badge bg-success-subtle text-success">Active</span>{% else %}<span class="badge bg-secondary">Inactive</span>{% endif %}</td><td><a class="btn btn-sm btn-outline-custom" href="{% url 'recruiter:category_edit' category.pk %}">Edit</a></td></tr>
+    {% empty %}<tr><td colspan="4"><div class="recruiter-empty">No categories configured yet.</div></td></tr>{% endfor %}</tbody>
+  </table></div>
+</div>
+{% endblock %}

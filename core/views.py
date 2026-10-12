@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.http import JsonResponse, HttpResponse
 from django.utils import timezone
 from django.db.models import Count, Q
+from django.utils import timezone
 from jobs.models import Job, Category
 from .forms import ContactForm
 
@@ -12,25 +13,30 @@ def home_view(request):
     Homepage view for HALCON CAREER.
     Dynamically loads featured vacancies, latest jobs, and active categories from DB.
     """
-    featured_jobs = Job.objects.filter(
-        is_published=True,
+    public_jobs = Job.objects.open().filter(
+        Q(category__isnull=True) | Q(category__active=True)
+    )
+    featured_jobs = public_jobs.filter(
         is_featured=True
-    ).select_related('category').order_by('-created_at')[:6]
+    ).select_related('category', 'company').order_by('-published_at', '-created_at')[:6]
 
-    latest_jobs = Job.objects.filter(
-        is_published=True
-    ).select_related('category').order_by('-created_at')[:6]
+    latest_jobs = public_jobs.select_related(
+        'category', 'company'
+    ).order_by('-published_at', '-created_at')[:6]
 
     categories = Category.objects.filter(
         active=True
     ).annotate(
-        active_jobs_count=Count('jobs', filter=Q(jobs__is_published=True))
+        active_jobs_count=Count(
+            'jobs',
+            filter=Q(jobs__status=Job.Status.PUBLISHED)
+            & (Q(jobs__published_at__lte=timezone.now()) | Q(jobs__published_at__isnull=True))
+            & (Q(jobs__application_deadline__isnull=True) | Q(jobs__application_deadline__gte=timezone.localdate())),
+        )
     ).order_by('name')[:8]
 
     # Distinct locations for search dropdown
-    locations = Job.objects.filter(
-        is_published=True
-    ).values_list('location', flat=True).distinct()[:10]
+    locations = public_jobs.values_list('location', flat=True).distinct()[:10]
 
     context = {
         'featured_jobs': featured_jobs,

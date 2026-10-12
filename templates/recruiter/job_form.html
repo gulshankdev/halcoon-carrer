@@ -1,0 +1,32 @@
+{% extends 'recruiter/base.html' %}
+{% block page_heading %}{{ heading }}{% endblock %}
+{% block recruiter_content %}
+<div class="recruiter-panel recruiter-form-panel">
+  {% if form.non_field_errors %}<div class="alert alert-danger">{{ form.non_field_errors }}</div>{% endif %}
+  <form method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    <div class="row g-3">
+      {% for field in form %}
+        <div class="{% if field.name == 'description' or field.name == 'responsibilities' or field.name == 'required_skills' or field.name == 'qualifications' %}col-12{% elif field.name == 'company_name' or field.name == 'company_logo' or field.name == 'image' %}col-md-6{% elif field.field.widget.input_type == 'checkbox' %}col-12{% else %}col-md-6 col-xl-4{% endif %}">
+          {% if field.field.widget.input_type == 'checkbox' %}
+            <div class="form-check mt-3">{{ field }}<label class="form-check-label" for="{{ field.id_for_label }}">{{ field.label }}</label></div>
+          {% else %}
+            <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %}<span class="text-danger"> *</span>{% endif %}</label>
+            {{ field }}
+          {% endif %}
+          {% if field.help_text %}<div class="form-text">{{ field.help_text }}</div>{% endif %}
+          {% for error in field.errors %}<div class="text-danger small mt-1">{{ error }}</div>{% endfor %}
+        </div>
+      {% endfor %}
+    </div>
+    <div class="alert alert-light border mt-4 small mb-0">
+      Add a category if needed via <a href="{% url categories_url %}">Job Categories</a>. Choose Draft to save privately; Preview before publishing.
+    </div>
+    <div class="d-flex flex-wrap gap-2 mt-4">
+      <button class="btn btn-teal" type="submit"><i class="bi bi-check2-circle me-1"></i>Save Job</button>
+      {% if job %}<a class="btn btn-outline-custom" href="{% url 'recruiter:job_preview' job.pk %}">Preview</a>{% endif %}
+      <a class="btn btn-outline-custom" href="{% url 'recruiter:jobs' %}">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

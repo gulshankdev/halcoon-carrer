@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from jobs.models import Job
 from accounts.validators import validate_resume_file
+from accounts.storage import ProtectedResumeStorage
 
 
 class JobApplication(models.Model):
@@ -9,12 +10,14 @@ class JobApplication(models.Model):
     Candidate application submitted for a specific Job vacancy.
     """
     STATUS_CHOICES = [
-        ('Submitted', 'Submitted'),
-        ('Under Review', 'Under Review'),
+        ('New', 'New'),
+        ('Reviewing', 'Reviewing'),
         ('Shortlisted', 'Shortlisted'),
         ('Interview', 'Interview'),
         ('Selected', 'Selected'),
         ('Rejected', 'Rejected'),
+        ('Submitted', 'Submitted (legacy)'),
+        ('Under Review', 'Under Review (legacy)'),
     ]
 
     candidate = models.ForeignKey(
@@ -32,9 +35,12 @@ class JobApplication(models.Model):
     phone = models.CharField(max_length=20)
     resume_file = models.FileField(
         upload_to='resumes/applications/%Y/%m/',
+        storage=ProtectedResumeStorage(),
         validators=[validate_resume_file],
-        help_text="Uploaded resume in PDF or DOCX format (Max 5MB)"
+        help_text="Uploaded resume in PDF or DOCX format (Max 5 MB)"
     )
+    relevant_experience = models.TextField(blank=True)
+    skills = models.TextField(blank=True)
     cover_letter = models.TextField(
         blank=True,
         help_text="Optional cover letter or additional notes for the recruiter"
@@ -69,6 +75,8 @@ class JobApplication(models.Model):
     def status_badge_class(self):
         """Bootstrap badge class for application status."""
         badge_map = {
+            'New': 'badge bg-secondary',
+            'Reviewing': 'badge bg-info text-dark',
             'Submitted': 'badge bg-secondary',
             'Under Review': 'badge bg-info text-dark',
             'Shortlisted': 'badge bg-primary',

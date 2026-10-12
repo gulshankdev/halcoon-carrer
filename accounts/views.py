@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from .storage import get_resume_path
 from django.core.exceptions import PermissionDenied
 from django.http import FileResponse, Http404
 from .forms import (
@@ -121,14 +122,14 @@ def download_profile_resume(request, user_id):
     if not profile.resume:
         raise Http404("No resume uploaded for this candidate.")
 
-    file_path = profile.resume.path
-    if not os.path.exists(file_path):
+    file_path = get_resume_path(profile.resume)
+    if file_path is None:
         raise Http404("Resume file not found on server storage.")
 
-    content_type, _ = mimetypes.guess_type(file_path)
+    content_type, _ = mimetypes.guess_type(str(file_path))
     content_type = content_type or 'application/octet-stream'
 
     response = FileResponse(open(file_path, 'rb'), content_type=content_type)
-    filename = os.path.basename(file_path)
+    filename = file_path.name
     response['Content-Disposition'] = f'inline; filename="{filename}"'
     return response

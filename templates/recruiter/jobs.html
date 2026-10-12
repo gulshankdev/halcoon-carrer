@@ -1,0 +1,56 @@
+{% extends 'recruiter/base.html' %}
+{% block page_heading %}Manage jobs{% endblock %}
+{% block recruiter_content %}
+<div class="recruiter-panel">
+  <div class="d-flex flex-column flex-md-row justify-content-between gap-3 mb-3">
+    <form method="get" class="row g-2 flex-grow-1">
+      <div class="col-md-5"><input class="form-control" name="q" value="{{ current_q }}" placeholder="Search title, company, location"></div>
+      <div class="col-md-3"><select class="form-select" name="status"><option value="">All statuses</option>{% for code,label in statuses %}<option value="{{ code }}" {% if current_status == code %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></div>
+      <div class="col-md-3"><select class="form-select" name="category"><option value="">All categories</option>{% for category in categories %}<option value="{{ category.pk }}" {% if current_category == category.pk|stringformat:'s' %}selected{% endif %}>{{ category.name }}</option>{% endfor %}</select></div>
+      <div class="col-md-1"><button class="btn btn-outline-custom w-100" aria-label="Filter jobs"><i class="bi bi-search"></i></button></div>
+    </form>
+    <a class="btn btn-teal align-self-start" href="{% url 'recruiter:job_add' %}"><i class="bi bi-plus-lg me-1"></i>Add Job</a>
+  </div>
+  <form id="bulkForm" method="post" action="{% url 'recruiter:job_bulk_action' %}">
+    {% csrf_token %}
+    <div class="row g-2 mb-3">
+      <div class="col-auto"><select name="action" class="form-select form-select-sm" required><option value="">Bulk action…</option>{% for code,label in statuses %}<option value="{{ code }}">Set {{ label }}</option>{% endfor %}<option value="delete">Delete selected</option></select></div>
+      <div class="col-auto"><button class="btn btn-sm btn-outline-custom" type="submit" onclick="return confirm('Apply this action to the selected jobs?')">Apply</button></div>
+    </div>
+  </form>
+  <div class="table-responsive">
+    <table class="table align-middle recruiter-table">
+      <thead><tr><th><span class="visually-hidden">Select</span></th><th>Job</th><th>Category</th><th>Location</th><th>Salary</th><th>Status</th><th>Apps</th><th>Posted / deadline</th><th>Actions</th></tr></thead>
+      <tbody>
+        {% for job in page_obj %}
+        <tr>
+          <td><input type="checkbox" class="form-check-input" name="jobs" value="{{ job.pk }}" form="bulkForm" aria-label="Select {{ job.title }}"></td>
+          <td><strong>{{ job.title }}</strong><div class="small text-muted">{{ job.company_display_name }}</div></td>
+          <td>{{ job.category.name|default:"—" }}</td><td>{{ job.location }}</td>
+          <td>{{ job.salary_display }}{% if job.min_salary or job.max_salary %}<div class="small text-muted">per {{ job.salary_period|slice:":-2" }}</div>{% endif %}</td>
+          <td><span class="badge recruiter-status-{{ job.status|lower }}">{{ job.get_status_display }}</span></td>
+          <td>{{ job.application_count }}</td>
+          <td class="small">{{ job.posted_at|date:"M d, Y"|default:"—" }}<br><span class="text-muted">Due {{ job.application_deadline|date:"M d, Y"|default:"—" }}</span></td>
+          <td>
+            <div class="d-flex flex-wrap gap-1">
+              <a class="btn btn-sm btn-outline-custom" href="{% url 'recruiter:job_edit' job.pk %}" title="Edit"><i class="bi bi-pencil"></i></a>
+              <a class="btn btn-sm btn-outline-custom" href="{% url 'recruiter:job_preview' job.pk %}" title="Preview"><i class="bi bi-eye"></i></a>
+              {% if job.status == 'Published' %}
+                <form method="post" action="{% url 'recruiter:job_status' job.pk 'Draft' %}">{% csrf_token %}<button class="btn btn-sm btn-outline-warning" title="Unpublish"><i class="bi bi-eye-slash"></i></button></form>
+                <form method="post" action="{% url 'recruiter:job_status' job.pk 'Closed' %}">{% csrf_token %}<button class="btn btn-sm btn-outline-secondary" title="Close"><i class="bi bi-x-circle"></i></button></form>
+              {% else %}
+                <form method="post" action="{% url 'recruiter:job_status' job.pk 'Published' %}">{% csrf_token %}<button class="btn btn-sm btn-outline-success" title="Publish"><i class="bi bi-send"></i></button></form>
+              {% endif %}
+              <a class="btn btn-sm btn-outline-danger" href="{% url 'recruiter:job_delete' job.pk %}" title="Delete"><i class="bi bi-trash"></i></a>
+            </div>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="9"><div class="recruiter-empty">No jobs match these filters. Try another search or add a new job.</div></td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% include 'recruiter/pagination.html' %}
+</div>
+{% endblock %}

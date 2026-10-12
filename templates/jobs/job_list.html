@@ -64,6 +64,38 @@
               <input type="text" name="location" value="{{ current_location }}" class="form-control form-control-sm" placeholder="e.g. Mohali, Chandigarh">
             </div>
 
+            <div class="row g-2 mb-3">
+              <div class="col-6">
+                <label class="form-label small">Minimum salary</label>
+                <input type="number" min="0" step="1" name="min_salary" value="{{ current_min_salary }}" class="form-control form-control-sm">
+              </div>
+              <div class="col-6">
+                <label class="form-label small">Maximum salary</label>
+                <input type="number" min="0" step="1" name="max_salary" value="{{ current_max_salary }}" class="form-control form-control-sm">
+              </div>
+            </div>
+
+            <div class="row g-2 mb-3">
+              <div class="col-6">
+                <label class="form-label small">Min. experience</label>
+                <input type="number" min="0" step="0.5" name="min_experience" value="{{ current_min_experience }}" class="form-control form-control-sm">
+              </div>
+              <div class="col-6">
+                <label class="form-label small">Max. experience</label>
+                <input type="number" min="0" step="0.5" name="max_experience" value="{{ current_max_experience }}" class="form-control form-control-sm">
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label small">Work mode</label>
+              <select name="work_mode" class="form-select form-select-sm">
+                <option value="">Any work mode</option>
+                {% for code, label in work_modes %}
+                  <option value="{{ code }}" {% if current_work_mode == code %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+              </select>
+            </div>
+
             <!-- Employment Type -->
             <div class="mb-3">
               <label class="form-label small">Employment Type</label>
@@ -72,6 +104,16 @@
                 {% for code, label in employment_types %}
                   <option value="{{ code }}" {% if current_type == code %}selected{% endif %}>{{ label }}</option>
                 {% endfor %}
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label small">Date posted</label>
+              <select name="date_posted" class="form-select form-select-sm">
+                <option value="">Any time</option>
+                <option value="24h" {% if current_date_posted == '24h' %}selected{% endif %}>Last 24 hours</option>
+                <option value="7d" {% if current_date_posted == '7d' %}selected{% endif %}>Last 7 days</option>
+                <option value="30d" {% if current_date_posted == '30d' %}selected{% endif %}>Last 30 days</option>
               </select>
             </div>
 
@@ -109,10 +151,15 @@
             {% for job in page_obj %}
               <div class="col-md-6 col-xl-4">
                 <div class="job-card">
+                  {% if job.image %}
+                    <div class="mb-3">
+                      <img src="{{ job.image.url }}" alt="{{ job.title }}" class="img-fluid rounded-3" style="height: 170px; width: 100%; object-fit: cover;">
+                    </div>
+                  {% endif %}
                   <div>
                     <div class="d-flex justify-content-between align-items-start mb-2">
                       <span class="badge bg-light text-dark border small">{{ job.employment_type }}</span>
-                      <span class="text-muted" style="font-size: 0.75rem;"><i class="bi bi-clock me-1"></i>{{ job.created_at|date:"M d" }}</span>
+                      <span class="text-muted" style="font-size: 0.75rem;"><i class="bi bi-clock me-1"></i>{{ job.posted_at|date:"M d" }}</span>
                     </div>
 
                     <h4 class="job-card-title fs-6">
@@ -121,7 +168,7 @@
 
                     <div class="job-card-company small mb-2">
                       <i class="bi bi-building"></i>
-                      <span>{{ job.employer_name|default:"Confidential Client" }}</span>
+                      <span>{{ job.company_display_name }}</span>
                     </div>
 
                     <div class="d-flex flex-wrap gap-1 mb-3">
@@ -137,7 +184,7 @@
                   <div class="border-top pt-3 d-flex justify-content-between align-items-center">
                     <div>
                       <span class="d-block text-muted" style="font-size: 0.75rem;">Offered Package</span>
-                      <span class="job-salary-badge small">{{ job.salary_display }}</span>
+                      <span class="job-salary-badge small">{{ job.salary_display }}{% if job.min_salary or job.max_salary %} / {{ job.salary_period }}{% endif %}</span>
                     </div>
                     <a href="{{ job.get_absolute_url }}" class="btn btn-sm btn-outline-custom">
                       View Role
@@ -154,7 +201,7 @@
               <ul class="pagination justify-content-center">
                 {% if page_obj.has_previous %}
                   <li class="page-item">
-                    <a class="page-link text-dark" href="?page={{ page_obj.previous_page_number }}{% if current_q %}&q={{ current_q }}{% endif %}{% if current_category %}&category={{ current_category }}{% endif %}{% if current_location %}&location={{ current_location }}{% endif %}{% if current_type %}&type={{ current_type }}{% endif %}{% if current_experience %}&experience={{ current_experience }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}">
+                    <a class="page-link text-dark" href="?page={{ page_obj.previous_page_number }}{% if pagination_query %}&{{ pagination_query }}{% endif %}">
                       <i class="bi bi-chevron-left"></i> Previous
                     </a>
                   </li>
@@ -167,14 +214,14 @@
                     <li class="page-item active"><span class="page-link bg-teal border-0" style="background-color: var(--color-accent-teal);">{{ num }}</span></li>
                   {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
                     <li class="page-item">
-                      <a class="page-link text-dark" href="?page={{ num }}{% if current_q %}&q={{ current_q }}{% endif %}{% if current_category %}&category={{ current_category }}{% endif %}{% if current_location %}&location={{ current_location }}{% endif %}{% if current_type %}&type={{ current_type }}{% endif %}{% if current_experience %}&experience={{ current_experience }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}">{{ num }}</a>
+                      <a class="page-link text-dark" href="?page={{ num }}{% if pagination_query %}&{{ pagination_query }}{% endif %}">{{ num }}</a>
                     </li>
                   {% endif %}
                 {% endfor %}
 
                 {% if page_obj.has_next %}
                   <li class="page-item">
-                    <a class="page-link text-dark" href="?page={{ page_obj.next_page_number }}{% if current_q %}&q={{ current_q }}{% endif %}{% if current_category %}&category={{ current_category }}{% endif %}{% if current_location %}&location={{ current_location }}{% endif %}{% if current_type %}&type={{ current_type }}{% endif %}{% if current_experience %}&experience={{ current_experience }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}">
+                    <a class="page-link text-dark" href="?page={{ page_obj.next_page_number }}{% if pagination_query %}&{{ pagination_query }}{% endif %}">
                       Next <i class="bi bi-chevron-right"></i>
                     </a>
                   </li>
@@ -205,4 +252,3 @@
   </div>
 </div>
 {% endblock %}
-

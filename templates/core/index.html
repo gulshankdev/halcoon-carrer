@@ -24,28 +24,29 @@
   </div>
 
   <div class="container hero-interactive-content position-relative">
-    <div class="row align-items-center">
-      <div class="col-lg-8 mx-auto text-center">
-        <div class="hero-tagline-badge">
-          <i class="bi bi-patch-check-fill"></i> Professional Recruitment Consultancy &bull; Mohali
+    <div class="row align-items-center g-5">
+      <!-- Left Column: Search & Value Proposition -->
+      <div class="col-lg-7">
+        <div class="hero-tagline-badge mb-3">
+          <i class="bi bi-stars text-teal" style="color: var(--color-accent-teal);"></i> Premier Recruitment Consultancy &bull; Mohali HQ
         </div>
-        <h1 class="hero-title">Connecting Talent. Creating Opportunities.</h1>
-        <p class="hero-subtitle mx-auto">
-          HALCON CAREER bridges the gap between ambitious job seekers and forward-thinking employers. We provide transparent, ethical, and tailored recruitment services across diverse industries.
+        <h1 class="hero-title mb-3" style="font-size: 2.85rem; line-height: 1.15;">Connecting Elite Talent with Visionary Companies.</h1>
+        <p class="hero-subtitle mb-4 text-start" style="max-width: 600px; font-size: 1.05rem;">
+          HALCON CAREER delivers structured talent acquisition, executive search, and precision candidate calibration. Ethical, transparent, and 100% free for candidate placement.
         </p>
 
         <!-- Search Bar -->
-        <div class="search-card-hero text-start">
+        <div class="search-card-hero text-start shadow-lg mb-4">
           <form method="get" action="{% url 'jobs:job_list' %}" class="row g-2 align-items-center">
             <div class="col-md-4">
               <label for="heroSearchQ" class="form-label text-muted small mb-1"><i class="bi bi-search text-teal me-1"></i> Job Title / Keyword</label>
               <div class="input-group">
-                <input type="text" class="form-control border-light-subtle" id="heroSearchQ" name="q" placeholder="e.g. Developer, HR, Accountant">
+                <input type="text" class="form-control border-light-subtle" id="heroSearchQ" name="q" placeholder="e.g. Developer, HR, CA">
               </div>
             </div>
             <div class="col-md-3">
               <label for="heroSearchLoc" class="form-label text-muted small mb-1"><i class="bi bi-geo-alt text-teal me-1"></i> Location</label>
-              <input type="text" class="form-control border-light-subtle" id="heroSearchLoc" name="location" placeholder="e.g. Mohali, Chandigarh">
+              <input type="text" class="form-control border-light-subtle" id="heroSearchLoc" name="location" placeholder="e.g. Mohali, Tricity">
             </div>
             <div class="col-md-3">
               <label for="heroSearchType" class="form-label text-muted small mb-1"><i class="bi bi-briefcase text-teal me-1"></i> Job Type</label>
@@ -64,15 +65,199 @@
           </form>
         </div>
 
-        <div class="d-flex flex-wrap justify-content-center align-items-center gap-2 mt-3 text-white-50 small">
-          <span>Popular searches:</span>
-          <a href="{% url 'jobs:job_list' %}?q=Developer" class="text-white-50 text-decoration-underline ms-1 me-2">Software</a>
-          <a href="{% url 'jobs:job_list' %}?q=Accountant" class="text-white-50 text-decoration-underline me-2">Finance</a>
-          <a href="{% url 'jobs:job_list' %}?location=Mohali" class="text-white-50 text-decoration-underline me-2">Mohali</a>
-          <a href="{% url 'jobs:job_list' %}?type=Full-time" class="text-white-50 text-decoration-underline me-3">Full-time</a>
-          <button id="toggle3DMotionBtn" class="canvas-toggle-btn active" type="button">
-            <i class="bi bi-pause-circle me-1"></i> Interactive 3D Mesh
+        <!-- Live Tickers & Toggle Button -->
+        <div class="d-flex flex-wrap align-items-center gap-2 text-white-50 small">
+          <span class="badge bg-dark bg-opacity-50 border border-teal text-teal px-2 py-1" style="border-color: rgba(45, 212, 191, 0.4) !important;">
+            <i class="bi bi-circle-fill text-danger me-1" style="font-size: 0.55rem; animation: liveBlink 1.2s infinite alternate;"></i> 140+ Active Mandates
+          </span>
+          <span class="badge bg-dark bg-opacity-50 border border-secondary text-light px-2 py-1">
+            <i class="bi bi-check2-circle text-teal me-1"></i> 98.4% Role Calibration
+          </span>
+          <span class="badge bg-dark bg-opacity-50 border border-secondary text-light px-2 py-1">
+            <i class="bi bi-lightning-charge-fill text-warning me-1"></i> 48-Hour Shortlists
+          </span>
+          <button id="toggle3DMotionBtn" class="canvas-toggle-btn active ms-lg-auto" type="button">
+            <i class="bi bi-pause-circle me-1"></i> 3D Terrain Wave
           </button>
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive 3D Dimensional Consultant Showcase Stage -->
+      <div class="col-lg-5">
+        <div class="consultant-3d-stage-wrapper">
+          <!-- Glowing Holographic Base Ring -->
+          <div class="stage-hologram-base"></div>
+
+          <!-- 3D Perspective Card Deck -->
+          <div class="consultant-3d-stage">
+            <!-- Slide 1: Aditi Sharma (Tech Lead Partner) -->
+            <div class="consultant-3d-slide active" data-slide="0">
+              <div class="consultant-glass-card">
+                <div class="consultant-card-img-wrapper">
+                  <img src="{% static 'images/senior-consultant-female.jpg' %}" alt="Aditi Sharma - Senior Tech Talent Partner">
+                  <div class="consultant-card-img-gradient"></div>
+                  <!-- 3D Floating Badges -->
+                  <div class="badge-3d-floating badge-3d-top-right">
+                    <i class="bi bi-patch-check-fill text-teal"></i> Verified Partner
+                  </div>
+                  <div class="badge-3d-floating badge-3d-bottom-left">
+                    <i class="bi bi-star-fill text-warning"></i> 99.2% Retention
+                  </div>
+                </div>
+                <div class="consultant-card-body">
+                  <div class="d-flex justify-content-between align-items-center mb-1">
+                    <h3 class="consultant-name-heading mb-0">Aditi Sharma</h3>
+                    <span class="badge bg-teal bg-opacity-25 text-teal border border-teal small" style="color: #2DD4BF !important; border-color: rgba(45, 212, 191, 0.4) !important;">Tech Lead</span>
+                  </div>
+                  <div class="consultant-title-sub">
+                    <i class="bi bi-laptop"></i> Lead Technology Talent Partner &bull; Mohali
+                  </div>
+                  <p class="text-light opacity-75 small mb-3">
+                    Specialized in high-growth software engineering, cloud architectures, AI teams, and full-stack technical staffing.
+                  </p>
+                  <div class="consultant-tags-row">
+                    <span class="consultant-tag-pill">Cloud &amp; DevOps</span>
+                    <span class="consultant-tag-pill">Golang / Python</span>
+                    <span class="consultant-tag-pill">AI Engineers</span>
+                    <span class="consultant-tag-pill">CTO Search</span>
+                  </div>
+                  <a href="{% url 'employers:enquiry' %}" class="btn btn-sm btn-teal w-100 py-2">
+                    <i class="bi bi-chat-dots-fill me-1"></i> Consult with Aditi
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 2: Rajesh Varma (Executive Search Director) -->
+            <div class="consultant-3d-slide" data-slide="1">
+              <div class="consultant-glass-card">
+                <div class="consultant-card-img-wrapper">
+                  <img src="{% static 'images/lead-recruiter-male.jpg' %}" alt="Rajesh Varma - Executive Search Director">
+                  <div class="consultant-card-img-gradient"></div>
+                  <div class="badge-3d-floating badge-3d-top-right">
+                    <i class="bi bi-shield-check text-teal"></i> C-Suite Advisory
+                  </div>
+                  <div class="badge-3d-floating badge-3d-bottom-left">
+                    <i class="bi bi-award-fill text-warning"></i> 14+ Yrs Exp
+                  </div>
+                </div>
+                <div class="consultant-card-body">
+                  <div class="d-flex justify-content-between align-items-center mb-1">
+                    <h3 class="consultant-name-heading mb-0">Rajesh Varma</h3>
+                    <span class="badge bg-warning bg-opacity-25 text-warning border border-warning small">Executive Search</span>
+                  </div>
+                  <div class="consultant-title-sub">
+                    <i class="bi bi-briefcase-fill"></i> Director &bull; C-Suite &amp; Lateral Appointments
+                  </div>
+                  <p class="text-light opacity-75 small mb-3">
+                    Discreet talent headhunting for CXOs, Vice Presidents, General Managers, and enterprise business heads.
+                  </p>
+                  <div class="consultant-tags-row">
+                    <span class="consultant-tag-pill">CEOs &amp; COOs</span>
+                    <span class="consultant-tag-pill">Board Advisory</span>
+                    <span class="consultant-tag-pill">Confidential Search</span>
+                    <span class="consultant-tag-pill">Equity Alignment</span>
+                  </div>
+                  <a href="{% url 'employers:enquiry' %}" class="btn btn-sm btn-teal w-100 py-2">
+                    <i class="bi bi-chat-dots-fill me-1"></i> Consult with Rajesh
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 3: Dr. Neha Kapoor (Healthcare & Life Sciences Partner) -->
+            <div class="consultant-3d-slide" data-slide="2">
+              <div class="consultant-glass-card">
+                <div class="consultant-card-img-wrapper">
+                  <img src="{% static 'images/executive-search-partner.jpg' %}" alt="Dr. Neha Kapoor - Managing Partner">
+                  <div class="consultant-card-img-gradient"></div>
+                  <div class="badge-3d-floating badge-3d-top-right">
+                    <i class="bi bi-heart-pulse-fill text-danger"></i> Healthcare Desk
+                  </div>
+                  <div class="badge-3d-floating badge-3d-bottom-left">
+                    <i class="bi bi-star-fill text-warning"></i> 98.8% Calibration
+                  </div>
+                </div>
+                <div class="consultant-card-body">
+                  <div class="d-flex justify-content-between align-items-center mb-1">
+                    <h3 class="consultant-name-heading mb-0">Dr. Neha Kapoor</h3>
+                    <span class="badge bg-info bg-opacity-25 text-info border border-info small">Life Sciences</span>
+                  </div>
+                  <div class="consultant-title-sub">
+                    <i class="bi bi-hospital"></i> Managing Partner &bull; Clinical &amp; Pharma Staffing
+                  </div>
+                  <p class="text-light opacity-75 small mb-3">
+                    Medical administration, hospital staffing, pharmaceutical research leaders, and bio-informatics specialists.
+                  </p>
+                  <div class="consultant-tags-row">
+                    <span class="consultant-tag-pill">Clinical Research</span>
+                    <span class="consultant-tag-pill">Hospital Directors</span>
+                    <span class="consultant-tag-pill">Regulatory Affairs</span>
+                    <span class="consultant-tag-pill">Biotech</span>
+                  </div>
+                  <a href="{% url 'employers:enquiry' %}" class="btn btn-sm btn-teal w-100 py-2">
+                    <i class="bi bi-chat-dots-fill me-1"></i> Consult with Dr. Neha
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 4: Vikram Sengupta (Finance & Operations Partner) -->
+            <div class="consultant-3d-slide" data-slide="3">
+              <div class="consultant-glass-card">
+                <div class="consultant-card-img-wrapper">
+                  <img src="{% static 'images/consultant-portrait.jpg' %}" alt="Vikram Sengupta - Senior Talent Advisor">
+                  <div class="consultant-card-img-gradient"></div>
+                  <div class="badge-3d-floating badge-3d-top-right">
+                    <i class="bi bi-cash-coin text-warning"></i> BFSI Specialist
+                  </div>
+                  <div class="badge-3d-floating badge-3d-bottom-left">
+                    <i class="bi bi-lightning-fill text-teal"></i> 48h Turnaround
+                  </div>
+                </div>
+                <div class="consultant-card-body">
+                  <div class="d-flex justify-content-between align-items-center mb-1">
+                    <h3 class="consultant-name-heading mb-0">Vikram Sengupta</h3>
+                    <span class="badge bg-success bg-opacity-25 text-success border border-success small">Finance &amp; Ops</span>
+                  </div>
+                  <div class="consultant-title-sub">
+                    <i class="bi bi-graph-up-arrow"></i> Senior Talent Advisor &bull; Banking &amp; Supply Chain
+                  </div>
+                  <p class="text-light opacity-75 small mb-3">
+                    Chartered Accountants, risk officers, investment banking analysts, and operations logistics managers.
+                  </p>
+                  <div class="consultant-tags-row">
+                    <span class="consultant-tag-pill">Chartered Accountants</span>
+                    <span class="consultant-tag-pill">Audit &amp; Risk</span>
+                    <span class="consultant-tag-pill">Supply Chain</span>
+                    <span class="consultant-tag-pill">B2B Sales</span>
+                  </div>
+                  <a href="{% url 'employers:enquiry' %}" class="btn btn-sm btn-teal w-100 py-2">
+                    <i class="bi bi-chat-dots-fill me-1"></i> Consult with Vikram
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3D Controller Bar -->
+          <div class="consultant-stage-controls">
+            <button id="stagePrevBtn" class="stage-nav-btn" type="button" title="Previous Consultant">
+              <i class="bi bi-chevron-left"></i>
+            </button>
+            <div class="stage-dots-container">
+              <span class="stage-dot active" data-index="0" title="Aditi Sharma"></span>
+              <span class="stage-dot" data-index="1" title="Rajesh Varma"></span>
+              <span class="stage-dot" data-index="2" title="Dr. Neha Kapoor"></span>
+              <span class="stage-dot" data-index="3" title="Vikram Sengupta"></span>
+            </div>
+            <button id="stageNextBtn" class="stage-nav-btn" type="button" title="Next Consultant">
+              <i class="bi bi-chevron-right"></i>
+            </button>
+            <button id="stageAutoplayBtn" class="btn btn-sm stage-autoplay-toggle active ms-2" type="button">
+              <i class="bi bi-arrow-repeat me-1"></i> Auto 3D
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -96,7 +281,7 @@
     <div class="row g-3">
       {% for cat in categories %}
         <div class="col-lg-3 col-md-4 col-sm-6">
-          <a href="{% url 'jobs:job_list' %}?category={{ cat.slug }}" class="card-custom p-3 d-flex align-items-center gap-3 text-decoration-none h-100">
+          <a href="{% url 'jobs:category_jobs' cat.slug %}" class="card-custom p-3 d-flex align-items-center gap-3 text-decoration-none h-100">
             <div class="service-icon-box mb-0 flex-shrink-0" style="width: 44px; height: 44px; font-size: 1.3rem;">
               <i class="bi {{ cat.icon|default:'bi-briefcase' }}"></i>
             </div>
@@ -111,6 +296,124 @@
   </div>
 </section>
 {% endif %}
+
+<!-- Meet Our Senior Recruitment Consultants (3D Dimensional Profile Showcase) -->
+<section class="section-py" style="background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);">
+  <div class="container">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-5">
+      <div>
+        <span class="badge bg-light text-teal px-3 py-2 mb-2" style="font-size: 0.8rem; border: 1px solid rgba(15, 157, 149, 0.3); color: var(--color-accent-teal) !important;">
+          <i class="bi bi-person-badge-fill me-1"></i> Executive Talent Advisory
+        </span>
+        <h2 class="section-title mb-1">Meet Our Senior Recruitment Consultants</h2>
+        <p class="section-subtitle ms-0 mb-0">
+          Dedicated vertical leaders steering talent acquisition, C-suite appointments, and tech team builds across Mohali &amp; Pan-India.
+        </p>
+      </div>
+      <a href="{% url 'employers:enquiry' %}" class="btn btn-teal mt-3 mt-md-0">
+        <i class="bi bi-briefcase me-1"></i> Retain a Consultant
+      </a>
+    </div>
+
+    <div class="row g-4">
+      <!-- Consultant 1 -->
+      <div class="col-lg-3 col-md-6">
+        <div class="consultant-grid-card tilt-card-3d h-100 d-flex flex-column justify-content-between">
+          <div>
+            <div class="consultant-grid-img-wrap">
+              <img src="{% static 'images/senior-consultant-female.jpg' %}" alt="Aditi Sharma - Tech Talent Partner" loading="lazy">
+              <span class="consultant-grid-badge"><i class="bi bi-laptop me-1"></i> Tech &amp; Cloud</span>
+            </div>
+            <div class="p-3">
+              <h5 class="fw-bold mb-1 text-dark">Aditi Sharma</h5>
+              <div class="text-teal small fw-semibold mb-2" style="color: var(--color-accent-teal);">Lead Tech Talent Partner</div>
+              <p class="text-muted small mb-3">10+ years scaling engineering squads, cloud architects, and full-stack teams across northern IT corridors.</p>
+              <div class="d-flex justify-content-between text-muted border-top pt-2 small">
+                <span><i class="bi bi-award text-warning me-1"></i> 320+ Hires</span>
+                <span><i class="bi bi-check2-circle text-success me-1"></i> 99.2% Retention</span>
+              </div>
+            </div>
+          </div>
+          <div class="p-3 pt-0">
+            <a href="{% url 'employers:enquiry' %}" class="btn btn-sm btn-outline-custom w-100">Consult with Aditi</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Consultant 2 -->
+      <div class="col-lg-3 col-md-6">
+        <div class="consultant-grid-card tilt-card-3d h-100 d-flex flex-column justify-content-between">
+          <div>
+            <div class="consultant-grid-img-wrap">
+              <img src="{% static 'images/lead-recruiter-male.jpg' %}" alt="Rajesh Varma - Executive Search Director" loading="lazy">
+              <span class="consultant-grid-badge"><i class="bi bi-building me-1"></i> C-Suite Advisory</span>
+            </div>
+            <div class="p-3">
+              <h5 class="fw-bold mb-1 text-dark">Rajesh Varma</h5>
+              <div class="text-teal small fw-semibold mb-2" style="color: var(--color-accent-teal);">Executive Search Director</div>
+              <p class="text-muted small mb-3">Headhunting CXOs, Vice Presidents, and commercial leaders for venture-backed and enterprise firms.</p>
+              <div class="d-flex justify-content-between text-muted border-top pt-2 small">
+                <span><i class="bi bi-award text-warning me-1"></i> 14+ Yrs Exp</span>
+                <span><i class="bi bi-check2-circle text-success me-1"></i> 100% Discreet</span>
+              </div>
+            </div>
+          </div>
+          <div class="p-3 pt-0">
+            <a href="{% url 'employers:enquiry' %}" class="btn btn-sm btn-outline-custom w-100">Consult with Rajesh</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Consultant 3 -->
+      <div class="col-lg-3 col-md-6">
+        <div class="consultant-grid-card tilt-card-3d h-100 d-flex flex-column justify-content-between">
+          <div>
+            <div class="consultant-grid-img-wrap">
+              <img src="{% static 'images/executive-search-partner.jpg' %}" alt="Dr. Neha Kapoor - Life Sciences Partner" loading="lazy">
+              <span class="consultant-grid-badge"><i class="bi bi-heart-pulse me-1"></i> Healthcare</span>
+            </div>
+            <div class="p-3">
+              <h5 class="fw-bold mb-1 text-dark">Dr. Neha Kapoor</h5>
+              <div class="text-teal small fw-semibold mb-2" style="color: var(--color-accent-teal);">Managing Partner &bull; Life Sciences</div>
+              <p class="text-muted small mb-3">Physician recruitment, clinical research directors, and biotechnology staffing across hospitals and labs.</p>
+              <div class="d-flex justify-content-between text-muted border-top pt-2 small">
+                <span><i class="bi bi-award text-warning me-1"></i> 12+ Yrs Exp</span>
+                <span><i class="bi bi-check2-circle text-success me-1"></i> 98.8% Calibration</span>
+              </div>
+            </div>
+          </div>
+          <div class="p-3 pt-0">
+            <a href="{% url 'employers:enquiry' %}" class="btn btn-sm btn-outline-custom w-100">Consult with Dr. Neha</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Consultant 4 -->
+      <div class="col-lg-3 col-md-6">
+        <div class="consultant-grid-card tilt-card-3d h-100 d-flex flex-column justify-content-between">
+          <div>
+            <div class="consultant-grid-img-wrap">
+              <img src="{% static 'images/consultant-portrait.jpg' %}" alt="Vikram Sengupta - BFSI & Ops Partner" loading="lazy">
+              <span class="consultant-grid-badge"><i class="bi bi-cash-coin me-1"></i> Finance &amp; BFSI</span>
+            </div>
+            <div class="p-3">
+              <h5 class="fw-bold mb-1 text-dark">Vikram Sengupta</h5>
+              <div class="text-teal small fw-semibold mb-2" style="color: var(--color-accent-teal);">Senior Talent Advisor &bull; BFSI</div>
+              <p class="text-muted small mb-3">Chartered Accountants, risk officers, investment banking analysts, and operations logistics managers.</p>
+              <div class="d-flex justify-content-between text-muted border-top pt-2 small">
+                <span><i class="bi bi-award text-warning me-1"></i> 280+ Hires</span>
+                <span><i class="bi bi-check2-circle text-success me-1"></i> 48h Shortlists</span>
+              </div>
+            </div>
+          </div>
+          <div class="p-3 pt-0">
+            <a href="{% url 'employers:enquiry' %}" class="btn btn-sm btn-outline-custom w-100">Consult with Vikram</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- Featured Job Openings -->
 <section class="section-py" style="background-color: var(--color-bg-light);">
@@ -135,14 +438,14 @@
                 <span class="badge bg-light text-primary border" style="font-size: 0.75rem;">
                   <i class="bi bi-bookmark-star-fill text-warning me-1"></i> Featured
                 </span>
-                <span class="text-muted small"><i class="bi bi-clock me-1"></i>{{ job.created_at|date:"M d, Y" }}</span>
+                <span class="text-muted small"><i class="bi bi-clock me-1"></i>{{ job.posted_at|date:"M d, Y" }}</span>
               </div>
               <h3 class="job-card-title">
                 <a href="{{ job.get_absolute_url }}" class="text-decoration-none text-dark">{{ job.title }}</a>
               </h3>
               <div class="job-card-company">
                 <i class="bi bi-building"></i>
-                <span>{{ job.employer_name|default:"Confidential Client" }}</span>
+                <span>{{ job.company_display_name }}</span>
               </div>
               <div class="d-flex flex-wrap gap-2 mb-3">
                 <span class="job-meta-tag"><i class="bi bi-geo-alt"></i> {{ job.location }}</span>
@@ -156,7 +459,7 @@
             <div class="border-top pt-3 d-flex justify-content-between align-items-center">
               <div>
                 <span class="d-block text-muted" style="font-size: 0.75rem;">Offered Package</span>
-                <span class="job-salary-badge">{{ job.salary_display }}</span>
+                <span class="job-salary-badge">{{ job.salary_display }}{% if job.min_salary or job.max_salary %} / {{ job.salary_period }}{% endif %}</span>
               </div>
               <a href="{{ job.get_absolute_url }}" class="btn btn-sm btn-outline-custom">
                 View Details
@@ -201,12 +504,12 @@
                 <h5 class="mb-1 fw-bold">
                   <a href="{{ job.get_absolute_url }}" class="text-dark text-decoration-none">{{ job.title }}</a>
                 </h5>
-                <span class="text-muted small"><i class="bi bi-building me-1"></i>{{ job.employer_name }} &bull; <i class="bi bi-geo-alt me-1"></i>{{ job.location }}</span>
+                <span class="text-muted small"><i class="bi bi-building me-1"></i>{{ job.company_display_name }} &bull; <i class="bi bi-geo-alt me-1"></i>{{ job.location }}</span>
               </div>
               <span class="badge bg-light text-dark border">{{ job.employment_type }}</span>
             </div>
             <div class="d-flex justify-content-between align-items-center mt-3 pt-2 border-top">
-              <span class="text-teal fw-semibold" style="color: var(--color-accent-teal);">{{ job.salary_display }}</span>
+              <span class="text-teal fw-semibold" style="color: var(--color-accent-teal);">{{ job.salary_display }}{% if job.min_salary or job.max_salary %} / {{ job.salary_period }}{% endif %}</span>
               <a href="{{ job.get_absolute_url }}" class="btn btn-sm btn-teal">
                 Apply Now <i class="bi bi-chevron-right ms-1"></i>
               </a>
@@ -386,6 +689,90 @@
               Submit Hiring Request <i class="bi bi-arrow-right ms-1"></i>
             </a>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3D Volumetric Talent Mapping & Holographic Infrastructure Showcase -->
+<section class="section-py position-relative overflow-hidden" style="background: radial-gradient(circle at 50% 50%, #0F253F 0%, #091424 70%, #040810 100%); color: #FFFFFF;">
+  <div class="container position-relative" style="z-index: 2;">
+    <div class="row align-items-center g-5">
+      <!-- Left: 3D Holographic Image Card -->
+      <div class="col-lg-6">
+        <div class="hologram-feature-card tilt-card-3d shadow-lg" title="3D Volumetric Talent Mapping Infrastructure">
+          <img src="{% static 'images/3d-consultant-hologram-stage.jpg' %}" alt="3D Volumetric Recruitment Hologram Stage" loading="lazy">
+          <div class="hologram-feature-overlay"></div>
+          <!-- Floating Badge -->
+          <div class="badge-3d-floating" style="top: 20px; left: 20px; background: rgba(9, 20, 36, 0.9); border-color: #2DD4BF;">
+            <i class="bi bi-cpu text-teal"></i> Volumetric Talent Radar
+          </div>
+          <!-- Bottom Caption -->
+          <div class="position-absolute bottom-0 start-0 w-100 p-4">
+            <span class="badge bg-teal text-white mb-2" style="background-color: var(--color-accent-teal);">Mohali Technology Pod</span>
+            <h5 class="fw-bold text-white mb-1">Precision Competency Hologram</h5>
+            <p class="text-light opacity-75 small mb-0">Multi-dimensional evaluation mapping candidate technical acumen against live employer role specifications.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Technical Depth & Features -->
+      <div class="col-lg-6">
+        <span class="badge bg-light text-dark px-3 py-2 mb-3" style="font-size: 0.8rem; border: 1px solid rgba(255, 255, 255, 0.2);">
+          <i class="bi bi-bounding-box text-teal me-1" style="color: var(--color-accent-teal);"></i> Dimensional Intelligence
+        </span>
+        <h2 class="display-6 fw-bold text-white mb-3">Next-Generation Talent Mapping Infrastructure</h2>
+        <p class="text-light opacity-75 mb-4 leading-relaxed">
+          At HALCON CAREER, recruitment is grounded in deep competency mapping. We analyze real technical repositories, previous project deliverables, and verified peer references to build calibrated talent shortlists.
+        </p>
+
+        <div class="row g-3 mb-4">
+          <div class="col-sm-6">
+            <div class="p-3 rounded-3" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);">
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <i class="bi bi-diagram-3-fill text-teal" style="color: #2DD4BF;"></i>
+                <h6 class="fw-bold text-white mb-0">Competency Radar</h6>
+              </div>
+              <p class="text-light opacity-75 small mb-0">Direct skill verification matching senior candidates with precise role taxonomy.</p>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="p-3 rounded-3" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);">
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <i class="bi bi-shield-lock-fill text-warning"></i>
+                <h6 class="fw-bold text-white mb-0">Discreet Executive Headhunting</h6>
+              </div>
+              <p class="text-light opacity-75 small mb-0">Confidential outreach for C-suite roles with NDA protection throughout.</p>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="p-3 rounded-3" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);">
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <i class="bi bi-speedometer2 text-info"></i>
+                <h6 class="fw-bold text-white mb-0">48-Hour Shortlists</h6>
+              </div>
+              <p class="text-light opacity-75 small mb-0">Rapid candidate calibration slashing typical corporate hiring downtime.</p>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="p-3 rounded-3" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);">
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <i class="bi bi-award-fill text-success"></i>
+                <h6 class="fw-bold text-white mb-0">99.1% Retention</h6>
+              </div>
+              <p class="text-light opacity-75 small mb-0">Enduring organization-candidate fit evaluated on cultural and work ethics.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex flex-wrap gap-3">
+          <a href="{% url 'employers:enquiry' %}" class="btn btn-teal btn-lg px-4">
+            <i class="bi bi-send-fill me-1"></i> Submit Hiring Mandate
+          </a>
+          <a href="{% url 'core:about' %}" class="btn btn-outline-light btn-lg px-4">
+            Our Methodology
+          </a>
         </div>
       </div>
     </div>
@@ -774,4 +1161,3 @@
   </div>
 </section>
 {% endblock %}
-

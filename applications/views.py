@@ -5,11 +5,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
 from django.core.files.base import ContentFile
+from django.db.models import Q
 from django.http import FileResponse, Http404
 from jobs.models import Job
 from .models import JobApplication
 from .forms import JobApplicationForm
 from accounts.models import CandidateProfile
+from accounts.storage import get_resume_path
 
 
 @login_required
@@ -18,7 +20,10 @@ def apply_view(request, slug):
     Candidate application submission for a specific published vacancy.
     Enforces login, checks for duplicate applications, and validates uploaded resume.
     """
-    job = get_object_or_404(Job, slug=slug, is_published=True)
+    job = get_object_or_404(
+        Job.objects.open().filter(Q(category__isnull=True) | Q(category__active=True)),
+        slug=slug,
+    )
 
     # Check if job is still open for application
     if not job.is_active_for_application:
@@ -55,10 +60,10 @@ def apply_view(request, slug):
             # If candidate opted to reuse profile resume and didn't upload a new one
             if form.cleaned_data.get('use_existing_resume') and has_profile_resume and not request.FILES.get('resume_file'):
                 # Copy file content from profile resume
-                resume_file_path = profile.resume.path
-                if os.path.exists(resume_file_path):
+                resume_file_path = get_resume_path(profile.resume)
+                if resume_file_path is not None:
                     with open(resume_file_path, 'rb') as f:
-                        filename = os.path.basename(resume_file_path)
+                        filename = resume_file_path.name
                         application.resume_file.save(filename, ContentFile(f.read()), save=False)
 
             application.save()
@@ -113,20 +118,21 @@ def download_application_resume(request, application_id):
     application = get_object_or_404(JobApplication, id=application_id)
 
     # Permission check
-    if not (request.user.is_staff or request.user == application.candidate):
+    from jobs.permissions import can_manage_recruiter
+    if not (can_manage_recruiter(request.user) or request.user == application.candidate):
         raise PermissionDenied("You do not have permission to access this candidate resume.")
 
     if not application.resume_file:
         raise Http404("Resume file not found.")
 
-    file_path = application.resume_file.path
-    if not os.path.exists(file_path):
+    file_path = get_resume_path(application.resume_file)
+    if file_path is None:
         raise Http404("The requested file was not found on server storage.")
 
-    content_type, _ = mimetypes.guess_type(file_path)
+    content_type, _ = mimetypes.guess_type(str(file_path))
     content_type = content_type or 'application/octet-stream'
 
     response = FileResponse(open(file_path, 'rb'), content_type=content_type)
-    filename = os.path.basename(file_path)
+    filename = file_path.name
     response['Content-Disposition'] = f'inline; filename="{filename}"'
     return response

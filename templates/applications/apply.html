@@ -28,9 +28,9 @@
           <span class="badge bg-light text-dark border small mb-1">{{ job.employment_type }}</span>
           <h4 class="fw-bold mb-1 text-dark">{{ job.title }}</h4>
           <div class="text-muted small">
-            <i class="bi bi-building me-1 text-teal" style="color: var(--color-accent-teal);"></i> {{ job.employer_name|default:"Confidential Client" }} &bull;
+            <i class="bi bi-building me-1 text-teal" style="color: var(--color-accent-teal);"></i> {{ job.company_display_name }} &bull;
             <i class="bi bi-geo-alt me-1 text-teal" style="color: var(--color-accent-teal);"></i> {{ job.location }} &bull;
-            <i class="bi bi-cash me-1 text-teal" style="color: var(--color-accent-teal);"></i> {{ job.salary_display }}
+            <i class="bi bi-cash me-1 text-teal" style="color: var(--color-accent-teal);"></i> {{ job.salary_display }}{% if job.min_salary or job.max_salary %} / {{ job.salary_period }}{% endif %}
           </div>
         </div>
         <a href="{{ job.get_absolute_url }}" class="btn btn-sm btn-outline-custom align-self-md-center">
@@ -99,6 +99,19 @@
 
         <hr class="my-4">
 
+        <div class="row g-3 mb-4">
+          <div class="col-md-6">
+            <label class="form-label">Relevant Skills</label>
+            {{ form.skills }}
+            {% if form.skills.errors %}<div class="text-danger small mt-1">{{ form.skills.errors.0 }}</div>{% endif %}
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Relevant Experience</label>
+            {{ form.relevant_experience }}
+            {% if form.relevant_experience.errors %}<div class="text-danger small mt-1">{{ form.relevant_experience.errors.0 }}</div>{% endif %}
+          </div>
+        </div>
+
         <!-- Cover Letter -->
         <div class="mb-4">
           <label class="form-label">Cover Letter / Note for Recruiter (Optional)</label>
@@ -125,4 +138,3 @@
   </div>
 </div>
 {% endblock %}
-
