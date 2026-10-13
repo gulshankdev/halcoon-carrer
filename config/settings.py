@@ -26,7 +26,7 @@ elif not DEBUG and (len(SECRET_KEY) < 50 or SECRET_KEY.startswith('django-insecu
 
 ALLOWED_HOSTS = config(
     'ALLOWED_HOSTS',
-    default='localhost,127.0.0.1,0.0.0.0,testserver,halcoon-carrer.onrender.com,.onrender.com,haliconcarrer.publicvm.com,.publicvm.com' if DEBUG else 'halcoon-carrer.onrender.com,.onrender.com,haliconcarrer.publicvm.com,.publicvm.com',
+    default='localhost,127.0.0.1,0.0.0.0,testserver,halcoon-carrer.onrender.com,halcoon-carrer-1.onrender.com,.onrender.com,haliconcarrer.publicvm.com,.publicvm.com' if DEBUG else 'halcoon-carrer.onrender.com,halcoon-carrer-1.onrender.com,.onrender.com,haliconcarrer.publicvm.com,.publicvm.com',
     cast=Csv()
 )
 
