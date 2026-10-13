@@ -7,9 +7,12 @@ from django.conf import settings
 
 def company_context(request):
     """Provides HALCON CAREER corporate metadata and contact details globally."""
-    from jobs.models import Category, Job
-    categories = Category.objects.filter(active=True).order_by('name')[:8]
-    total_active_jobs = Job.objects.open().count()
+    try:
+        categories = list(Category.objects.filter(active=True).order_by('name')[:8])
+        total_active_jobs = Job.objects.open().count()
+    except Exception:
+        categories = []
+        total_active_jobs = 0
 
     return {
         'COMPANY_NAME': getattr(settings, 'COMPANY_NAME', 'HALCON CAREER'),
