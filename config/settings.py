@@ -26,9 +26,15 @@ elif not DEBUG and (len(SECRET_KEY) < 50 or SECRET_KEY.startswith('django-insecu
 
 ALLOWED_HOSTS = config(
     'ALLOWED_HOSTS',
-    default='localhost,127.0.0.1,0.0.0.0,testserver,haliconcarrer.publicvm.com' if DEBUG else '',
+    default='localhost,127.0.0.1,0.0.0.0,testserver,halcoon-carrer.onrender.com,.onrender.com,haliconcarrer.publicvm.com,.publicvm.com' if DEBUG else 'halcoon-carrer.onrender.com,.onrender.com,haliconcarrer.publicvm.com,.publicvm.com',
     cast=Csv()
 )
+
+# Automatically add Render external hostname if provided by environment
+RENDER_EXTERNAL_HOSTNAME = config('RENDER_EXTERNAL_HOSTNAME', default='')
+if RENDER_EXTERNAL_HOSTNAME and RENDER_EXTERNAL_HOSTNAME not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+
 if not DEBUG and (
     not ALLOWED_HOSTS
     or '*' in ALLOWED_HOSTS
@@ -224,9 +230,14 @@ if not DEBUG:
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
     CSRF_TRUSTED_ORIGINS = config(
         'CSRF_TRUSTED_ORIGINS',
-        default='',
+        default='https://halcoon-carrer.onrender.com,https://*.onrender.com,https://haliconcarrer.publicvm.com,https://*.publicvm.com',
         cast=Csv(),
     )
+    if RENDER_EXTERNAL_HOSTNAME:
+        render_origin = f'https://{RENDER_EXTERNAL_HOSTNAME}'
+        if render_origin not in CSRF_TRUSTED_ORIGINS:
+            CSRF_TRUSTED_ORIGINS.append(render_origin)
+
     if not CSRF_TRUSTED_ORIGINS:
         raise ImproperlyConfigured(
             "Set CSRF_TRUSTED_ORIGINS to the HTTPS production site origins."
