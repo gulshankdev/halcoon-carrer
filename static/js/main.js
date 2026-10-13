@@ -831,21 +831,75 @@ function initVideoPlayerModal() {
  * autoplay timer, dot controls, and holographic depth interactions.
  */
 function initConsultantStage3D() {
-  const stage = document.querySelector('.consultant-3d-stage');
   const wrapper = document.querySelector('.consultant-3d-stage-wrapper');
-  const slides = document.querySelectorAll('.consultant-3d-slide');
-  const dots = document.querySelectorAll('.stage-dot');
+  const videoStage = document.getElementById('stageVideoContainer');
+  const consultantsStage = document.getElementById('stageConsultantsContainer');
+  const consultantControls = document.getElementById('stageConsultantControls');
+  const tabVideo = document.getElementById('tabVideoMode');
+  const tabConsultants = document.getElementById('tabConsultantsMode');
+  const modeStatusBadge = document.getElementById('modeStatusBadge');
+
+  const slides = document.querySelectorAll('#stageConsultantsContainer .consultant-3d-slide');
+  const dots = document.querySelectorAll('#stageConsultantControls .stage-dot');
   const nextBtn = document.getElementById('stageNextBtn');
   const prevBtn = document.getElementById('stagePrevBtn');
   const autoplayBtn = document.getElementById('stageAutoplayBtn');
 
-  if (!stage || !slides.length) return;
+  // Video Autoplay Guardian for all looping reels
+  const loopVideos = document.querySelectorAll('.consultant-reel-video, .video-preview-reel');
+  function ensureVideosPlaying() {
+    loopVideos.forEach(v => {
+      if (v) {
+        v.muted = true;
+        const playPromise = v.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {
+            // Autoplay will resume on next user interaction
+          });
+        }
+      }
+    });
+  }
 
+  ensureVideosPlaying();
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) ensureVideosPlaying();
+  });
+  window.addEventListener('click', ensureVideosPlaying, { once: true });
+
+  // Mode Switcher Tabs
+  if (tabVideo && tabConsultants && videoStage && consultantsStage) {
+    tabVideo.addEventListener('click', function () {
+      tabVideo.classList.add('active');
+      tabConsultants.classList.remove('active');
+      videoStage.classList.remove('d-none');
+      consultantsStage.classList.add('d-none');
+      if (consultantControls) consultantControls.classList.add('d-none');
+      if (modeStatusBadge) {
+        modeStatusBadge.innerHTML = '<span class="live-dot-pulse"></span> CONTINUOUS REEL';
+      }
+      ensureVideosPlaying();
+    });
+
+    tabConsultants.addEventListener('click', function () {
+      tabConsultants.classList.add('active');
+      tabVideo.classList.remove('active');
+      consultantsStage.classList.remove('d-none');
+      videoStage.classList.add('d-none');
+      if (consultantControls) consultantControls.classList.remove('d-none');
+      if (modeStatusBadge) {
+        modeStatusBadge.innerHTML = '<span class="live-dot-pulse" style="background-color: #2DD4BF;"></span> 4 CONSULTANTS';
+      }
+    });
+  }
+
+  // Consultant Slide Controller
   let currentIdx = 0;
   let isAutoplay = true;
   let autoplayTimer = null;
 
   function showSlide(index) {
+    if (!slides.length) return;
     if (index < 0) index = slides.length - 1;
     if (index >= slides.length) index = 0;
     currentIdx = index;
@@ -877,11 +931,13 @@ function initConsultantStage3D() {
     });
   });
 
-  // Autoplay loop
+  // Autoplay loop for consultant slides
   function startAutoplay() {
     if (autoplayTimer) clearInterval(autoplayTimer);
     autoplayTimer = setInterval(() => {
-      if (isAutoplay) nextSlide();
+      if (isAutoplay && consultantsStage && !consultantsStage.classList.contains('d-none')) {
+        nextSlide();
+      }
     }, 4500);
   }
 
@@ -897,7 +953,7 @@ function initConsultantStage3D() {
     });
   }
 
-  // Mouse hover pause & resume
+  // Mouse hover & 3D Perspective Tilt on Mouse Movement
   if (wrapper) {
     wrapper.addEventListener('mouseenter', () => { isAutoplay = false; });
     wrapper.addEventListener('mouseleave', () => { 
@@ -906,7 +962,6 @@ function initConsultantStage3D() {
       }
     });
 
-    // 3D Perspective Tilt on Mouse Movement
     wrapper.addEventListener('mousemove', function (e) {
       const rect = wrapper.getBoundingClientRect();
       const x = e.clientX - rect.left - rect.width / 2;
@@ -916,11 +971,15 @@ function initConsultantStage3D() {
       const rotY = (x / (rect.width / 2)) * 14;
       const rotX = -(y / (rect.height / 2)) * 12;
 
-      stage.style.transform = `rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) scale3d(1.025, 1.025, 1.025)`;
+      const activeStage = videoStage && !videoStage.classList.contains('d-none') ? videoStage : consultantsStage;
+      if (activeStage) {
+        activeStage.style.transform = `rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) scale3d(1.025, 1.025, 1.025)`;
+      }
     });
 
     wrapper.addEventListener('mouseleave', function () {
-      stage.style.transform = 'rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      if (videoStage) videoStage.style.transform = 'rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      if (consultantsStage) consultantsStage.style.transform = 'rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
     });
   }
 }

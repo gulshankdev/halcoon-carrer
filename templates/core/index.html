@@ -82,21 +82,86 @@
         </div>
       </div>
 
-      <!-- Right Column: Interactive 3D Dimensional Consultant Showcase Stage -->
+      <!-- Right Column: Interactive Real Video Flex Showcase & 3D Consultant Stage -->
       <div class="col-lg-5">
         <div class="consultant-3d-stage-wrapper">
           <!-- Glowing Holographic Base Ring -->
           <div class="stage-hologram-base"></div>
 
-          <!-- 3D Perspective Card Deck -->
-          <div class="consultant-3d-stage">
+          <!-- Card Media Mode Switcher -->
+          <div class="card-media-mode-switcher">
+            <div class="mode-tab-group">
+              <button type="button" class="btn-mode-tab active" id="tabVideoMode" data-mode="video">
+                <i class="bi bi-play-circle-fill text-teal"></i> Video Reel
+              </button>
+              <button type="button" class="btn-mode-tab" id="tabConsultantsMode" data-mode="consultants">
+                <i class="bi bi-people-fill"></i> Consultants
+              </button>
+            </div>
+            <span class="badge-mode-status" id="modeStatusBadge">
+              <span class="live-dot-pulse"></span> CONTINUOUS REEL
+            </span>
+          </div>
+
+          <!-- Mode 1: Real Looping Video Flex Card (DEFAULT ACTIVE) -->
+          <div class="consultant-3d-stage" id="stageVideoContainer">
+            <div class="consultant-glass-card">
+              <div class="consultant-card-video-wrapper">
+                <video class="consultant-reel-video" autoplay loop muted playsinline poster="{% static 'images/lead-recruiter-male.jpg' %}" preload="auto">
+                  <source src="{% static 'videos/halcon-career-flex-reel.mp4' %}" type="video/mp4">
+                  <source src="{% static 'videos/halcon-career-flex-reel.webm' %}" type="video/webm">
+                </video>
+                <div class="consultant-card-img-gradient"></div>
+
+                <!-- 3D Floating Badges popping in Z space -->
+                <div class="badge-3d-floating badge-3d-top-right">
+                  <i class="bi bi-broadcast text-danger"></i> 140+ Mandates
+                </div>
+                <div class="badge-3d-floating badge-3d-bottom-left">
+                  <i class="bi bi-patch-check-fill text-teal"></i> 98.4% Retention
+                </div>
+              </div>
+
+              <!-- Card Body: Flexing HALCON CAREER Services -->
+              <div class="consultant-card-body">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <h3 class="consultant-name-heading mb-0">HALCON CAREER</h3>
+                  <span class="badge bg-teal bg-opacity-25 text-teal border border-teal small" style="color: #2DD4BF !important; border-color: rgba(45, 212, 191, 0.4) !important;">Recruitment Hub</span>
+                </div>
+                <div class="consultant-title-sub">
+                  <i class="bi bi-stars"></i> Premier Corporate Talent &bull; Mohali HQ &bull; Pan-India
+                </div>
+                <p class="text-light opacity-75 small mb-3">
+                  Full-spectrum talent solutions: C-Suite Executive Search, 48-Hour Technical Screening, Healthcare, BFSI &amp; Lateral Staffing. 100% Free Placement for candidates.
+                </p>
+                <div class="consultant-tags-row">
+                  <span class="consultant-tag-pill">Executive Search</span>
+                  <span class="consultant-tag-pill">48h Shortlists</span>
+                  <span class="consultant-tag-pill">Tech &amp; AI Teams</span>
+                  <span class="consultant-tag-pill">Healthcare &amp; Bio</span>
+                  <span class="consultant-tag-pill">Zero Candidate Fees</span>
+                  <span class="consultant-tag-pill">Tricity &amp; Pan-India</span>
+                </div>
+                <div class="d-flex flex-column gap-2 mt-3">
+                  <a href="{% url 'employers:enquiry' %}" class="btn btn-teal w-100 py-2">
+                    <i class="bi bi-building-check me-1"></i> Hire Elite Talent Now
+                  </a>
+                  <a href="{% url 'jobs:job_list' %}" class="btn btn-outline-light btn-sm w-100 py-2 border-secondary text-light opacity-75">
+                    <i class="bi bi-briefcase me-1"></i> Explore 140+ Active Job Mandates
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mode 2: 3D Perspective Consultant Card Deck (ACCESSIBLE VIA CONSULTANTS TAB) -->
+          <div class="consultant-3d-stage d-none" id="stageConsultantsContainer">
             <!-- Slide 1: Aditi Sharma (Tech Lead Partner) -->
             <div class="consultant-3d-slide active" data-slide="0">
               <div class="consultant-glass-card">
                 <div class="consultant-card-img-wrapper">
                   <img src="{% static 'images/senior-consultant-female.jpg' %}" alt="Aditi Sharma - Senior Tech Talent Partner">
                   <div class="consultant-card-img-gradient"></div>
-                  <!-- 3D Floating Badges -->
                   <div class="badge-3d-floating badge-3d-top-right">
                     <i class="bi bi-patch-check-fill text-teal"></i> Verified Partner
                   </div>
@@ -240,8 +305,8 @@
             </div>
           </div>
 
-          <!-- 3D Controller Bar -->
-          <div class="consultant-stage-controls">
+          <!-- 3D Controller Bar (Shown when in Consultants mode) -->
+          <div class="consultant-stage-controls d-none" id="stageConsultantControls">
             <button id="stagePrevBtn" class="stage-nav-btn" type="button" title="Previous Consultant">
               <i class="bi bi-chevron-left"></i>
             </button>
@@ -1017,31 +1082,29 @@
       </div>
 
       <div class="col-lg-6">
-        <!-- Interactive 3D Video Preview Card -->
-        <div class="video-player-preview-card" title="Click to launch interactive 3D media tour">
-          <img src="{% static 'images/modern-consultancy-lobby.jpg' %}" alt="HALCON CAREER Corporate Video Preview">
+        <!-- Interactive Real Autoplaying Video Showcase Card -->
+        <div class="video-player-preview-card" style="cursor: default;" title="HALCON CAREER Corporate Video Showcase">
+          <video class="video-preview-reel" autoplay loop muted playsinline poster="{% static 'images/modern-consultancy-lobby.jpg' %}" preload="auto">
+            <source src="{% static 'videos/halcon-career-flex-reel.mp4' %}" type="video/mp4">
+            <source src="{% static 'videos/halcon-career-flex-reel.webm' %}" type="video/webm">
+          </video>
           <div class="video-overlay-gradient"></div>
 
           <!-- Live Badge -->
           <div class="video-badge-live">
-            <span class="live-dot"></span> LIVE 3D TOUR
+            <span class="live-dot"></span> CONTINUOUS SHOWCASE &bull; AUTOPLAY
           </div>
 
           <!-- Duration Badge -->
           <div class="video-duration-badge">
-            <i class="bi bi-clock me-1"></i> 02:30 MIN
-          </div>
-
-          <!-- Pulsing Play Button -->
-          <div class="video-play-pulse-btn">
-            <i class="bi bi-play-fill"></i>
+            <i class="bi bi-broadcast me-1"></i> 24 SEC REEL
           </div>
 
           <!-- Bottom Caption Bar -->
           <div class="video-caption-bar">
             <span class="badge bg-teal text-white mb-2" style="background-color: var(--color-accent-teal);">Mohali Head Office</span>
             <h5 class="fw-bold text-white mb-1">Inside HALCON CAREER</h5>
-            <p class="text-light opacity-75 small mb-0">Click to explore our corporate suites, talent advisors, and placement methodology.</p>
+            <p class="text-light opacity-75 small mb-0">Continuous real-time showcase of our corporate suites, executive search, and 48-hour shortlist delivery.</p>
           </div>
         </div>
       </div>
