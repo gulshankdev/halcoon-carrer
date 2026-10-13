@@ -26,7 +26,7 @@ elif not DEBUG and (len(SECRET_KEY) < 50 or SECRET_KEY.startswith('django-insecu
 
 ALLOWED_HOSTS = config(
     'ALLOWED_HOSTS',
-    default='localhost,127.0.0.1,0.0.0.0,testserver' if DEBUG else '',
+    default='localhost,127.0.0.1,0.0.0.0,testserver,haliconcarrer.publicvm.com' if DEBUG else '',
     cast=Csv()
 )
 if not DEBUG and (
