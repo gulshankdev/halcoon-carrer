@@ -18,8 +18,11 @@ sitemaps = {
     'jobs': JobSitemap,
 }
 
+from django.http import HttpResponse
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('.well-known/appspecific/com.chrome.devtools.json', lambda r: HttpResponse(status=204)),
     path('recruiter/', include('jobs.recruiter_urls')),
     path('api/jobs/', include('jobs.api_urls')),
     path('', include('core.urls')),
